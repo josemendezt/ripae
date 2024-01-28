@@ -1,13 +1,22 @@
+'use client';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { CardContent, Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { ChromeIcon, LinkedinIcon } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-export default function Component() {
+export default function SignUp() {
+  const router = useRouter();
+
+  const DoSignUp = () => {
+    router.push('/signUp/accountSetUp');
+  };
+
   return (
-    <section className="flex items-center justify-center h-[70vh]">
+    <section className="flex items-center justify-center h-[85vh]">
       <div className="mx-auto max-w-[350px] space-y-6 ">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold">Sign up to continue</h1>
@@ -24,7 +33,11 @@ export default function Component() {
                   type="email"
                 />
               </div>
-              <Button className="w-full" type="submit">
+              <Button
+                onClick={DoSignUp}
+                className="w-full"
+                type="submit"
+              >
                 Sign Up
               </Button>
               <div className="mt-2 flex w-full justify-between">
@@ -40,6 +53,15 @@ export default function Component() {
                 <Button className="w-full" variant="outline">
                   Sign up with LinkedIn
                   <LinkedinIcon className="w-4 h-4 ml-2" />
+                </Button>
+                <Button
+                  asChild
+                  variant="link"
+                  className=" text-muted-foreground text-center mx-auto flex justify-center"
+                >
+                  <Link href="/login">
+                    Already have an account? Log In
+                  </Link>
                 </Button>
                 <Separator className="my-8" />
                 <Button className="w-full" variant="secondary">

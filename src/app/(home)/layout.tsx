@@ -1,14 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/ui/header';
-
-const inter = Inter({ subsets: ['latin'] });
-
-export const metadata: Metadata = {
-  title: 'Ripae Sign Up',
-  description: 'Generate your account in Ripae',
-};
+import Header from '@/app/(external)/ext-header';
 
 export default function RootLayout({
   children,
@@ -18,7 +11,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
         <main>{children}</main>
       </body>
     </html>

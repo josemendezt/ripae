@@ -14,7 +14,7 @@ export * from './context-menu';
 export * from './dialog';
 export * from './dropdown-menu';
 export * from './form';
-export * from './header';
+export * from '../../app/(external)/ext-header';
 export * from './hover-card';
 export * from './input';
 export * from './label';

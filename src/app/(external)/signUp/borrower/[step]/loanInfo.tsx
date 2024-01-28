@@ -85,7 +85,7 @@ export default function LoanInfo() {
         <Button
           className="ml-auto w-32"
           onClick={() => {
-            router.push('/signUp/borrower/loan');
+            router.push('/dashboardBorrower');
           }}
         >
           Next

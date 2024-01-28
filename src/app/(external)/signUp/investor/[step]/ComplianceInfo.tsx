@@ -63,7 +63,7 @@ export default function GoalsInfo() {
         <Button
           className="ml-auto w-32"
           onClick={() => {
-            router.push('/signUp/borrower/employment');
+            router.push('/dashboardInvestor');
           }}
         >
           Next
