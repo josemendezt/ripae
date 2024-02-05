@@ -3,9 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 
-export default function SignUp() {
+export default function AccountSetUp() {
   return (
-    <section className="flex items-center justify-center h-[70vh]">
+    <section className="flex items-center justify-center h-[65vh]">
       <div className="mx-auto max-w-[380px] space-y-6 ">
         <div className="space-y-2 text-center">
           <h1 className="text-5xl font-bold mb-4">Account set up</h1>

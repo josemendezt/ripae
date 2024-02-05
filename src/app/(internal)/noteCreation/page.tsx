@@ -155,130 +155,134 @@ export default function NoteCreation() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="invest">
-                  How much would you like to invest?
-                </Label>
-                <Select
-                  onValueChange={(val) => {
-                    setSelectedAmount(Number(val));
-                    const test = generateSpecificCombinations(
-                      Number(val)
-                    );
-                  }}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Amount" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {amounts.map((amount) => (
-                      <SelectItem
-                        key={amount}
-                        value={amount.toString()}
-                      >
-                        {amount}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              {noteOptions.length > 0 && (
-                <>
-                  <p className="relative top-2 font-semibold">
-                    Note Options
-                  </p>
-                  <section className="flex gap-4">
-                    {noteOptions.map((opt, index) => (
-                      <div
-                        className={cn(
-                          'border rounded-full px-6 py-2 cursor-pointer transition duration-300 ease-in-out hover:border-primary hover:border-2',
-                          opt.length === notes.length &&
-                            'bg-primary text-secondary'
-                        )}
-                        key={`${opt}-${index}`}
-                        onClick={() => {
-                          assignNotes(opt);
-                        }}
-                      >
-                        {opt.length} notes
-                      </div>
-                    ))}
-                  </section>
-                </>
-              )}
-
-              {notes.length > 0 && (
-                <div className="flex flex-col  space-y-1.5">
-                  {notes.length > 1 && (
-                    <CardDescription className="mb-2">
-                      We have the following suggestions to divide your
-                      funds in multiple notes, the lowest they are the
-                      safest, but the return will be smaller. You can
-                      customize it more if you start deleting the
-                      notes
-                    </CardDescription>
-                  )}
-                  <div className="flex flex-wrap gap-4  space-around items-center">
-                    {notes?.map((note) => (
-                      <Card
-                        key={note.id}
-                        className={cn(
-                          'bg-secondary ' &&
-                            note.isDeleting &&
-                            'bg-secondary transition-transform duration-150 ease-in-out scale-0'
-                        )}
-                      >
-                        <div className="flex space-between items-center gap-6 h-[98px] px-4">
-                          <div className="ml-4">
-                            <Label>Amount</Label>
-                            <div className="text-2xl">
-                              {note.value.toFixed(2)}
-                            </div>
-                          </div>
-                          <div>
-                            <Label>Period (Months)</Label>
-                            <Select defaultValue={note.period}>
-                              <SelectTrigger className="bg-secondary border-primary">
-                                <SelectValue placeholder="Select Period" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="1">
-                                  1 Month
-                                </SelectItem>
-                                <SelectItem value="2">
-                                  2 Months
-                                </SelectItem>
-                                <SelectItem value="3">
-                                  3 Months
-                                </SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </div>
-                          <div>
-                            <Label>Interest</Label>
-                            <div className="text-2xl">
-                              {note.interest}
-                            </div>
-                          </div>
-                          {notes.length > 1 && (
-                            <div
-                              onClick={() => deleteNote(note.id)}
-                              className="mx-auto p-6 hover:bg-muted-foreground  relative left-4 border border-primary bg-primary text-secondary cursor-pointer flex flex-col justify-center rounded-r-lg"
-                            >
-                              <Label className="mb-1">Delete</Label>
-                              <Trash2 className="h-8 ml-2" />
-                            </div>
-                          )}
-                        </div>
-                      </Card>
-                    ))}
-                  </div>
-                </div>
-              )}
+          <div className="grid w-full items-center gap-4">
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="invest">
+                How much would you like to invest?
+              </Label>
+              <Select
+                onValueChange={(val) => {
+                  setSelectedAmount(Number(val));
+                  const test = generateSpecificCombinations(
+                    Number(val)
+                  );
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Amount" />
+                </SelectTrigger>
+                <SelectContent>
+                  {amounts.map((amount) => (
+                    <SelectItem
+                      key={amount}
+                      value={amount.toString()}
+                    >
+                      {amount}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
-          </form>
+            {noteOptions.length > 0 && (
+              <>
+                <CardDescription>
+                  We have the following suggestions to divide your
+                  funds in multiple notes, the lowest they are the
+                  safest, but the return will be smaller.
+                  Alternatively, you can customize it using the
+                  buttons to Add or Delete notes.
+                </CardDescription>
+                <p className=" font-semibold">Note Options</p>
+                <section className="flex gap-4">
+                  {noteOptions.map((opt, index) => (
+                    <div
+                      className={cn(
+                        'border rounded-full px-6 py-2 cursor-pointer transition duration-300 ease-in-out hover:border-primary hover:border-2',
+                        opt.length === notes.length &&
+                          'bg-primary text-secondary'
+                      )}
+                      key={`${opt}-${index}`}
+                      onClick={() => {
+                        assignNotes(opt);
+                      }}
+                    >
+                      {opt.length} notes
+                    </div>
+                  ))}
+                </section>
+              </>
+            )}
+            {noteOptions.length > 0 && (
+              <>
+                {/* <hr /> */}
+                <p className=" font-semibold">Cutstomize Notes</p>
+                <div className="flex gap-8 mt-4">
+                  <Button>Add Notes +</Button>
+                  <Button variant="secondary">Delete Notes -</Button>
+                </div>
+              </>
+            )}
+            <hr />
+            {notes.length > 0 && (
+              <div className="flex flex-col  space-y-1.5">
+                <div className="flex flex-wrap gap-4  space-around items-center">
+                  {notes?.map((note) => (
+                    <Card
+                      key={note.id}
+                      className={cn(
+                        'bg-secondary ' &&
+                          note.isDeleting &&
+                          'bg-secondary transition-transform duration-150 ease-in-out scale-0'
+                      )}
+                    >
+                      <div className="flex space-between items-center gap-6 h-[98px] px-4">
+                        <div className="ml-4">
+                          <Label>Amount</Label>
+                          <div className="text-2xl">
+                            {note.value.toFixed(2)}
+                          </div>
+                        </div>
+                        <div>
+                          <Label>Period (Months)</Label>
+                          <Select defaultValue={note.period}>
+                            <SelectTrigger className="bg-secondary border-primary">
+                              <SelectValue placeholder="Select Period" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="1">
+                                1 Month
+                              </SelectItem>
+                              <SelectItem value="2">
+                                2 Months
+                              </SelectItem>
+                              <SelectItem value="3">
+                                3 Months
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <Label>Interest</Label>
+                          <div className="text-2xl">
+                            {note.interest}
+                          </div>
+                        </div>
+                        {notes.length > 1 && (
+                          <div
+                            onClick={() => deleteNote(note.id)}
+                            className="mx-auto p-6 hover:bg-muted-foreground  relative left-4 border border-primary bg-primary text-secondary cursor-pointer flex flex-col justify-center rounded-r-lg"
+                          >
+                            <Label className="mb-1">Delete</Label>
+                            <Trash2 className="h-8 ml-2" />
+                          </div>
+                        )}
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button

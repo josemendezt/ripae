@@ -7,16 +7,25 @@ import { Separator } from '@/components/ui/separator';
 import { ChromeIcon, LinkedinIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function SignUp() {
   const router = useRouter();
-
+  const searchParams = useSearchParams();
+  const flowType = searchParams.get('flow');
   const DoSignUp = () => {
-    router.push('/signUp/accountSetUp');
+    switch (flowType) {
+      case 'investor':
+        return router.push('/signUp/investor/personal');
+      case 'borrower':
+        return router.push('/signUp/borrower/personal');
+      default:
+        router.push('/signUp/accountSetUp');
+    }
   };
 
   return (
-    <section className="flex items-center justify-center h-[85vh]">
+    <section className="flex items-center justify-center h-[80vh]">
       <div className="mx-auto max-w-[350px] space-y-6 ">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold">Sign up to continue</h1>

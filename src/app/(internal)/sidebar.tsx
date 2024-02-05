@@ -50,13 +50,13 @@ function SideBar() {
             </>
           )}
 
-          <Link
-            className="flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg"
-            href="/personalInfo"
+          <a
+            className="flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg "
+            href="#"
           >
             <InfoIcon className="text-gray-700 mr-2" />
             Personal Information
-          </Link>
+          </a>
           <a
             className="flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg"
             href="#"
