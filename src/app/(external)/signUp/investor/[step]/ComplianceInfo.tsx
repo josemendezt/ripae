@@ -49,6 +49,26 @@ export default function GoalsInfo() {
             </div>
           </RadioGroup>
         </div>
+        <div className="space-y-2">
+          <Label htmlFor="automaticMode">
+            Do you want to use "Automatic mode"?
+          </Label>
+          <CardDescription className="relative bottom-2">
+            In this way any borrower approved for our algorithm will
+            automatically receive the funds from your notes.
+            Otherwise, you will need to approve it manually.
+          </CardDescription>
+          <RadioGroup id="automaticMode" className="flex">
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="yes" id="r1" />
+              <Label htmlFor="r1">Yes</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="no" id="r2" />
+              <Label htmlFor="r2">No</Label>
+            </div>
+          </RadioGroup>
+        </div>
       </CardContent>
       <CardFooter className="mt-32">
         <Button

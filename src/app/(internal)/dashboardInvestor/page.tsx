@@ -24,7 +24,9 @@ function DashboardInvestor() {
       <div className="flex flex-wrap w-full justify-around">
         <InvestmentInfo />
         <div className="w-[95%] mt-4">
-          <h2 className="font-semibold text-xl mb-1">Active Notes</h2>
+          <h2 className="font-semibold text-xl mb-1">
+            Active Notes (3)
+          </h2>
           <PurchasedInvesments />
         </div>
       </div>
