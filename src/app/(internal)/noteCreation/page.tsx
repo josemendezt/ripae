@@ -59,28 +59,87 @@ export default function NoteCreation() {
     return objects;
   };
 
-  const deleteNote = (id: number) => {
-    setNotes((prev) =>
-      prev.map((card) =>
-        card.id === id ? { ...card, isDeleting: true } : card
-      )
+  function addNotes() {
+    const baseTotal = selectedAmount || 0;
+    if (notes.length === 0) {
+      return [
+        {
+          value: baseTotal,
+          interest: '10%',
+          period: '1 month',
+          id: 1,
+          isDeleting: false,
+        },
+      ];
+    }
+
+    let newNotes = [];
+    let newNumberOfNotes = notes.length;
+
+    for (let i = newNumberOfNotes + 1; i <= baseTotal / 250; i++) {
+      if (baseTotal % i === 0 && (baseTotal / i) % 250 === 0) {
+        newNumberOfNotes = i;
+        break;
+      }
+    }
+
+    const newValue = baseTotal / newNumberOfNotes;
+
+    newNotes = Array.from(
+      { length: newNumberOfNotes },
+      (_, index) => ({
+        value: newValue,
+        interest: '10%',
+        period: '1 month',
+        id: index + 1,
+        isDeleting: false,
+      })
     );
 
-    setTimeout(() => {
-      setNotes((prev) => {
-        const filteredNotes = prev.filter((card) => card.id !== id);
+    setNotes(newNotes);
+  }
 
-        const amountToRedistribute =
-          prev.find((card) => card.id === id)!.value /
-          filteredNotes.length;
+  function removeNotes() {
+    const baseTotal = selectedAmount;
+    if (notes.length <= 1 || !baseTotal) {
+      return [
+        {
+          value: baseTotal,
+          interest: '10%',
+          period: '1 month',
+          id: 1,
+        },
+      ];
+    }
 
-        return filteredNotes.map((card) => ({
-          ...card,
-          value: Number(card.value + (amountToRedistribute || 0)),
-        }));
-      });
-    }, 150);
-  };
+    let newValuePerNote = 250;
+    let newNumberOfNotes = baseTotal / newValuePerNote;
+
+    while (
+      baseTotal % newValuePerNote !== 0 ||
+      newNumberOfNotes > notes.length - 1
+    ) {
+      newValuePerNote += 250;
+      newNumberOfNotes = baseTotal / newValuePerNote;
+    }
+
+    if (newNumberOfNotes >= notes.length) {
+      newValuePerNote -= 250;
+      newNumberOfNotes = baseTotal / newValuePerNote;
+    }
+
+    const updatedNotes: Note[] = Array.from({
+      length: newNumberOfNotes,
+    }).map((_, index) => ({
+      value: newValuePerNote,
+      interest: '10%',
+      period: '1 month',
+      id: index + 1,
+      isDeleting: false,
+    }));
+
+    setNotes(updatedNotes);
+  }
 
   function generateSpecificCombinations(total: number) {
     let combinations = [];
@@ -214,11 +273,21 @@ export default function NoteCreation() {
             )}
             {noteOptions.length > 0 && (
               <>
-                {/* <hr /> */}
-                <p className=" font-semibold">Cutstomize Notes</p>
-                <div className="flex gap-8 mt-4">
-                  <Button>Add Notes +</Button>
-                  <Button variant="secondary">Delete Notes -</Button>
+                <p className=" font-semibold mt-2">Customize Notes</p>
+                <div className="flex gap-8 mt-0">
+                  <Button
+                    onClick={addNotes}
+                    disabled={notes[0] && notes[0].value === 250}
+                  >
+                    Add Notes +
+                  </Button>
+                  <Button
+                    disabled={notes.length === 1}
+                    onClick={removeNotes}
+                    variant="secondary"
+                  >
+                    Delete Notes -
+                  </Button>
                 </div>
               </>
             )}
@@ -267,7 +336,7 @@ export default function NoteCreation() {
                             {note.interest}
                           </div>
                         </div>
-                        {notes.length > 1 && (
+                        {/* {notes.length > 1 && (
                           <div
                             onClick={() => deleteNote(note.id)}
                             className="mx-auto p-6 hover:bg-muted-foreground  relative left-4 border border-primary bg-primary text-secondary cursor-pointer flex flex-col justify-center rounded-r-lg"
@@ -275,7 +344,7 @@ export default function NoteCreation() {
                             <Label className="mb-1">Delete</Label>
                             <Trash2 className="h-8 ml-2" />
                           </div>
-                        )}
+                        )} */}
                       </div>
                     </Card>
                   ))}
