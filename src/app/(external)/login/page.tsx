@@ -47,11 +47,11 @@ export default function Login() {
               </div>
               <div className="space-y-4">
                 <Button className="w-full" variant="outline">
-                  Sign up with Google
+                  Log in with Google
                   <ChromeIcon className="w-4 h-4 ml-2" />
                 </Button>
                 <Button className="w-full" variant="outline">
-                  Sign up with LinkedIn
+                  Log in with LinkedIn
                   <LinkedinIcon className="w-4 h-4 ml-2" />
                 </Button>
                 <Button

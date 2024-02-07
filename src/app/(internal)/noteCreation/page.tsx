@@ -59,6 +59,17 @@ export default function NoteCreation() {
     return objects;
   };
 
+  const getInterest = (period: string) => {
+    switch (period) {
+      case '30':
+        return '6.5% - 13.5%';
+      case '60':
+        return '8.5% - 15.5%';
+      default:
+        return '10.5% - 17.5%';
+    }
+  };
+
   function addNotes() {
     const baseTotal = selectedAmount || 0;
     if (notes.length === 0) {
@@ -89,7 +100,7 @@ export default function NoteCreation() {
       { length: newNumberOfNotes },
       (_, index) => ({
         value: newValue,
-        interest: '10%',
+        interest: getInterest('30'),
         period: '30',
         id: index + 1,
         isDeleting: false,
@@ -132,7 +143,7 @@ export default function NoteCreation() {
       length: newNumberOfNotes,
     }).map((_, index) => ({
       value: newValuePerNote,
-      interest: '10%',
+      interest: getInterest('30'),
       period: '30',
       id: index + 1,
       isDeleting: false,
@@ -212,17 +223,7 @@ export default function NoteCreation() {
         if (note.id === noteId) {
           note.period = period;
 
-          switch (period) {
-            case '30':
-              note.interest = '6.5% - 13.5%';
-              break;
-            case '60':
-              note.interest = '8.5% - 15.5%';
-              break;
-            default:
-              note.interest = '10.5% - 17.5%';
-              break;
-          }
+          note.interest = getInterest(period);
         }
         return note;
       })

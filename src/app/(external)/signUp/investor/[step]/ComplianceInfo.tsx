@@ -60,12 +60,12 @@ export default function GoalsInfo() {
           </CardDescription>
           <RadioGroup id="automaticMode" className="flex">
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="yes" id="r1" />
-              <Label htmlFor="r1">Yes</Label>
+              <RadioGroupItem value="yes" id="r3" />
+              <Label htmlFor="r3">Yes</Label>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="no" id="r2" />
-              <Label htmlFor="r2">No</Label>
+              <RadioGroupItem value="no" id="r4" />
+              <Label htmlFor="r4">No</Label>
             </div>
           </RadioGroup>
         </div>
