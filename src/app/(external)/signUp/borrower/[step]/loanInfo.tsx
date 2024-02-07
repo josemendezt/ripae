@@ -64,12 +64,19 @@ export default function LoanInfo() {
           </Select>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="term">Term (in months)</Label>
-          <Input
-            id="term"
-            placeholder="Enter the term in months"
-            type="number"
-          />
+          <Label htmlFor="term">Term (in days)</Label>
+          <Select>
+            <SelectTrigger id="term">
+              <SelectValue placeholder="Select" />
+            </SelectTrigger>
+            <SelectContent position="popper">
+              <SelectItem value="low">Low</SelectItem>
+              <SelectItem value="medium-low">Medium-Low</SelectItem>
+              <SelectItem value="medium">Medium</SelectItem>
+              <SelectItem value="medium-high">Medium-High</SelectItem>
+              <SelectItem value="high">High</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </CardContent>
       <CardFooter className="mt-16">

@@ -24,21 +24,18 @@ export default function GoalsInfo() {
   return (
     <Card className="w-full max-w-2xl ">
       <CardHeader>
-        <CardTitle>
-          Step 4: Investment Goals and Preferences
-        </CardTitle>
+        <CardTitle>Step 4: Risk Tolerance</CardTitle>
         <CardDescription>
-          Please fill in the fields below with your investment goals
-          and preferences.
+          Please fill in the fields below with your risk tolerance
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <Label htmlFor="investmentGoals">
             What are your short-term and long-term investment goals?
           </Label>
           <div />
-        </div>
+        </div> */}
         <div className="space-y-2">
           <Label htmlFor="riskTolerance">
             How would you describe your risk tolerance?
@@ -49,17 +46,19 @@ export default function GoalsInfo() {
             </SelectTrigger>
             <SelectContent position="popper">
               <SelectItem value="low">Low</SelectItem>
-              <SelectItem value="moderate">Moderate</SelectItem>
+              <SelectItem value="low-medium">Low-Medium</SelectItem>
+              <SelectItem value="medium">Medium</SelectItem>
+              <SelectItem value="medium-high">Medium-High</SelectItem>
               <SelectItem value="high">High</SelectItem>
             </SelectContent>
           </Select>
         </div>
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <Label htmlFor="liquidity">
             How important is liquidity to you in your investments?
           </Label>
           <Input id="liquidity" placeholder="Enter your preference" />
-        </div>
+        </div> */}
       </CardContent>
       <CardFooter className="mt-8">
         <Button

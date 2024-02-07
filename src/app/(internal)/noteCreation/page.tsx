@@ -41,8 +41,8 @@ export default function NoteCreation() {
 
   const generateNotes = (number: number) => {
     const objects = [];
-    const interest = '10%';
-    const period = '1';
+    const interest = '6.5% - 13.5%';
+    const period = '30';
     let idCounter = 1;
 
     for (let value = 250; value <= number; value += 250) {
@@ -65,8 +65,8 @@ export default function NoteCreation() {
       return [
         {
           value: baseTotal,
-          interest: '10%',
-          period: '1 month',
+          interest: '6.5% - 13.5%',
+          period: '30',
           id: 1,
           isDeleting: false,
         },
@@ -90,7 +90,7 @@ export default function NoteCreation() {
       (_, index) => ({
         value: newValue,
         interest: '10%',
-        period: '1 month',
+        period: '30',
         id: index + 1,
         isDeleting: false,
       })
@@ -133,7 +133,7 @@ export default function NoteCreation() {
     }).map((_, index) => ({
       value: newValuePerNote,
       interest: '10%',
-      period: '1 month',
+      period: '30',
       id: index + 1,
       isDeleting: false,
     }));
@@ -184,13 +184,15 @@ export default function NoteCreation() {
       uniqueCombinations
     ).map((combStr) => JSON.parse(combStr));
 
-    setNoteOptions(uniqueCombinationsArray);
+    setNoteOptions(
+      uniqueCombinationsArray.sort((a, b) => a.length - b.length)
+    );
   }
 
   const assignNotes = (newNotes: number[]) => {
     const tempNotes = newNotes.map((n, index) => ({
-      interest: '10%',
-      period: '1',
+      interest: '6.5% - 13.5%',
+      period: '30',
       id: index,
       value: n,
     }));
@@ -203,6 +205,29 @@ export default function NoteCreation() {
       setNotes(generateNotes(selectedAmount));
     }
   }, [selectedAmount]);
+
+  const changePeriod = (noteId: number, period: string) => {
+    setNotes((prev) =>
+      prev.map((note) => {
+        if (note.id === noteId) {
+          note.period = period;
+
+          switch (period) {
+            case '30':
+              note.interest = '6.5% - 13.5%';
+              break;
+            case '60':
+              note.interest = '8.5% - 15.5%';
+              break;
+            default:
+              note.interest = '10.5% - 17.5%';
+              break;
+          }
+        }
+        return note;
+      })
+    );
+  };
 
   return (
     <div className="h-full w-[75%] mx-auto ">
@@ -222,9 +247,7 @@ export default function NoteCreation() {
               <Select
                 onValueChange={(val) => {
                   setSelectedAmount(Number(val));
-                  const test = generateSpecificCombinations(
-                    Number(val)
-                  );
+                  generateSpecificCombinations(Number(val));
                 }}
               >
                 <SelectTrigger>
@@ -313,19 +336,24 @@ export default function NoteCreation() {
                         </div>
                         <div>
                           <Label>Period (Months)</Label>
-                          <Select defaultValue={note.period}>
+                          <Select
+                            defaultValue={note.period}
+                            onValueChange={(val) =>
+                              changePeriod(note.id, val)
+                            }
+                          >
                             <SelectTrigger className="bg-secondary border-primary">
                               <SelectValue placeholder="Select Period" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="1">
-                                1 Month
+                              <SelectItem value="30">
+                                30 Days
                               </SelectItem>
-                              <SelectItem value="2">
-                                2 Months
+                              <SelectItem value="60">
+                                60 Days
                               </SelectItem>
-                              <SelectItem value="3">
-                                3 Months
+                              <SelectItem value="90">
+                                90 Days
                               </SelectItem>
                             </SelectContent>
                           </Select>
