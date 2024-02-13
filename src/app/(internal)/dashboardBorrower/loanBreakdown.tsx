@@ -12,10 +12,10 @@ function loanBreakdown() {
             Current monthly payment
           </h2>
           <p className="text-2xl font-bold text-gray-900 mt-1">
-            $100
+            $575
           </p>
         </div>
-        <Button className="w-24">Pay</Button>
+        {/* <Button className="w-24">Pay</Button> */}
       </div>
       <div className="mt-6">
         <div className="flex justify-between items-center">
@@ -26,21 +26,21 @@ function loanBreakdown() {
         </div>
         <div className="mt-3">
           <div className="w-full h-3 bg-gray-200 rounded-full">
-            <div className="h-3 bg-green-500 rounded-full w-[66%]" />
+            <div className="h-3 bg-green-500 rounded-full w-[33%]" />
           </div>
           <div className="flex justify-center mt-2">
-            <p className="text-2xl font-bold text-gray-900">$2000</p>
+            <p className="text-2xl font-bold text-gray-900">$1500</p>
           </div>
           <div className="text-center">
-            <p className="text-sm text-gray-600">66% paid</p>
+            <p className="text-sm text-gray-600">33% paid</p>
           </div>
         </div>
       </div>
       <div className="mt-6">
         <h3 className="text-lg font-semibold text-gray-900">
-          Outstanding payment
+          Interest
         </h3>
-        <p className="text-2xl font-bold text-gray-900 mt-1">$180</p>
+        <p className="text-2xl font-bold text-gray-900 mt-1">15%</p>
       </div>
     </div>
   );

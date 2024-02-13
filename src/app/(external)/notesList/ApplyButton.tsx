@@ -6,7 +6,7 @@ import React from 'react';
 
 function ApplyButton() {
   return (
-    <Link href="/signUp/borrower/personal">
+    <Link href="/dashboardBorrower">
       <Button className="w-[90%] mb-4 font-bold">
         <SquarePen className="h-5 mr-1" />
         Apply

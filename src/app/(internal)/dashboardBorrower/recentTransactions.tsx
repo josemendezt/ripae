@@ -16,53 +16,47 @@ function RecentTransactions() {
           <div className="flex items-center space-x-3">
             <PauseIcon className="text-yellow-500" />
             <div>
-              <p className="font-medium">Monthly repayment pending</p>
-              <p className="text-sm text-gray-500">
-                05 Nov 2021 at 3:06PM
-              </p>
+              <p className="font-medium">Future Monthly payment</p>
+              <p className="text-sm text-gray-500">05 Mar 2024</p>
             </div>
           </div>
-          <span>100$</span>
+          <span>575$</span>
+        </li>
+        <li className="flex justify-between items-center py-2 border-b">
+          <div className="flex items-center space-x-3">
+            <PauseIcon className="text-yellow-500" />
+            <div>
+              <p className="font-medium">Future Monthly payment</p>
+              <p className="text-sm text-gray-500">05 Mar 2024</p>
+            </div>
+          </div>
+          <span>575$</span>
         </li>
         <li className="flex justify-between items-center py-2 border-b">
           <div className="flex items-center space-x-3">
             <CheckIcon className="text-green-500" />
             <div>
               <p className="font-medium">
-                Successful monthly repayment
+                Successful monthly payment
               </p>
               <p className="text-sm text-gray-500">
-                05 Nov 2021 at 3:06PM
+                05 Feb 2024 at 3:10PM
               </p>
             </div>
           </div>
-          <span>100$</span>
-        </li>
-        <li className="flex justify-between items-center py-2 border-b">
-          <div className="flex items-center space-x-3">
-            <CheckIcon className="text-green-500" />
-            <div>
-              <p className="font-medium">
-                Successful monthly repayment
-              </p>
-              <p className="text-sm text-gray-500">
-                05 Nov 2021 at 3:06PM
-              </p>
-            </div>
-          </div>
-          <span>100$</span>
+          <span>575$</span>
         </li>
         <li className="flex justify-between items-center py-2">
           <div className="flex items-center space-x-3">
             <PanelTopCloseIcon className="text-red-500" />
             <div>
-              <p className="font-medium">Monthly repayment failed</p>
+              <p className="font-medium">Monthly payment failed</p>
               <p className="text-sm text-gray-500">
-                05 Nov 2021 at 3:06PM
+                05 Feb 2024 at 3:06PM
               </p>
             </div>
           </div>
-          <span>100$</span>
+          <span>575$</span>
         </li>
       </ul>
     </div>

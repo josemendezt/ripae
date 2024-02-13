@@ -39,6 +39,15 @@ export default function EmploymentInfo() {
           />
         </div>
         <div className="space-y-2">
+          <Label htmlFor="jobTime">
+            How much time do you have in your current job?
+          </Label>
+          <Input
+            id="jobTime"
+            placeholder="Enter your time at your current job"
+          />
+        </div>
+        <div className="space-y-2">
           <Label htmlFor="livingSituation">Living Situation</Label>
           <Select>
             <SelectTrigger id="livingSituation">
@@ -51,6 +60,15 @@ export default function EmploymentInfo() {
               <SelectItem value="other">Other</SelectItem>
             </SelectContent>
           </Select>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="addressTime">
+            How long have you lived at your current address?
+          </Label>
+          <Input
+            id="addressTime"
+            placeholder="Enter your time at your current address"
+          />
         </div>
       </CardContent>
       <CardFooter className="mt-16">

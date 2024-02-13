@@ -18,9 +18,23 @@ import {
 } from '@/components/ui/select';
 import { useRouter } from 'next/navigation';
 import { RadioGroup, RadioGroupItem } from '@/components/ui';
+import { useState } from 'react';
 
 export default function EmploymentInfo() {
   const router = useRouter();
+
+  // state will be hanlded in a better way later
+  const [hasInvesment, setHasInvesment] = useState('');
+
+  const [showInvOptions, setShowInvOptions] = useState('');
+
+  const getInvesment = (val: string) => {
+    setHasInvesment(val);
+  };
+
+  const getInvOptions = (val: string) => {
+    setShowInvOptions(val);
+  };
 
   return (
     <Card className="w-full max-w-2xl ">
@@ -38,31 +52,79 @@ export default function EmploymentInfo() {
           <Label htmlFor="experience">
             Do you have previous experience with investing?
           </Label>
-          <Select>
-            <SelectTrigger id="experience">
-              <SelectValue placeholder="Select" />
-            </SelectTrigger>
-            <SelectContent position="popper">
-              <SelectItem value="yes">Yes</SelectItem>
-              <SelectItem value="no">No</SelectItem>
-            </SelectContent>
-          </Select>
+          <RadioGroup id="invesment" className="flex">
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="yes" id="invYes" />
+              <Label htmlFor="invYes">Yes</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="no" id="invNo" />
+              <Label htmlFor="invNo">No</Label>
+            </div>
+          </RadioGroup>
         </div>
         <div className="space-y-2">
           <Label htmlFor="otherInvestments">
             Do you hold any other type of investments?
           </Label>
-          <RadioGroup id="otherInvestments" className="flex">
+          <RadioGroup
+            onValueChange={(val) => {
+              getInvesment(val);
+            }}
+            id="otherInvestments"
+            className="flex"
+          >
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="yes" id="r1" />
-              <Label htmlFor="r1">Yes</Label>
+              <RadioGroupItem value="yes" id="otherInvYes" />
+              <Label htmlFor="otherInvYes">Yes</Label>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem value="no" id="r2" />
-              <Label htmlFor="r2">No</Label>
+              <RadioGroupItem value="no" id="otherInvNo" />
+              <Label htmlFor="otherInvNo">No</Label>
             </div>
           </RadioGroup>
         </div>
+        {hasInvesment === 'no' && (
+          <div className="space-y-2">
+            <Label htmlFor="otherInvestments">
+              have you held any investment in the past?
+            </Label>
+            <RadioGroup
+              onValueChange={(val) => {
+                getInvOptions(val);
+              }}
+              id="otherInvestments"
+              className="flex"
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="yes" id="otherInvYes" />
+                <Label htmlFor="otherInvYes">Yes</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="no" id="otherInvNo" />
+                <Label htmlFor="otherInvNo">No</Label>
+              </div>
+            </RadioGroup>
+          </div>
+        )}
+
+        {(showInvOptions === 'yes' || hasInvesment === 'yes') && (
+          <div className="space-y-2">
+            <Label htmlFor="invOptions">
+              what kind of investments have you hold?
+            </Label>
+            <Select>
+              <SelectTrigger id="invOptions">
+                <SelectValue placeholder="Select" />
+              </SelectTrigger>
+              <SelectContent position="popper">
+                <SelectItem value="properties">Properties</SelectItem>
+                <SelectItem value="stocks">Stocks</SelectItem>
+                <SelectItem value="crytpo">Crypto</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       </CardContent>
       <CardFooter className="mt-16">
         <Button

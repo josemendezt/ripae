@@ -70,11 +70,9 @@ export default function LoanInfo() {
               <SelectValue placeholder="Select" />
             </SelectTrigger>
             <SelectContent position="popper">
-              <SelectItem value="low">Low</SelectItem>
-              <SelectItem value="medium-low">Medium-Low</SelectItem>
-              <SelectItem value="medium">Medium</SelectItem>
-              <SelectItem value="medium-high">Medium-High</SelectItem>
-              <SelectItem value="high">High</SelectItem>
+              <SelectItem value="30">30 Days</SelectItem>
+              <SelectItem value="60">60 Days</SelectItem>
+              <SelectItem value="90">90 Days</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -92,7 +90,7 @@ export default function LoanInfo() {
         <Button
           className="ml-auto w-32"
           onClick={() => {
-            router.push('/dashboardBorrower');
+            router.push('/notesList');
           }}
         >
           Next

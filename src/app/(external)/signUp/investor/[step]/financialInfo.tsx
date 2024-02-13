@@ -42,10 +42,27 @@ export default function FinancialInfo() {
           />
         </div>
         <div className="space-y-2">
+          <Label htmlFor="income">Liabilities</Label>
+          <Input
+            id="income"
+            placeholder="Enter your liabilities"
+            type="number"
+          />
+        </div>
+        <div className="space-y-2">
           <Label htmlFor="occupation">Occupation</Label>
           <Input
             id="occupation"
             placeholder="Enter your occupation"
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="jobTime">
+            How much time do you have in your current job?
+          </Label>
+          <Input
+            id="jobTime"
+            placeholder="Enter your time at your current job"
           />
         </div>
       </CardContent>

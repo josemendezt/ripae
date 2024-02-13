@@ -12,86 +12,37 @@ import ApplyButton from './ApplyButton';
 function NotesList() {
   const notes = [
     {
-      value: 500,
-      interest: '10%',
-      period: '2 Month',
+      value: 1500,
+      interest: '7%',
+      period: '30 Days',
+      monthlyAmount: 'One installment of 1605',
       id: 1,
     },
     {
-      value: 250,
+      value: 1500,
       interest: '10%',
-      period: '1 Month',
+      period: '60 Days',
+      monthlyAmount: 'Two installments of 825',
       id: 2,
     },
     {
-      value: 2000,
-      interest: '10%',
-      period: '3 Month',
+      value: 1500,
+      interest: '15%',
+      period: '90 Days',
+      monthlyAmount: 'Three installments of 575',
       id: 3,
-    },
-    {
-      value: 1000,
-      interest: '10%',
-      period: '2 Month',
-      id: 4,
-    },
-    {
-      value: 750,
-      interest: '10%',
-      period: '1 Month',
-      id: 5,
-    },
-    {
-      value: 5000,
-      interest: '10%',
-      period: '3 Month',
-      id: 6,
-    },
-    {
-      value: 500,
-      interest: '10%',
-      period: '1 Month',
-      id: 4,
-    },
-    {
-      value: 250,
-      interest: '10%',
-      period: '1 Month',
-      id: 5,
-    },
-    {
-      value: 500,
-      interest: '10%',
-      period: '2 Month',
-      id: 6,
-    },
-    {
-      value: 500,
-      interest: '10%',
-      period: '3 Month',
-      id: 4,
-    },
-    {
-      value: 2000,
-      interest: '10%',
-      period: '3 Month',
-      id: 5,
-    },
-    {
-      value: 500,
-      interest: '10%',
-      period: '1 Month',
-      id: 6,
     },
   ];
 
   return (
-    <div className="h-full w-[80%] mx-auto mt-8 ">
-      <h1 className="text-3xl font-semibold ml-6">Available Loans</h1>
-      <Card className="pb-16">
+    <div className="h-full w-fit mx-auto mt-8 ">
+      <h1 className="text-3xl font-semibold ml-6 mb-4">
+        Available Loans for You
+      </h1>
+      <Card>
         <CardHeader>
           <CardDescription className="text-lg">
-            Apply to one of the notes below.
+            We have matched you with the following loans.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -99,32 +50,28 @@ function NotesList() {
             <div className="text-center">
               <div className="flex flex-wrap gap-12  space-around items-center">
                 {notes?.map((note) => (
-                  <Card key={note.id} className="bg-secondary">
-                    <div className="flex space-between items-center gap-6 h-[98px] px-4">
-                      <div className="ml-4">
-                        <div>Amount</div>
-                        <div className="text-xl font-bold">
-                          {note.value.toFixed(2)}
-                        </div>
+                  <Card
+                    key={note.id}
+                    className="w-80 h-64 flex flex-col justify-between gap-4 pt-8"
+                  >
+                    <div>
+                      <div>Amount</div>
+                      <div className="text-4xl font-bold">
+                        {note.value}
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        Interest: <strong>{note.interest}</strong>
                       </div>
                       <div>
-                        <div>Period (Months)</div>
-                        <div className="text-xl font-bold">
-                          {note.period}
-                        </div>
+                        Period (Months):{' '}
+                        <strong>{note.period}</strong>
                       </div>
                       <div>
-                        <div>Interest</div>
-                        <div className="text-xl font-bold">
-                          {note.interest}
-                        </div>
+                        Payments:{' '}
+                        <strong>{note.monthlyAmount}</strong>
                       </div>
-                      {/* {notes.length > 1 && (
-                          <div className="mx-auto p-5 hover:bg-muted-foreground  relative left-4 border border-primary bg-primary text-secondary cursor-pointer flex flex-col justify-center rounded-r-lg">
-                            <Label className="mb-1">Apply</Label>
-                            <SquarePen className="h-8 ml-2" />
-                          </div>
-                        )} */}
                     </div>
                     <ApplyButton />
                   </Card>
