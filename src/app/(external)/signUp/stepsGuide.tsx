@@ -6,7 +6,7 @@ function StepsGuide({ steps }: { steps: string[] }) {
   const params = useParams<{ step: string }>();
 
   return (
-    <div className="flex items-center justify-center mx-auto mb-12">
+    <div className="flex items-center justify-center mx-auto mb-12 mt-20">
       {steps.map((stepVal, index) => (
         <>
           <div key={stepVal} className="flex items-center relative">
