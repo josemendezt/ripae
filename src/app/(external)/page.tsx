@@ -82,10 +82,10 @@ function SignUp() {
                     Already have an account? Log In
                   </Link>
                 </Button>
-                <Separator className="my-8" />
+                {/* <Separator className="my-8" />
                 <Button className="w-full" variant="secondary">
                   Continue as Guest
-                </Button>
+                </Button> */}
               </div>
             </CardContent>
           </Card>

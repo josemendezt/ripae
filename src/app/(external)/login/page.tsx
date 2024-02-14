@@ -63,10 +63,10 @@ export default function Login() {
                     Don`t have an account? Sign up
                   </Link>
                 </Button>
-                <Separator className="my-8" />
-                <Button className="w-full" variant="secondary">
+                {/* <Separator className="my-8" /> */}
+                {/* <Button className="w-full" variant="secondary">
                   Continue as Guest
-                </Button>
+                </Button> */}
               </div>
             </CardContent>
           </Card>

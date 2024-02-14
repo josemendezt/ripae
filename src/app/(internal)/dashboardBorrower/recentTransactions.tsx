@@ -17,7 +17,7 @@ function RecentTransactions() {
             <PauseIcon className="text-yellow-500" />
             <div>
               <p className="font-medium">Future Monthly payment</p>
-              <p className="text-sm text-gray-500">05 Mar 2024</p>
+              <p className="text-sm text-gray-500">05 Apr 2024</p>
             </div>
           </div>
           <span>575$</span>
