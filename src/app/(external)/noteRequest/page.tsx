@@ -1,41 +1,47 @@
+'use client';
 import React from 'react';
-import ApplyButton from './ApplyButton';
+import { Button } from '@/components/ui';
+import { SquarePen } from 'lucide-react';
+import Link from 'next/link';
 
-function NotesList() {
+function NoteRequest() {
   const notes = [
     {
-      value: 1500,
+      value: 2000,
       interest: '7%',
       period: '30 Days',
-      monthlyAmount: 'One installment of 1605',
+      monthlyAmount: 'One installment of 2140',
       id: 1,
-      url: '/noteData/pending',
+      url: '/noteData/request',
     },
     // {
-    //   value: 1500,
+    //   value: 2000,
     //   interest: '10%',
     //   period: '60 Days',
-    //   monthlyAmount: 'Two installments of 825',
+    //   monthlyAmount: 'Two installments of 1100',
+    //   url: '/noteData/request',
     //   id: 2,
     // },
-    {
-      value: 1500,
-      interest: '15%',
-      period: '90 Days',
-      monthlyAmount: 'Three installments of 575',
-      id: 3,
-      url: '/noteData/success',
-    },
+    // {
+    //   value: 2000,
+    //   interest: '15%',
+    //   period: '90 Days',
+    //   monthlyAmount: 'Three installments of 966.67',
+    //   id: 3,
+    //   url: '/noteData/request',
+    // },
   ];
 
   return (
     <div className="h-full w-fit mx-auto mt-8">
       <h1 className="text-3xl font-semibold ml-6 mb-4">
-        Available Loans for You
+        Loan Requests
       </h1>
       <section className="rounded-lg border bg-card text-card-foreground shadow-md w-fit mx-auto p-12 ">
         <div className="text-lg mb-4 text-card-foreground">
-          We have matched you with the following loans:
+          There are not avaialble loans with your specified criteria,
+          we suggest to create a request for our investors
+          consideration:
         </div>
         <div>
           {notes.length > 0 && (
@@ -64,7 +70,12 @@ function NotesList() {
                         <strong>{note.monthlyAmount}</strong>
                       </div>
                     </div>
-                    <ApplyButton link={note.url} />
+                    <Link href={note.url}>
+                      <Button className="w-[90%] mb-4 font-bold">
+                        <SquarePen className="h-5 mr-1" />
+                        Request Loan
+                      </Button>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -76,4 +87,4 @@ function NotesList() {
   );
 }
 
-export default NotesList;
+export default NoteRequest;

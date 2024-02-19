@@ -1,9 +1,11 @@
 'use client';
 import { Button } from '@/components/ui';
+import { cn } from '@/lib/utils';
 import useUserStore from '@/store/userStore';
 import {
   ArrowRightLeft,
   BanknoteIcon,
+  ClipboardList,
   GraduationCap,
   InfoIcon,
   NotebookTabs,
@@ -11,8 +13,8 @@ import {
   WalletIcon,
 } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import React from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
 function SideBar() {
   const router = useRouter();
@@ -20,64 +22,84 @@ function SideBar() {
 
   const profile = getUserProfile();
 
+  const pathname = usePathname();
+
+  const menu = [
+    {
+      id: 1,
+      text: 'Overview',
+      link:
+        profile === 'investor'
+          ? '/dashboardInvestor'
+          : '/dashboardBorrower',
+      visible: true,
+      icon: <ViewIcon className="mr-2" />,
+    },
+    {
+      id: 2,
+      text: 'My Notes',
+      link: '/myNotes',
+      visible: profile === 'investor',
+      icon: <NotebookTabs className=" mr-2" />,
+    },
+    {
+      id: 3,
+      text: 'Requests',
+      link: '/requests',
+      visible: profile === 'investor',
+      icon: <ClipboardList className=" mr-2" />,
+    },
+    {
+      id: 4,
+      text: 'Personal Information',
+      link: '/personal',
+      visible: true,
+      icon: <InfoIcon className=" mr-2" />,
+    },
+    {
+      id: 5,
+      text: 'Bank Account',
+      link: '/bank',
+      visible: true,
+      icon: <BanknoteIcon className=" mr-2" />,
+    },
+    {
+      id: 6,
+      text: 'Transactions',
+      link: '/Transaction',
+      visible: true,
+      icon: <WalletIcon className=" mr-2" />,
+    },
+    {
+      id: 7,
+      text: 'Financial Literacy Center',
+      link: '/financial',
+      visible: true,
+      icon: <GraduationCap className=" mr-2" />,
+    },
+  ];
+
   return (
     <nav className="bg-secondary h-screen p-4 w-[300px]">
       <div className="flex flex-col items-center">
         <div className="w-full">
-          <a
-            className="flex items-center px-4 py-2 mb-2 bg-primary text-white rounded-lg"
-            href="#"
-          >
-            <ViewIcon className="text-white mr-2" />
-            Overview
-          </a>
-          {profile === 'investor' && (
-            <>
-              <Link
-                className="flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg"
-                href="/myNotes"
-              >
-                <NotebookTabs className="text-gray-700 mr-2" />
-                My Notes
-              </Link>
-              {/* <a
-                className="flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg"
-                href="#"
-              >
-                <Store className="text-gray-700 mr-2" />
-                Secondary Market
-              </a> */}
-            </>
+          {menu.map(
+            (element) =>
+              element.visible && (
+                <Link
+                  key={element.id}
+                  className={cn(
+                    'flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg',
+                    element.link === pathname &&
+                      'bg-primary text-white hover:bg-primary transition duration-500 ease-in-out'
+                  )}
+                  href={element.link}
+                >
+                  {element.icon}
+                  {element.text}
+                </Link>
+              )
           )}
-
-          <a
-            className="flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg "
-            href="#"
-          >
-            <InfoIcon className="text-gray-700 mr-2" />
-            Personal Information
-          </a>
-          <a
-            className="flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg"
-            href="#"
-          >
-            <BanknoteIcon className="text-gray-700 mr-2" />
-            Bank Account
-          </a>
-          <a
-            className="flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg"
-            href="#"
-          >
-            <WalletIcon className="text-gray-700 mr-2" />
-            Transactions
-          </a>
-          <a
-            className="flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg"
-            href="#"
-          >
-            <GraduationCap className="text-gray-700 mr-2" />
-            Financial Literacy Center
-          </a>
         </div>
       </div>
 

@@ -1,7 +1,3 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/dDLmkoqqcpA
- */
 import {
   CardTitle,
   CardDescription,
@@ -21,6 +17,7 @@ import {
   Select,
 } from '@/components/ui/select';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function LoanInfo() {
   const router = useRouter();
@@ -28,6 +25,8 @@ export default function LoanInfo() {
     250, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500,
     5000,
   ];
+
+  const [amount, setAmount] = useState(0);
 
   return (
     <Card className="w-full max-w-2xl">
@@ -84,7 +83,11 @@ export default function LoanInfo() {
           <Label htmlFor="invest">
             How much would you like to borrow?
           </Label>
-          <Select>
+          <Select
+            onValueChange={(val) => {
+              setAmount(Number(val));
+            }}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Select Amount" />
             </SelectTrigger>
@@ -111,7 +114,14 @@ export default function LoanInfo() {
         <Button
           className="ml-auto w-32"
           onClick={() => {
-            router.push('/notesList');
+            if (amount === 5000) {
+              router.push('/noteData/rejected');
+            }
+            if (amount === 2000) {
+              router.push('/noteRequest');
+            } else {
+              router.push('/notesList');
+            }
           }}
         >
           Next
