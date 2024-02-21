@@ -26,6 +26,16 @@ import { useRouter } from 'next/navigation';
 import { Note } from '@/types/note';
 import { Trash2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import {
+  Dialog,
+  DialogHeader,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+} from '@/components/ui';
+
+import ActionButton from '../requests/actionButton';
+import SuccessMsg from './successMsg';
 
 export default function NoteCreation() {
   const amounts = [
@@ -390,14 +400,17 @@ export default function NoteCreation() {
           >
             Cancel
           </Button>
-          <Button
-            className="w-40"
-            onClick={() => {
-              router.push('/myNotes');
-            }}
-          >
-            Confirm
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild className="w-full">
+              <Button className="w-40">Confirm</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Notes Information</DialogTitle>
+              </DialogHeader>
+              <SuccessMsg />
+            </DialogContent>
+          </Dialog>
         </CardFooter>
       </Card>
     </div>

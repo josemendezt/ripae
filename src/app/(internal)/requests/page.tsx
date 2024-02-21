@@ -10,7 +10,7 @@ import RequestInfo from './requestInfo';
 
 const requests = [
   {
-    purpose: 'Unxpected Expense',
+    purpose: 'Unxpected Expenses',
     value: 2000,
     interest: '7%',
     subbmittedOn: '2024/02/12',
@@ -19,7 +19,7 @@ const requests = [
     id: 1,
   },
   {
-    purpose: 'Medical Emergency',
+    purpose: 'Medical Bill',
     value: 2000,
     interest: '15%',
     subbmittedOn: '2024/02/15',

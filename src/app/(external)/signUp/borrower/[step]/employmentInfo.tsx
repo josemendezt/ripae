@@ -40,7 +40,7 @@ export default function EmploymentInfo() {
         </div>
         <div className="space-y-2">
           <Label htmlFor="jobTime">
-            How much time do you have in your current job?
+            How much time do you have in your current job? (in months)
           </Label>
           <Input
             id="jobTime"

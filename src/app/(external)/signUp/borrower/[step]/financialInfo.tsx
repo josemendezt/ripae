@@ -47,16 +47,6 @@ export default function FinancialInfo() {
             type="number"
           />
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="employmentLength">
-            Employment Length (in months)
-          </Label>
-          <Input
-            id="employmentLength"
-            placeholder="Enter your employment length in months"
-            type="number"
-          />
-        </div>
       </CardContent>
       <CardFooter>
         <Button

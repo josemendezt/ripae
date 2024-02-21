@@ -44,25 +44,30 @@ export default function LoanInfo() {
               <SelectValue placeholder="Select" />
             </SelectTrigger>
             <SelectContent position="popper">
-              <SelectItem value="creditCard">Credit Card</SelectItem>
-              <SelectItem value="debtConsolidation">
-                Debt Consolidation
+              <SelectItem value="unexpectedExp">
+                Unexpected Expenses
               </SelectItem>
-              <SelectItem value="homeImprovement">
-                Home Improvement
+              <SelectItem value="medicalBills">
+                Medical Bills
               </SelectItem>
-              <SelectItem value="house">House</SelectItem>
-              <SelectItem value="majorPurchase">
-                Major Purchase
+              <SelectItem value="carRepairs">Car Repairs</SelectItem>
+              <SelectItem value="house">
+                Home Improvements/Repairs
               </SelectItem>
-              <SelectItem value="medical">Medical</SelectItem>
-              <SelectItem value="moving">Moving</SelectItem>
-              <SelectItem value="other">Other</SelectItem>
+              <SelectItem value="debt">Debt Consolidation</SelectItem>
               <SelectItem value="smallBusiness">
-                Small Business
+                Funding for Small Businesses
               </SelectItem>
-              <SelectItem value="vacation">Vacation</SelectItem>
-              <SelectItem value="wedding">Wedding</SelectItem>
+              <SelectItem value="travel">
+                Travel or Vacation
+              </SelectItem>
+              <SelectItem value="education">
+                Education Expenses
+              </SelectItem>
+              <SelectItem value="special">
+                Special Ocassions
+              </SelectItem>
+              <SelectItem value="moving">Moving Costs</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -116,8 +121,7 @@ export default function LoanInfo() {
           onClick={() => {
             if (amount === 5000) {
               router.push('/noteData/rejected');
-            }
-            if (amount === 2000) {
+            } else if (amount === 2000) {
               router.push('/noteRequest');
             } else {
               router.push('/notesList');

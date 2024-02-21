@@ -5,9 +5,9 @@ function NotesList() {
   const notes = [
     {
       value: 1500,
-      interest: '7%',
+      interest: '9%',
       period: '30 Days',
-      monthlyAmount: 'One installment of 1605',
+      monthlyAmount: 'One installment of 1635',
       id: 1,
       url: '/noteData/pending',
     },

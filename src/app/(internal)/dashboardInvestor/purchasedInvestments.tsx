@@ -9,7 +9,7 @@ import {
 
 const invoices = [
   {
-    invesment: 'Unexpected Expense',
+    invesment: 'Unexpected Expenses',
     takenOn: 'N/A',
     amount: '$500',
     annualRate: '9%',
@@ -18,7 +18,7 @@ const invoices = [
     status: 'Pending',
   },
   {
-    invesment: 'Home Fixture',
+    invesment: 'Home Improvements/Repairs',
     takenOn: '05/01/2024',
     amount: '1000',
     annualRate: '12.5%',
@@ -27,7 +27,7 @@ const invoices = [
     status: 'In Progress',
   },
   {
-    invesment: 'Medical Expense',
+    invesment: 'Medical Bills',
     takenOn: '27/12/2023',
     amount: '$250',
     annualRate: '10.0%',

@@ -33,11 +33,11 @@ function PendingLoan() {
             </div>
             <div className="flex border-b p-4 w-72 justify-between">
               <div>Interest</div>
-              <div>7%</div>
+              <div>9%</div>
             </div>
             <div className="flex border-b p-4 w-72 justify-between">
               <div>Installments</div>
-              <div>One of 1605</div>
+              <div>One of 1635</div>
             </div>
           </div>
           <Button className="w-[80%] mt-4" asChild>

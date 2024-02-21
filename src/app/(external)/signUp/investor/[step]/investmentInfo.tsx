@@ -118,9 +118,20 @@ export default function EmploymentInfo() {
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
               <SelectContent position="popper">
-                <SelectItem value="properties">Properties</SelectItem>
-                <SelectItem value="stocks">Stocks</SelectItem>
-                <SelectItem value="crytpo">Crypto</SelectItem>
+                <SelectItem value="real estate">
+                  Real estate
+                </SelectItem>
+                <SelectItem value="equities">Equities</SelectItem>
+                <SelectItem value="mutual funds">
+                  Mutual Funds
+                </SelectItem>
+                <SelectItem value="gics">GICs</SelectItem>
+                <SelectItem value="bonds">Bonds</SelectItem>
+                <SelectItem value="commodities">
+                  Commodities
+                </SelectItem>
+                <SelectItem value="treasuries">Treasuries</SelectItem>
+                <SelectItem value="others">Others</SelectItem>
               </SelectContent>
             </Select>
           </div>
