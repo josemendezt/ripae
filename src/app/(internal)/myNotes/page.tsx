@@ -1,22 +1,15 @@
 'use client';
 import React, { useState } from 'react';
 import { PurchasedInvesments } from '../dashboardInvestor/purchasedInvestments';
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui';
-import { NotebookPen, User } from 'lucide-react';
+import { Button } from '@/components/ui';
+import { NotebookPen } from 'lucide-react';
 import Link from 'next/link';
 import PendingNotes from './pendingNotes';
 
 function MyNotes() {
-  const [noteStatus, setNoteStatus] = useState(false);
+  const [noteStatus, setNoteStatus] = useState('pending');
 
-  const changeNoteStatus = (val: boolean) => {
+  const changeNoteStatus = (val: string) => {
     setNoteStatus(val);
   };
 
@@ -32,8 +25,11 @@ function MyNotes() {
             </Button>
           </Link>
         </h1>
-        {!noteStatus && (
-          <PendingNotes changeNoteStatus={changeNoteStatus} />
+        {(noteStatus === 'pending' || noteStatus === 'approved') && (
+          <PendingNotes
+            noteStatus={noteStatus}
+            changeNoteStatus={changeNoteStatus}
+          />
         )}
 
         <PurchasedInvesments />

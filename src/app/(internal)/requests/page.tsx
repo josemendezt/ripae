@@ -18,15 +18,15 @@ const requests = [
     projectedReturn: '2140',
     id: 1,
   },
-  {
-    purpose: 'Medical Bill',
-    value: 2000,
-    interest: '15%',
-    subbmittedOn: '2024/02/15',
-    period: '90 Days',
-    projectedReturn: '2300',
-    id: 3,
-  },
+  // {
+  //   purpose: 'Medical Bill',
+  //   value: 2000,
+  //   interest: '15%',
+  //   subbmittedOn: '2024/02/15',
+  //   period: '90 Days',
+  //   projectedReturn: '2300',
+  //   id: 3,
+  // },
 ];
 
 export default function Requests() {

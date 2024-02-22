@@ -20,9 +20,9 @@ function NotesList() {
     // },
     {
       value: 1500,
-      interest: '15%',
+      interest: '11.5%',
       period: '90 Days',
-      monthlyAmount: 'Three installments of 575',
+      monthlyAmount: 'Three installments of 557.5',
       id: 3,
       url: '/noteData/success',
     },
