@@ -1,19 +1,15 @@
 'use client';
-import { BellIcon, NotebookText, UserIcon } from 'lucide-react';
+import { BellIcon, NotebookText } from 'lucide-react';
 import Image from 'next/image';
 import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
   Popover,
   PopoverTrigger,
   PopoverContent,
 } from '../../components/ui';
-import { useRouter } from 'next/navigation';
 import useUserStore from '@/store/userStore';
 import Link from 'next/link';
 import { useState } from 'react';
+import LogoutButton from './logout-button';
 
 export default function AuthHeader() {
   const options = {
@@ -23,14 +19,9 @@ export default function AuthHeader() {
   } as any;
 
   const now = new Date().toLocaleString('en-US', options);
-  const router = useRouter();
   const { getUserProfile } = useUserStore();
   const userProfile = getUserProfile();
   const [isNotified, setIsNotified] = useState(false);
-
-  const logout = () => {
-    router.push('/login');
-  };
 
   const getLinkHeader =
     userProfile === 'borrower'
@@ -97,21 +88,7 @@ export default function AuthHeader() {
             </PopoverContent>
           </Popover>
         )}
-
-        <DropdownMenu>
-          <DropdownMenuTrigger className="flex border p-2 rounded ">
-            <UserIcon className="text-gray-600" />
-            <span>Jose Mendez</span>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel
-              className="cursor-pointer"
-              onClick={logout}
-            >
-              Log Out
-            </DropdownMenuLabel>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <LogoutButton />
       </div>
     </header>
   );

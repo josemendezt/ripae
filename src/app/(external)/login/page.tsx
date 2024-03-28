@@ -6,13 +6,13 @@ import { CardContent, Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { ChromeIcon, LinkedinIcon } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+//import { useRouter } from 'next/navigation';
 
 export default function Login() {
-  const router = useRouter();
+  //const router = useRouter();
 
   const doLogin = () => {
-    router.push('/dashboardInvestor');
+    //  router.push('/dashboardInvestor');
   };
 
   return (

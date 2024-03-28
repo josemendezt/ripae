@@ -69,10 +69,10 @@ function SignUp() {
                   Sign up with Google
                   <ChromeIcon className="w-4 h-4 ml-2" />
                 </Button>
-                <Button className="w-full" variant="outline">
+                {/* <Button className="w-full" variant="outline">
                   Sign up with LinkedIn
                   <LinkedinIcon className="w-4 h-4 ml-2" />
-                </Button>
+                </Button> */}
                 <Button
                   asChild
                   variant="link"
