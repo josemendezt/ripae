@@ -1,6 +1,6 @@
 import React from 'react';
 import { createClient } from '@/lib/supabase/server';
-import DashboardInvestor from './(internal)/dashboardInvestor/page';
+import DashboardLender from './(internal)/dashboardLender/page';
 import Login from './(external)/login/page';
 import { redirect } from 'next/navigation';
 
@@ -17,7 +17,7 @@ async function page() {
     redirect('/error');
   }
 
-  return data.user ? <DashboardInvestor /> : <Login />;
+  return data.user ? <DashboardLender /> : <Login />;
 }
 
 export default page;

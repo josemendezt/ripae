@@ -244,16 +244,17 @@ export default function NoteCreation() {
     <div className="h-full w-[75%] mx-auto ">
       <Card className="  m-8">
         <CardHeader>
-          <CardTitle>Create Note</CardTitle>
+          <CardTitle>Create Loan Proposal</CardTitle>
           <CardDescription>
-            Fill the following information to create your note(s)
+            Fill the following information to create your loan
+            proposal(s)
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="invest">
-                How much would you like to invest?
+                How much would you like to lend?
               </Label>
               <Select
                 onValueChange={(val) => {

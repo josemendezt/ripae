@@ -30,14 +30,14 @@ function SideBar() {
       text: 'Overview',
       link:
         profile === 'investor'
-          ? '/dashboardInvestor'
+          ? '/dashboardLender'
           : '/dashboardBorrower',
       visible: true,
       icon: <ViewIcon className="mr-2" />,
     },
     {
       id: 2,
-      text: 'My Notes',
+      text: 'My loan proposals',
       link: '/myNotes',
       visible: profile === 'investor',
       icon: <NotebookTabs className=" mr-2" />,
@@ -106,7 +106,7 @@ function SideBar() {
       <div className="mt-[100%] border-t-2">
         <div className="font-semibold text-lg">
           {profile === 'investor'
-            ? 'Investor Profile'
+            ? 'Lender Profile'
             : 'Borrower Profile'}
         </div>
         <Button
@@ -116,7 +116,7 @@ function SideBar() {
               router.push('/dashboardBorrower');
             } else {
               setUserProfile('investor');
-              router.push('/dashboardInvestor');
+              router.push('/dashboardLender');
             }
           }}
           className="w-full"

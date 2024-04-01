@@ -15,7 +15,7 @@ function successRequest() {
             </h1>
             <p className="max-w-[600px] text-gray-500">
               Your loan request has been uploaded succesfully, we will
-              let you know when one of our investors take it. If you
+              let you know when one of our lenders take it. If you
               have any question, please contact us at info@ripae.ca
             </p>
           </div>
