@@ -34,7 +34,7 @@ export default function FinancialInfo() {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="income">Annual Income</Label>
+          <Label htmlFor="income">Payment Frequency</Label>
           <Input
             id="income"
             placeholder="Enter your annual income"
@@ -42,10 +42,10 @@ export default function FinancialInfo() {
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="income">Liabilities</Label>
+          <Label htmlFor="income">Monthly Obligations</Label>
           <Input
             id="income"
-            placeholder="Enter your liabilities"
+            placeholder="Enter your monthly obligations such as rent, debts, etc."
             type="number"
           />
         </div>
@@ -79,7 +79,7 @@ export default function FinancialInfo() {
         <Button
           className="ml-auto w-32"
           onClick={() => {
-            router.push('/signUp/investor/experience');
+            router.push('/signUp/lender/preferences');
           }}
         >
           Next

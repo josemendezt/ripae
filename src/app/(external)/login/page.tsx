@@ -12,7 +12,7 @@ export default function Login() {
   const router = useRouter();
 
   const doLogin = () => {
-    router.push('/dashboardInvestor');
+    router.push('/dashboardLender');
   };
 
   return (

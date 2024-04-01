@@ -4,7 +4,7 @@ import React from 'react';
 // PersonalInfo is the same for both components
 import PersonalInfo from '../../personalInfo';
 import FinancialInfo from './financialInfo';
-import InvesmentInfo from './investmentInfo';
+import PreferencesInfo from './preferencesInfo';
 import StepsGuide from '../../stepsGuide';
 import ComplianceInfo from './ComplianceInfo';
 import GoalsInfo from './GoalsInfo';
@@ -15,18 +15,18 @@ function Step() {
   const steps = {
     personalInfo: 'personal',
     financialInfo: 'financial',
-    experienceInfo: 'experience',
+    preferencesInfo: 'preferences',
     goalsInfo: 'goals',
     complianceInfo: 'compliance',
   };
   const getStep = (step: string) => {
     switch (step) {
       case steps.personalInfo:
-        return <PersonalInfo link="/signUp/investor/financial" />;
+        return <PersonalInfo link="/signUp/lender/financial" />;
       case steps.financialInfo:
         return <FinancialInfo />;
-      case steps.experienceInfo:
-        return <InvesmentInfo />;
+      case steps.preferencesInfo:
+        return <PreferencesInfo />;
       case steps.goalsInfo:
         return <GoalsInfo />;
       default:

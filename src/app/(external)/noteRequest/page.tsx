@@ -40,7 +40,7 @@ function NoteRequest() {
       <section className="rounded-lg border bg-card text-card-foreground shadow-md w-fit mx-auto p-12 ">
         <div className="text-lg mb-4 text-card-foreground">
           There are not avaialble loans with your specified criteria,
-          we suggest to create a request for our investors
+          we suggest to create a request for our lenders
           consideration:
         </div>
         <div>

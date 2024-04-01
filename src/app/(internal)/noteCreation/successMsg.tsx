@@ -19,7 +19,7 @@ function successMsg() {
       </div>
 
       <Button className="w-[80%] mt-4" asChild>
-        <Link href="/dashboardInvestor">Go Home</Link>
+        <Link href="/dashboardLender">Go Home</Link>
       </Button>
     </div>
   );

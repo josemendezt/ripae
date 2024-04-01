@@ -17,6 +17,12 @@ import {
   Select,
 } from '@/components/ui/select';
 import { useRouter } from 'next/navigation';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui';
 
 export default function PersonalInfo({ link }: { link: string }) {
   const router = useRouter();
@@ -52,6 +58,40 @@ export default function PersonalInfo({ link }: { link: string }) {
             placeholder="Enter your SIN"
             type="number"
           />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="province">Province</Label>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Input
+                  id="province"
+                  readOnly
+                  value="Alberta"
+                  disabled
+                />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>
+                  We can only work in Alberta at the moment, we will
+                  move to other provinces in the future
+                </p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <div className="flex gap-4 pt-2">
+            <div className="w-[70%]">
+              <Label htmlFor="address">Address</Label>
+              <Input id="address" placeholder="Enter your address" />
+            </div>
+            <div className="w-[30%]">
+              <Label htmlFor="postalCode">Postal Code</Label>
+              <Input
+                id="postalCode"
+                placeholder="Enter your postal code"
+              />
+            </div>
+          </div>
         </div>
       </CardContent>
       <CardFooter>

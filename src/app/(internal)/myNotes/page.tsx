@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { PurchasedInvesments } from '../dashboardInvestor/purchasedInvestments';
+import { PurchasedInvesments } from '../dashboardLender/purchasedInvestments';
 import { Button } from '@/components/ui';
 import { NotebookPen } from 'lucide-react';
 import Link from 'next/link';
@@ -21,7 +21,7 @@ function MyNotes() {
           <Link href="/noteCreation">
             <Button className="ml-4 p-4 text-secondary text-lg  w-60 h-12">
               <NotebookPen className="text-secondary mr-2" />
-              Create a Note
+              Create a loan proposal
             </Button>
           </Link>
         </h1>

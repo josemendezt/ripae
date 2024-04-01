@@ -26,7 +26,7 @@ function SignUp() {
   const DoSignUp = () => {
     switch (flowType) {
       case 'investor':
-        return router.push('/signUp/investor/personal');
+        return router.push('/signUp/lender/personal');
       case 'borrower':
         return router.push('/signUp/borrower/personal');
       default:

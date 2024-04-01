@@ -43,9 +43,7 @@ export function PurchasedInvesments() {
       <Table className="border">
         <TableHeader className="bg-primary border ">
           <TableRow>
-            <TableHead className="text-secondary ">
-              Investment
-            </TableHead>
+            <TableHead className="text-secondary ">Loan</TableHead>
             <TableHead className="text-secondary">Taken On</TableHead>
             <TableHead className="text-secondary">Amount</TableHead>
             <TableHead className="text-secondary">

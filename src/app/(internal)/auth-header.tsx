@@ -35,7 +35,7 @@ export default function AuthHeader() {
   const getLinkHeader =
     userProfile === 'borrower'
       ? '/dashboardBorrower'
-      : 'dashboardInvestor';
+      : 'dashboardLender';
 
   return (
     <header className="flex justify-between bg-secondary border w-full h-16 items-center px-4 md:px-6 pb-4">

@@ -16,9 +16,9 @@ export default function AccountSetUp() {
         </div>
         <div className="space-y-4">
           <div className="py-1">
-            <Link href="/signUp/investor/personal">
+            <Link href="/signUp/lender/personal">
               <Button className="w-full py-4 font-semibold">
-                Investor
+                Lender
               </Button>
             </Link>
           </div>
