@@ -3,8 +3,8 @@ import '../globals.css';
 import Header from './ext-header';
 
 export const metadata: Metadata = {
-  title: 'Ripae Sign Up',
-  description: 'Generate your account in Ripae',
+  title: 'Ripae App',
+  description: 'Log in or sign up to get access to Ripae',
 };
 
 export default function RootLayout({

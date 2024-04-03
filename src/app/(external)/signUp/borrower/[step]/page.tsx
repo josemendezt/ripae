@@ -1,44 +1,17 @@
-'use client';
-import { useParams } from 'next/navigation';
 import React from 'react';
-import PersonalInfo from '../../personalInfo';
-import FinancialInfo from './financialInfo';
-import EmploymentInfo from './employmentInfo';
-import LoanInfo from './loanInfo';
-import StepsGuide from '../../stepsGuide';
+import Step from './step';
+import { validateSession } from '@/lib/supabase/server';
+import { redirect } from 'next/navigation';
 
-function Step() {
-  const params = useParams<{ step: string }>();
-
-  const steps = {
-    personalInfo: 'personal',
-    financialInfo: 'financial',
-    employmentInfo: 'employment',
-    loanInfo: 'loan',
-  };
-  const getStep = (step: string) => {
-    switch (step) {
-      case steps.personalInfo:
-        return <PersonalInfo link="/signUp/borrower/financial" />;
-      case steps.financialInfo:
-        return <FinancialInfo />;
-      case steps.employmentInfo:
-        return <EmploymentInfo />;
-      default:
-        return <LoanInfo />;
-    }
-  };
-
-  return (
-    <section className="flex items-center justify-center h-[80vh]">
-      <div className="w-full  max-w-2xl">
-        <StepsGuide steps={Object.values(steps)} />
-        <div className="flex items-center justify-center">
-          {getStep(params.step)}
-        </div>
-      </div>
-    </section>
-  );
+async function page() {
+  /* We have to validate some sign up components because next js does not have a way to overwrite
+  the current layout, you can only have nested layouts and that doesn't work for our current case
+  */
+  const isValidSession = await validateSession();
+  if (!isValidSession) {
+    redirect('/');
+  }
+  return <Step />;
 }
 
-export default Step;
+export default page;

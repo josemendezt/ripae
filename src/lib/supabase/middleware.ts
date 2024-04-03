@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import {
   createServerClient,
   type CookieOptions,
@@ -57,7 +58,12 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  await supabase.auth.getUser();
+  const { data } = await supabase.auth.getUser();
+  const { user } = data;
+  console.log('logU', user);
+  if (!Boolean(user)) {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
 
   return response;
 }

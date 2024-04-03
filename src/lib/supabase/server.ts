@@ -3,6 +3,7 @@ import {
   type CookieOptions,
 } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export function createClient() {
   const cookieStore = cookies();
@@ -36,4 +37,11 @@ export function createClient() {
       },
     }
   );
+}
+
+export async function validateSession() {
+  const supabase = createClient();
+  const { data } = await supabase.auth.getUser();
+
+  return Boolean(data.user);
 }

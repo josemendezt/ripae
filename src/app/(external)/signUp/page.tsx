@@ -22,7 +22,6 @@ export default function SignUpWrapper() {
 }
 
 function SignUp() {
-<<<<<<< HEAD
   // const router = useRouter();
   // const searchParams = useSearchParams();
   //const flowType = searchParams.get('flow');
@@ -30,21 +29,6 @@ function SignUp() {
 
   const [linkWasSent, setLinkWasSent] = useState(false);
   const [isLoading, setIsLoading] = useOptimistic(false);
-=======
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const flowType = searchParams.get('flow');
-  const DoSignUp = () => {
-    switch (flowType) {
-      case 'investor':
-        return router.push('/signUp/lender/personal');
-      case 'borrower':
-        return router.push('/signUp/borrower/personal');
-      default:
-        router.push('/signUp/accountSetUp');
-    }
-  };
->>>>>>> main
 
   return (
     <section className="flex items-center justify-center h-[80vh]">
