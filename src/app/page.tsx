@@ -3,6 +3,8 @@ import { createClient } from '@/lib/supabase/server';
 import DashboardLender from './(internal)/dashboardLender/page';
 import Login from './(external)/login/page';
 import { redirect } from 'next/navigation';
+import LayoutExt from './(external)/layout';
+import LayoutInt from './(internal)/layout';
 
 async function page() {
   const supabase = createClient();
@@ -17,7 +19,15 @@ async function page() {
     redirect('/error');
   }
 
-  return data.user ? <DashboardLender /> : <Login />;
+  return data.user ? (
+    <LayoutInt>
+      <DashboardLender />
+    </LayoutInt>
+  ) : (
+    <LayoutExt>
+      <Login />
+    </LayoutExt>
+  );
 }
 
 export default page;

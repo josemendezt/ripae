@@ -60,7 +60,7 @@ export async function updateSession(request: NextRequest) {
 
   const { data } = await supabase.auth.getUser();
   const { user } = data;
-  console.log('logU', user);
+
   if (!Boolean(user)) {
     return NextResponse.redirect(new URL('/', request.url));
   }

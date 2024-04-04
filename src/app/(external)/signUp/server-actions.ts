@@ -37,7 +37,7 @@ export async function signInUpWithEmail(
     options: {
       // For sign Up it should be true, for signIn it should be false
       shouldCreateUser,
-      emailRedirectTo: `${process.env.BASE_API}/signUp/investor/personal`,
+      emailRedirectTo: `${process.env.BASE_API}/signUp/lender/personal`,
     },
   });
 
