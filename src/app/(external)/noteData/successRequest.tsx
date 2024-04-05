@@ -35,7 +35,7 @@ function successRequest() {
             </div>
             <div className="flex border-b p-4 w-72 justify-between">
               <div>Installments</div>
-              <div>One of 2140</div>
+              <div>3</div>
             </div>
           </div>
           <Button className="w-[80%] mt-4" asChild>

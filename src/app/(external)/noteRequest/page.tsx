@@ -10,7 +10,7 @@ function NoteRequest() {
       value: 2000,
       interest: "7%",
       period: "45 Days",
-      monthlyAmount: "One installment of 2140",
+      monthlyAmount: "3 installments",
       id: 1,
       url: "/noteData/request",
     },
