@@ -1,3 +1,4 @@
+"use client";
 import {
   Table,
   TableBody,
@@ -5,17 +6,17 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import RequestInfo from './requestInfo';
+} from "@/components/ui/table";
+import RequestInfo from "./requestInfo";
 
 const requests = [
   {
-    purpose: 'Unxpected Expenses',
+    purpose: "Unexpected Expenses",
     value: 2000,
-    interest: '7%',
-    subbmittedOn: '2024/02/12',
-    period: '30 Days',
-    projectedReturn: '2140',
+    interest: "7%",
+    subbmittedOn: "2024/02/12",
+    period: "45 Days",
+    projectedReturn: "2140",
     id: 1,
   },
   // {
@@ -37,28 +38,18 @@ export default function Requests() {
         <TableHeader className="bg-primary border ">
           <TableRow>
             <TableHead className="text-secondary ">Purpose</TableHead>
-            <TableHead className="text-secondary">
-              Submitted On
-            </TableHead>
+            <TableHead className="text-secondary">Submitted On</TableHead>
             <TableHead className="text-secondary">Amount</TableHead>
-            <TableHead className="text-secondary">
-              Interest Rate
-            </TableHead>
-            <TableHead className="text-secondary">
-              Loan Term
-            </TableHead>
-            <TableHead className="text-secondary">
-              Projected Return
-            </TableHead>
+            <TableHead className="text-secondary">Interest Rate</TableHead>
+            <TableHead className="text-secondary">Loan Term</TableHead>
+            <TableHead className="text-secondary">Projected Return</TableHead>
             <TableHead className="text-secondary ">Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {requests.map((request, index) => (
             <TableRow key={index}>
-              <TableCell className="font-medium">
-                {request.purpose}
-              </TableCell>
+              <TableCell className="font-medium">{request.purpose}</TableCell>
               <TableCell>{request.subbmittedOn}</TableCell>
               <TableCell>{request.value}</TableCell>
               <TableCell>{request.interest}</TableCell>

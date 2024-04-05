@@ -1,15 +1,15 @@
-import React from 'react';
-import ApplyButton from './ApplyButton';
+import React from "react";
+import ApplyButton from "./ApplyButton";
 
 function NotesList() {
   const notes = [
     {
       value: 1500,
-      interest: '9%',
-      period: '30 Days',
-      monthlyAmount: 'One installment of 1635',
+      interest: "7.5%",
+      period: "45 Days",
+      monthlyAmount: "3 installments",
       id: 1,
-      url: '/noteData/pending',
+      url: "/noteData/pending",
     },
     // {
     //   value: 1500,
@@ -20,11 +20,11 @@ function NotesList() {
     // },
     {
       value: 1500,
-      interest: '11.5%',
-      period: '90 Days',
-      monthlyAmount: 'Three installments of 557.5',
+      interest: "9.5%",
+      period: "90 Days",
+      monthlyAmount: "6 installments",
       id: 3,
-      url: '/noteData/success',
+      url: "/noteData/success",
     },
   ];
 
@@ -34,8 +34,11 @@ function NotesList() {
         Available Loans for You
       </h1>
       <section className="rounded-lg border bg-card text-card-foreground shadow-md w-fit mx-auto p-12 ">
-        <div className="text-lg mb-4 text-card-foreground">
-          We have matched you with the following loans:
+        <div className="text-lg mb-4 text-card-foreground w-[80vw] sm:w-full-screen">
+          We have matched you with all the loans that have your requested
+          amount, and we have sorted them based on your specified criteria. The
+          final interest rate selected by the lender might be lower; what you
+          see is the maximum allowed based on your profile.
         </div>
         <div>
           {notes.length > 0 && (
@@ -48,20 +51,17 @@ function NotesList() {
                   >
                     <div>
                       <div>Amount</div>
-                      <div className="text-4xl font-bold">
-                        {note.value}
-                      </div>
+                      <div className="text-4xl font-bold">{note.value}</div>
                     </div>
                     <div>
                       <div>
-                        Interest: <strong>{note.interest}</strong>
+                        Interest up to: <strong>{note.interest}</strong>
                       </div>
                       <div>
                         Period: <strong>{note.period}</strong>
                       </div>
                       <div>
-                        Payments:{' '}
-                        <strong>{note.monthlyAmount}</strong>
+                        Payments: <strong>{note.monthlyAmount}</strong>
                       </div>
                     </div>
                     <ApplyButton link={note.url} />

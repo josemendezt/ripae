@@ -5,18 +5,18 @@ import {
   CardContent,
   CardFooter,
   Card,
-} from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   SelectValue,
   SelectTrigger,
   SelectItem,
   SelectContent,
   Select,
-} from '@/components/ui/select';
-import { useRouter } from 'next/navigation';
+} from "@/components/ui/select";
+import { useRouter } from "next/navigation";
 
 export default function EmploymentInfo() {
   const router = useRouter();
@@ -26,17 +26,14 @@ export default function EmploymentInfo() {
       <CardHeader>
         <CardTitle>Step 3: Employment and Living Situation</CardTitle>
         <CardDescription>
-          Please fill in the fields below with your employment and
-          living situation.
+          Please fill in the fields below with your employment and living
+          situation.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="occupation">Occupation</Label>
-          <Input
-            id="occupation"
-            placeholder="Enter your occupation"
-          />
+          <Input id="occupation" placeholder="Enter your occupation" />
         </div>
         <div className="space-y-2">
           <Label htmlFor="jobTime">
@@ -84,7 +81,7 @@ export default function EmploymentInfo() {
         <Button
           className="ml-auto w-32"
           onClick={() => {
-            router.push('/signUp/borrower/loan');
+            router.push("/signUp/borrower/financial");
           }}
         >
           Next

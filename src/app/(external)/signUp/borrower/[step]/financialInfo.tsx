@@ -5,18 +5,18 @@ import {
   CardContent,
   CardFooter,
   Card,
-} from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   SelectValue,
   SelectTrigger,
   SelectItem,
   SelectContent,
   Select,
-} from '@/components/ui/select';
-import { useRouter } from 'next/navigation';
+} from "@/components/ui/select";
+import { useRouter } from "next/navigation";
 
 export default function FinancialInfo() {
   const router = useRouter();
@@ -26,8 +26,7 @@ export default function FinancialInfo() {
       <CardHeader>
         <CardTitle>Step 2: Financial Information</CardTitle>
         <CardDescription>
-          Please fill in the fields below with your financial
-          information.
+          Please fill in the fields below with your financial information.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -61,7 +60,7 @@ export default function FinancialInfo() {
         <Button
           className="ml-auto w-32"
           onClick={() => {
-            router.push('/signUp/borrower/employment');
+            router.push("/signUp/borrower/loan");
           }}
         >
           Next

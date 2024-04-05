@@ -1,12 +1,12 @@
-'use client';
-import { Button } from '@/components/ui';
-import { CheckCircleIcon, Clock } from 'lucide-react';
-import Link from 'next/link';
-import React from 'react';
+"use client";
+import { Button } from "@/components/ui";
+import { CheckCircleIcon, Clock } from "lucide-react";
+import Link from "next/link";
+import React from "react";
 
 function PendingLoan() {
   return (
-    <section className="flex justify-center items-center h-[60vh] md:h-[70vh] lg:h-[80vh]">
+    <section className="flex justify-center items-start h-[60vh] md:h-[70vh] lg:h-[80vh] mt-12">
       <div className="rounded-lg border bg-card text-card-foreground shadow-md max-w-lg mx-auto p-4">
         <div className="flex flex-col items-center justify-center gap-4 py-6">
           <Clock className="text-yellow-500 w-12 h-12" />
@@ -15,10 +15,10 @@ function PendingLoan() {
               You are all set!
             </h1>
             <p className="max-w-[600px] text-gray-500">
-              Your loan is pending from investor approvement, You will
-              receive a notification in the next 48 hours with
-              information about your application. If you haven't
-              received it by then, please contact us at info@ripae.ca
+              Your loan is pending from lender approvement, You will receive a
+              notification in the next 48 hours with information about your
+              application. If you haven't received it by then, please contact us
+              at info@ripae.ca
             </p>
           </div>
           <div>
@@ -29,15 +29,15 @@ function PendingLoan() {
             </div>
             <div className="flex border-b p-4 w-72 justify-between">
               <div>Period</div>
-              <div>30 Days</div>
+              <div>45 Days</div>
             </div>
             <div className="flex border-b p-4 w-72 justify-between">
               <div>Interest</div>
-              <div>9%</div>
+              <div>Up to 7.5%</div>
             </div>
             <div className="flex border-b p-4 w-72 justify-between">
               <div>Installments</div>
-              <div>One of 1635</div>
+              <div>3 Installments</div>
             </div>
           </div>
           <Button className="w-[80%] mt-4" asChild>

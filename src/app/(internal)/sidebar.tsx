@@ -1,7 +1,7 @@
-'use client';
-import { Button } from '@/components/ui';
-import { cn } from '@/lib/utils';
-import useUserStore from '@/store/userStore';
+"use client";
+import { Button } from "@/components/ui";
+import { cn } from "@/lib/utils";
+import useUserStore from "@/store/userStore";
 import {
   ArrowRightLeft,
   BanknoteIcon,
@@ -11,10 +11,10 @@ import {
   NotebookTabs,
   ViewIcon,
   WalletIcon,
-} from 'lucide-react';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+} from "lucide-react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 function SideBar() {
   const router = useRouter();
@@ -27,53 +27,50 @@ function SideBar() {
   const menu = [
     {
       id: 1,
-      text: 'Overview',
-      link:
-        profile === 'investor'
-          ? '/dashboardLender'
-          : '/dashboardBorrower',
+      text: "Overview",
+      link: profile === "investor" ? "/dashboardLender" : "/dashboardBorrower",
       visible: true,
       icon: <ViewIcon className="mr-2" />,
     },
     {
       id: 2,
-      text: 'My loan proposals',
-      link: '/myNotes',
-      visible: profile === 'investor',
+      text: "My loan proposals",
+      link: "/myNotes",
+      visible: profile === "investor",
       icon: <NotebookTabs className=" mr-2" />,
     },
     {
       id: 3,
-      text: 'Requests',
-      link: '/requests',
-      visible: profile === 'investor',
+      text: "Requests",
+      link: "/requests",
+      visible: profile === "investor",
       icon: <ClipboardList className=" mr-2" />,
     },
     {
       id: 4,
-      text: 'Personal Information',
-      link: '/personal',
+      text: "Personal Information",
+      link: "/personal",
       visible: true,
       icon: <InfoIcon className=" mr-2" />,
     },
     {
       id: 5,
-      text: 'Bank Account',
-      link: '/bank',
+      text: "Bank Account",
+      link: "/bank",
       visible: true,
       icon: <BanknoteIcon className=" mr-2" />,
     },
     {
       id: 6,
-      text: 'Transactions',
-      link: '/Transaction',
+      text: "Transactions",
+      link: "/Transaction",
       visible: true,
       icon: <WalletIcon className=" mr-2" />,
     },
     {
       id: 7,
-      text: 'Financial Literacy Center',
-      link: '/financial',
+      text: "Financial Literacy Center",
+      link: "/financial",
       visible: true,
       icon: <GraduationCap className=" mr-2" />,
     },
@@ -89,9 +86,9 @@ function SideBar() {
                 <Link
                   key={element.id}
                   className={cn(
-                    'flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg',
+                    "flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg",
                     element.link === pathname &&
-                      'bg-primary text-white hover:bg-primary transition duration-500 ease-in-out'
+                      "bg-primary text-white hover:bg-primary transition duration-500 ease-in-out"
                   )}
                   href={element.link}
                 >
@@ -105,18 +102,16 @@ function SideBar() {
 
       <div className="mt-[100%] border-t-2">
         <div className="font-semibold text-lg">
-          {profile === 'investor'
-            ? 'Lender Profile'
-            : 'Borrower Profile'}
+          {profile === "investor" ? "Lender Profile" : "Borrower Profile"}
         </div>
         <Button
           onClick={() => {
-            if (profile === 'investor') {
-              setUserProfile('borrower');
-              router.push('/dashboardBorrower');
+            if (profile === "investor") {
+              setUserProfile("borrower");
+              router.push("/dashboardBorrower");
             } else {
-              setUserProfile('investor');
-              router.push('/dashboardLender');
+              setUserProfile("investor");
+              router.push("/dashboardLender");
             }
           }}
           className="w-full"

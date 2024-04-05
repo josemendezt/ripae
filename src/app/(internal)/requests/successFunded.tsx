@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui';
-import { CheckCircleIcon } from 'lucide-react';
-import Link from 'next/link';
-import React from 'react';
+import { Button } from "@/components/ui";
+import { CheckCircleIcon } from "lucide-react";
+import Link from "next/link";
+import React from "react";
 
 function successFunded() {
   return (
@@ -13,9 +13,9 @@ function successFunded() {
             You funded this request!
           </h1>
           <p className="max-w-[600px] text-gray-500">
-            You have funded this loan request and it was processed as
-            one of your notes. If you have any question, please
-            contact us at info@ripae.ca
+            You have funded this loan request and it was processed as one of
+            your loans. If you have any question, please contact us at
+            info@ripae.ca
           </p>
         </div>
         <Button className="w-[80%] mt-4" asChild>

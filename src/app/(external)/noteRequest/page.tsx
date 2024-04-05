@@ -1,18 +1,18 @@
-'use client';
-import React from 'react';
-import { Button } from '@/components/ui';
-import { SquarePen } from 'lucide-react';
-import Link from 'next/link';
+"use client";
+import React from "react";
+import { Button } from "@/components/ui";
+import { SquarePen } from "lucide-react";
+import Link from "next/link";
 
 function NoteRequest() {
   const notes = [
     {
       value: 2000,
-      interest: '7%',
-      period: '30 Days',
-      monthlyAmount: 'One installment of 2140',
+      interest: "7%",
+      period: "45 Days",
+      monthlyAmount: "One installment of 2140",
       id: 1,
-      url: '/noteData/request',
+      url: "/noteData/request",
     },
     // {
     //   value: 2000,
@@ -34,14 +34,11 @@ function NoteRequest() {
 
   return (
     <div className="h-full w-fit mx-auto mt-8">
-      <h1 className="text-3xl font-semibold ml-6 mb-4">
-        Loan Requests
-      </h1>
+      <h1 className="text-3xl font-semibold ml-6 mb-4">Loan Requests</h1>
       <section className="rounded-lg border bg-card text-card-foreground shadow-md w-fit mx-auto p-12 ">
         <div className="text-lg mb-4 text-card-foreground">
-          There are not avaialble loans with your specified criteria,
-          we suggest to create a request for our lenders
-          consideration:
+          There are not avaialble loans with your specified criteria, we suggest
+          to create a request for our lenders consideration:
         </div>
         <div>
           {notes.length > 0 && (
@@ -54,9 +51,7 @@ function NoteRequest() {
                   >
                     <div>
                       <div>Amount</div>
-                      <div className="text-4xl font-bold">
-                        {note.value}
-                      </div>
+                      <div className="text-4xl font-bold">{note.value}</div>
                     </div>
                     <div>
                       <div>
@@ -66,8 +61,7 @@ function NoteRequest() {
                         Period: <strong>{note.period}</strong>
                       </div>
                       <div>
-                        Payments:{' '}
-                        <strong>{note.monthlyAmount}</strong>
+                        Payments: <strong>{note.monthlyAmount}</strong>
                       </div>
                     </div>
                     <Link href={note.url}>

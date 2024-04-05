@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui';
-import React from 'react';
+import { Button } from "@/components/ui";
+import React from "react";
 
 function loanBreakdown() {
   return (
@@ -11,9 +11,7 @@ function loanBreakdown() {
           <h2 className="text-lg font-semibold text-gray-900">
             Current monthly payment
           </h2>
-          <p className="text-2xl font-bold text-gray-900 mt-1">
-            $575
-          </p>
+          <p className="text-2xl font-bold text-gray-900 mt-1">$475</p>
         </div>
         {/* <Button className="w-24">Pay</Button> */}
       </div>
@@ -32,15 +30,13 @@ function loanBreakdown() {
             <p className="text-2xl font-bold text-gray-900">$1500</p>
           </div>
           <div className="text-center">
-            <p className="text-sm text-gray-600">33% paid</p>
+            <p className="text-sm text-gray-600">66.33% paid</p>
           </div>
         </div>
       </div>
       <div className="mt-6">
-        <h3 className="text-lg font-semibold text-gray-900">
-          Interest
-        </h3>
-        <p className="text-2xl font-bold text-gray-900 mt-1">15%</p>
+        <h3 className="text-lg font-semibold text-gray-900">Interest</h3>
+        <p className="text-2xl font-bold text-gray-900 mt-1">9.5%</p>
       </div>
     </div>
   );

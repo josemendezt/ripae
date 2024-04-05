@@ -1,5 +1,5 @@
-'use client';
-import React from 'react';
+"use client";
+import React from "react";
 import {
   Button,
   Dialog,
@@ -7,9 +7,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui';
-import { CheckCircleIcon, User } from 'lucide-react';
-import Link from 'next/link';
+} from "@/components/ui";
+import { CheckCircleIcon, User } from "lucide-react";
+import Link from "next/link";
 
 function PendingNotes({
   changeNoteStatus,
@@ -21,9 +21,9 @@ function PendingNotes({
   return (
     <section className="mb-8 border-b pb-8">
       <div className="pb-4">
-        The following notes are pending to approve, please check the
-        information below about the micronote and the applicant (the
-        borrower) and accept or reject the application.
+        The following loans are pending to approve, please check the information
+        below about the microloan and the applicant (the borrower) and accept or
+        reject the application.
       </div>
       <div className="flex flex-wrap gap-12 w-fit space-around items-center text-center">
         <div className="rounded-lg border bg-card text-card-foreground shadow-md">
@@ -36,7 +36,7 @@ function PendingNotes({
             <div className="w-fit flex flex-col">
               <div className="flex border-b p-2 w-56 justify-between">
                 <div>Period:</div>
-                <div>30 Days</div>
+                <div>45 Days</div>
               </div>
               <div className="flex border-b p-2 w-56 justify-between">
                 <div>Interest:</div>
@@ -59,7 +59,7 @@ function PendingNotes({
               <DialogHeader>
                 <DialogTitle>Borrower Application</DialogTitle>
               </DialogHeader>
-              {noteStatus === 'approved' ? (
+              {noteStatus === "approved" ? (
                 <div className="flex flex-col items-center justify-center gap-4 py-6">
                   <CheckCircleIcon className="text-green-500 w-12 h-12" />
                   <div className="flex flex-col items-center gap-2 text-center">
@@ -67,9 +67,9 @@ function PendingNotes({
                       Congratulations!
                     </h1>
                     <p className="max-w-[600px] text-gray-500">
-                      You have accepted the borrower's application to
-                      your note and it has been processed. If you have
-                      any question, please contact us at info@ripae.ca
+                      You have accepted the borrower's application to your loan
+                      and it has been processed. If you have any question,
+                      please contact us at info@ripae.ca
                     </p>
                   </div>
                   <Button className="w-[80%] mt-4" asChild>
@@ -85,9 +85,7 @@ function PendingNotes({
                     </div>
                     <div className="flex border-b p-4 w-full gap-2">
                       <div>Purpose:</div>
-                      <div className="font-semibold">
-                        Unexpected expense
-                      </div>
+                      <div className="font-semibold">Unexpected expense</div>
                     </div>
                     <div className="flex  p-4 w-full gap-2">
                       <div>Risk Profile: </div>
@@ -99,12 +97,12 @@ function PendingNotes({
                       className="w-40"
                       type="button"
                       variant="destructive"
-                      onClick={() => changeNoteStatus('rejected')}
+                      onClick={() => changeNoteStatus("rejected")}
                     >
                       Reject
                     </Button>
                     <Button
-                      onClick={() => changeNoteStatus('approved')}
+                      onClick={() => changeNoteStatus("approved")}
                       className="w-40"
                       type="button"
                     >

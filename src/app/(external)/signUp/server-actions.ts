@@ -1,9 +1,9 @@
-'use server';
+"use server";
 
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from "@/lib/supabase/server";
 
 // export async function signup(formData: FormData) {
 //   const supabase = createClient();
@@ -33,7 +33,7 @@ export async function signInUpWithEmail(
   const supabase = createClient();
 
   const { data, error } = await supabase.auth.signInWithOtp({
-    email: form.get('email') as string,
+    email: form.get("email") as string,
     options: {
       // For sign Up it should be true, for signIn it should be false
       shouldCreateUser,
@@ -42,12 +42,13 @@ export async function signInUpWithEmail(
   });
 
   if (error) {
-    redirect('/error');
+    redirect("/error");
   }
   return data;
 }
-
 export async function signOut() {
   const supabase = createClient();
   const { error } = await supabase.auth.signOut();
+
+  redirect("/");
 }

@@ -1,32 +1,26 @@
-'use client';
-import { BellIcon, NotebookText } from 'lucide-react';
-import Image from 'next/image';
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from '../../components/ui';
-import useUserStore from '@/store/userStore';
-import Link from 'next/link';
-import { useState } from 'react';
-import LogoutButton from './logout-button';
+"use client";
+import { BellIcon, NotebookText } from "lucide-react";
+import Image from "next/image";
+import { Popover, PopoverTrigger, PopoverContent } from "../../components/ui";
+import useUserStore from "@/store/userStore";
+import Link from "next/link";
+import { useState } from "react";
+import LogoutButton from "./logout-button";
 
 export default function AuthHeader() {
   const options = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   } as any;
 
-  const now = new Date().toLocaleString('en-US', options);
+  const now = new Date().toLocaleString("en-US", options);
   const { getUserProfile } = useUserStore();
   const userProfile = getUserProfile();
   const [isNotified, setIsNotified] = useState(false);
 
   const getLinkHeader =
-    userProfile === 'borrower'
-      ? '/dashboardBorrower'
-      : 'dashboardLender';
+    userProfile === "borrower" ? "/dashboardBorrower" : "dashboardLender";
 
   return (
     <header className="flex justify-between bg-secondary border w-full h-16 items-center px-4 md:px-6 pb-4">
@@ -42,7 +36,7 @@ export default function AuthHeader() {
       <div className="flex items-center space-x-3 text-sm mt-4">
         <span>{now}</span>
 
-        {userProfile === 'investor' ? (
+        {userProfile === "investor" ? (
           <Popover>
             <PopoverTrigger onClick={() => setIsNotified(true)}>
               <div className="flex">
@@ -54,18 +48,15 @@ export default function AuthHeader() {
             </PopoverTrigger>
             <PopoverContent className="w-[450px] mr-2">
               <div>
-                <p className="text-lg font-semibold mb-4">
-                  Notifications
-                </p>
+                <p className="text-lg font-semibold mb-4">Notifications</p>
                 <p className="flex justify-between items-center text-sm text-card-foreground border-y p-4">
                   <p>
-                    Hey{' '}
-                    <span className="font-semibold mr-2">Jose!</span>
+                    Hey <span className="font-semibold mr-2">Jose!</span>
                     <Link
                       className="underline underline-offset-4"
                       href="/myNotes"
                     >
-                      your note is pending of approval
+                      your loan is pending of approval
                     </Link>
                   </p>
                   <div className="bg-secondary rounded-full p-3">

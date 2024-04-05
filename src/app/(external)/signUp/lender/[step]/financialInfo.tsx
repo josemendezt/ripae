@@ -5,18 +5,18 @@ import {
   CardContent,
   CardFooter,
   Card,
-} from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   SelectValue,
   SelectTrigger,
   SelectItem,
   SelectContent,
   Select,
-} from '@/components/ui/select';
-import { useRouter } from 'next/navigation';
+} from "@/components/ui/select";
+import { useRouter } from "next/navigation";
 
 export default function FinancialInfo() {
   const router = useRouter();
@@ -24,17 +24,23 @@ export default function FinancialInfo() {
   return (
     <Card className="w-full max-w-2xl ">
       <CardHeader>
-        <CardTitle>
-          Step 2: Financial and Employment Information
-        </CardTitle>
+        <CardTitle>Step 2: Financial and Employment Information</CardTitle>
         <CardDescription>
-          Please fill in the fields below with your financial and
-          employment information.
+          Please fill in the fields below with your financial and employment
+          information.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="income">Payment Frequency</Label>
+          <Input
+            id="income"
+            placeholder="Enter your annual income"
+            type="number"
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="income">Amount per payment (after tax)</Label>
           <Input
             id="income"
             placeholder="Enter your annual income"
@@ -51,10 +57,7 @@ export default function FinancialInfo() {
         </div>
         <div className="space-y-2">
           <Label htmlFor="occupation">Occupation</Label>
-          <Input
-            id="occupation"
-            placeholder="Enter your occupation"
-          />
+          <Input id="occupation" placeholder="Enter your occupation" />
         </div>
         <div className="space-y-2">
           <Label htmlFor="jobTime">
@@ -79,7 +82,7 @@ export default function FinancialInfo() {
         <Button
           className="ml-auto w-32"
           onClick={() => {
-            router.push('/signUp/lender/preferences');
+            router.push("/signUp/lender/preferences");
           }}
         >
           Next

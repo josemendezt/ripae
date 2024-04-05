@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui';
-import { CheckCircleIcon } from 'lucide-react';
-import Link from 'next/link';
-import React from 'react';
+import { Button } from "@/components/ui";
+import { CheckCircleIcon } from "lucide-react";
+import Link from "next/link";
+import React from "react";
 
 function successRequest() {
   return (
@@ -14,9 +14,9 @@ function successRequest() {
               Your request was submitted!
             </h1>
             <p className="max-w-[600px] text-gray-500">
-              Your loan request has been uploaded succesfully, we will
-              let you know when one of our lenders take it. If you
-              have any question, please contact us at info@ripae.ca
+              Your loan request has been uploaded succesfully, we will let you
+              know when one of our lenders take it. If you have any question,
+              please contact us at info@ripae.ca
             </p>
           </div>
           <div>
@@ -27,7 +27,7 @@ function successRequest() {
             </div>
             <div className="flex border-b p-4 w-72 justify-between">
               <div>Period</div>
-              <div>30 Days</div>
+              <div>45 Days</div>
             </div>
             <div className="flex border-b p-4 w-72 justify-between">
               <div>Interest</div>
