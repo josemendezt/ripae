@@ -37,7 +37,7 @@ export async function signInUpWithEmail(
     options: {
       // For sign Up it should be true, for signIn it should be false
       shouldCreateUser,
-      emailRedirectTo: `https://app.ripae.ca/signUp/accountSetUp`,
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_BASE_API}/signUp/accountSetUp`,
     },
   });
 
