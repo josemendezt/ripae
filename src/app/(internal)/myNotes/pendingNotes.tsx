@@ -44,7 +44,7 @@ function PendingNotes({
               </div>
               <div className="flex  p-2 w-56 justify-between">
                 <div>Installments: </div>
-                <div>One of 1635</div>
+                <div>3</div>
               </div>
             </div>
           </div>

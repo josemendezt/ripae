@@ -50,8 +50,8 @@ export default function NoteCreation() {
 
   const generateNotes = (number: number) => {
     const objects = [];
-    const interest = "6.5% - 13.5%";
-    const period = "30";
+    const interest = "5% - 9%";
+    const period = "45";
     let idCounter = 1;
 
     for (let value = 250; value <= number; value += 250) {
@@ -70,12 +70,10 @@ export default function NoteCreation() {
 
   const getInterest = (period: string) => {
     switch (period) {
-      case "30":
-        return "6.5% - 13.5%";
-      case "60":
-        return "8.5% - 15.5%";
+      case "45":
+        return "5% - 9%";
       default:
-        return "10.5% - 17.5%";
+        return "7% - 11%";
     }
   };
 
@@ -85,8 +83,8 @@ export default function NoteCreation() {
       return [
         {
           value: baseTotal,
-          interest: "6.5% - 13.5%",
-          period: "30",
+          interest: "5% - 9%",
+          period: "45",
           id: 1,
           isDeleting: false,
         },
@@ -107,8 +105,8 @@ export default function NoteCreation() {
 
     newNotes = Array.from({ length: newNumberOfNotes }, (_, index) => ({
       value: newValue,
-      interest: getInterest("30"),
-      period: "30",
+      interest: getInterest("45"),
+      period: "45",
       id: index + 1,
       isDeleting: false,
     }));
@@ -149,8 +147,8 @@ export default function NoteCreation() {
       length: newNumberOfNotes,
     }).map((_, index) => ({
       value: newValuePerNote,
-      interest: getInterest("30"),
-      period: "30",
+      interest: getInterest("45"),
+      period: "45",
       id: index + 1,
       isDeleting: false,
     }));
@@ -204,8 +202,8 @@ export default function NoteCreation() {
 
   const assignNotes = (newNotes: number[]) => {
     const tempNotes = newNotes.map((n, index) => ({
-      interest: "6.5% - 13.5%",
-      period: "30",
+      interest: "5% - 9%",
+      period: "45",
       id: index,
       value: n,
     }));
@@ -232,6 +230,21 @@ export default function NoteCreation() {
     );
   };
 
+  const is50Multiple = () => {
+    //not value selected yet
+    if (!selectedAmount) return true;
+
+    if (
+      selectedAmount < 250 ||
+      selectedAmount > 2000 ||
+      selectedAmount % 50 !== 0
+    ) {
+      return false;
+    }
+
+    return true;
+  };
+
   return (
     <div className="h-full w-[75%] mx-auto ">
       <Card className="  m-8">
@@ -245,7 +258,24 @@ export default function NoteCreation() {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="invest">How much would you like to lend?</Label>
-              <Select
+              <Input
+                id="invest"
+                type="number"
+                min={250}
+                max={2000}
+                step={50}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setSelectedAmount(Number(val));
+                  generateSpecificCombinations(Number(val));
+                }}
+              />
+              <CardDescription
+                className={cn(!is50Multiple() && "text-red-500")}
+              >
+                You can only use multiples of 50 between 250 and 2000
+              </CardDescription>
+              {/* <Select
                 onValueChange={(val) => {
                   setSelectedAmount(Number(val));
                   generateSpecificCombinations(Number(val));
@@ -261,17 +291,17 @@ export default function NoteCreation() {
                     </SelectItem>
                   ))}
                 </SelectContent>
-              </Select>
+              </Select> */}
             </div>
             {noteOptions.length > 0 && (
               <>
                 <CardDescription>
                   We have the following suggestions to divide your funds in
-                  multiple notes, the lowest they are the safest, but the return
+                  multiple loans, the lowest they are the safest, but the return
                   will be smaller. Alternatively, you can customize it using the
-                  buttons to Add or Delete notes.
+                  buttons to Add or Delete loans.
                 </CardDescription>
-                <p className=" font-semibold">Note Options</p>
+                <p className=" font-semibold">Loan Options</p>
                 <section className="flex gap-4">
                   {noteOptions.map((opt, index) => (
                     <div
@@ -285,7 +315,7 @@ export default function NoteCreation() {
                         assignNotes(opt);
                       }}
                     >
-                      {opt.length} notes
+                      {opt.length} loans
                     </div>
                   ))}
                 </section>
@@ -293,20 +323,20 @@ export default function NoteCreation() {
             )}
             {noteOptions.length > 0 && (
               <>
-                <p className=" font-semibold mt-2">Customize Notes</p>
+                <p className=" font-semibold mt-2">Customize Loans</p>
                 <div className="flex gap-8 mt-0">
                   <Button
                     onClick={addNotes}
                     disabled={notes[0] && notes[0].value === 250}
                   >
-                    Add Notes +
+                    Add Loans +
                   </Button>
                   <Button
                     disabled={notes.length === 1}
                     onClick={removeNotes}
                     variant="secondary"
                   >
-                    Delete Notes -
+                    Delete Loans -
                   </Button>
                 </div>
               </>
