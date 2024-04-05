@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useState } from "react";
 import LogoutButton from "./logout-button";
 
-export default function AuthHeader() {
+export default function AuthHeader({ name }: { name: string }) {
   const options = {
     year: "numeric",
     month: "long",
@@ -51,7 +51,7 @@ export default function AuthHeader() {
                 <p className="text-lg font-semibold mb-4">Notifications</p>
                 <p className="flex justify-between items-center text-sm text-card-foreground border-y p-4">
                   <p>
-                    Hey <span className="font-semibold mr-2">Jose!</span>
+                    Hey <span className="font-semibold mr-2">{name}</span>
                     <Link
                       className="underline underline-offset-4"
                       href="/myNotes"
@@ -79,7 +79,7 @@ export default function AuthHeader() {
             </PopoverContent>
           </Popover>
         )}
-        <LogoutButton />
+        <LogoutButton name={name} />
       </div>
     </header>
   );

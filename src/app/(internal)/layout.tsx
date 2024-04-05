@@ -1,5 +1,5 @@
 import "../globals.css";
-import AuthHeader from "./auth-header";
+import AuthHeader from "./auth-header-wrapper";
 import Sidebar from "./sidebar";
 export const metadata = {
   title: "Welcome to Ripae!",

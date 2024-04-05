@@ -10,12 +10,12 @@ import { UserIcon } from "lucide-react";
 import React from "react";
 import { signOut } from "../(external)/signUp/server-actions";
 
-function LogoutButton() {
+function LogoutButton({ name }: { name: string }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex border p-2 rounded ">
         <UserIcon className="text-gray-600" />
-        <span>Jose Mendez</span>
+        <span>{name}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent asChild>
         <form
