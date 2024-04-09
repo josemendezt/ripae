@@ -22,7 +22,7 @@ function PendingLoan() {
             </p>
           </div>
           <div>
-            <h2 className="font-semibold mb-2">Loa Details:</h2>
+            <h2 className="font-semibold mb-2">Loan Details:</h2>
             <div className="flex border-b p-4 w-72 justify-between">
               <div>Amount</div>
               <div>1500</div>
