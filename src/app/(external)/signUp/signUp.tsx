@@ -1,16 +1,13 @@
-"use client";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { CardContent, Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { ChromeIcon } from "lucide-react";
-import Link from "next/link";
-import { Suspense, useState, useOptimistic } from "react";
-import { signInUpWithEmail } from "./server-actions";
-import { signInWithGoogle } from "./client-actions";
-import SuccessEmailSent from "./SuccessEmailSent";
-import { SubmitButton } from "./submit-button";
+'use client';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { CardContent, Card } from '@/components/ui/card';
+import Link from 'next/link';
+import { Suspense, useState } from 'react';
+import { signInUpWithEmail } from './client-actions';
+import SuccessEmailSent from './SuccessEmailSent';
+import { Loader2 } from 'lucide-react';
 
 export default function SignUpWrapper() {
   return (
@@ -26,7 +23,18 @@ function SignUp() {
   //const flowType = searchParams.get('flow');
 
   const [linkWasSent, setLinkWasSent] = useState(false);
-  const [isLoading, setIsLoading] = useOptimistic(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
+    setIsLoading(true);
+    const formData = new FormData(event.currentTarget);
+
+    await signInUpWithEmail(formData, true);
+    setLinkWasSent(true);
+  };
 
   return (
     <section className="flex items-center justify-center h-[80vh]">
@@ -40,14 +48,7 @@ function SignUp() {
               <SuccessEmailSent />
             ) : (
               <>
-                <form
-                  action={async (e) => {
-                    const shouldCreateUser = true;
-                    setIsLoading(true);
-                    await signInUpWithEmail(e, shouldCreateUser);
-                    setLinkWasSent(true);
-                  }}
-                >
+                <form onSubmit={handleSubmit}>
                   <div className="space-y-2 my-6">
                     <Label htmlFor="email">Email</Label>
                     <Input
@@ -58,7 +59,16 @@ function SignUp() {
                       type="email"
                     />
                   </div>
-                  <SubmitButton />
+                  <Button
+                    className="w-full"
+                    type="submit"
+                    disabled={isLoading}
+                  >
+                    Sign Up{' '}
+                    {isLoading && (
+                      <Loader2 className="animate-spin  ml-2" />
+                    )}
+                  </Button>
                   {/* <div className="mt-2 flex w-full justify-between">
                     <Separator className="my-4 w-2/5" />
                     <span className="px-4 pt-1">Or</span>
@@ -80,7 +90,9 @@ function SignUp() {
                     variant="link"
                     className=" text-muted-foreground text-center mx-auto flex justify-center"
                   >
-                    <Link href="/login">Already have an account? Log In</Link>
+                    <Link href="/login">
+                      Already have an account? Log In
+                    </Link>
                   </Button>
                 </div>
               </>

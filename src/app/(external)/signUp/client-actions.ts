@@ -1,24 +1,55 @@
-"use client";
-import { createClient } from "@/lib/supabase/client";
+'use client';
+import { createClient } from '@/lib/supabase/client';
+import { User } from '../../../types/user/type';
 
-export async function signInWithGoogle() {
+export async function signInUpWithEmail(
+  form: FormData,
+  shouldCreateUser: boolean
+) {
   const supabase = createClient();
-  await supabase.auth.signInWithOAuth({
-    provider: "google",
+  const { data, error } = await supabase.auth.signInWithOtp({
+    email: form.get('email') as string,
     options: {
-      redirectTo: "http://localhost:3000/signUp/accountSetUp",
+      // For sign Up it should be true, for signIn it should be false
+      shouldCreateUser,
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_BASE_API}`,
     },
   });
+
+  if (error) {
+    return {
+      error: error as any,
+    };
+  }
+  return {
+    user: data.user,
+  };
 }
 
-export async function signInWithEmailCli(email: string) {
+export async function updateUserData(
+  userData: Partial<User>,
+  email: string
+) {
   const supabase = createClient();
-  const res = await supabase.auth.signInWithOtp({
-    email,
-    options: {
-      // set this to false if you do not want the user to be automatically signed up
-      shouldCreateUser: true,
-      emailRedirectTo: "http://localhost:3000/signUp/accountSetUp",
-    },
-  });
+
+  const { error } = await supabase
+    .from('users')
+    .update(userData)
+    .eq('email', email);
+
+  // validate there is no error
+  return error === null;
+}
+
+export async function getUserDataClient(email: string) {
+  const supabase = createClient();
+  const { data: userData, error } = await supabase
+    .from('users')
+    .select('*')
+    .eq('email', email);
+
+  if (error || !userData.length) {
+    return null;
+  }
+  return userData[0] as User;
 }

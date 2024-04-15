@@ -3,8 +3,6 @@ import {
   type CookieOptions,
 } from '@supabase/ssr';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-
 export function createClient() {
   const cookieStore = cookies();
 
@@ -13,8 +11,14 @@ export function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
+        get(name?: string) {
+          try {
+            if (name) return cookieStore.get(name)?.value;
+          } catch (error) {
+            // The `get` method was called from a Server Component.
+            // This can be ignored if you have middleware refreshing
+            // user sessions.
+          }
         },
         set(name: string, value: string, options: CookieOptions) {
           try {
@@ -39,9 +43,9 @@ export function createClient() {
   );
 }
 
-export async function validateSession() {
+export async function getUserSession() {
   const supabase = createClient();
   const { data } = await supabase.auth.getUser();
 
-  return Boolean(data.user);
+  return data.user;
 }
