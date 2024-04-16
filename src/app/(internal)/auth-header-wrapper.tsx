@@ -2,6 +2,7 @@ import React from 'react';
 import AuthHeader from './auth-header';
 import { createClient } from '@/lib/supabase/server';
 import { getUserDataServer } from '../(external)/signUp/server-actions';
+import { User } from '@/types/user/type';
 
 async function AuthHeaderWrapper() {
   const supabase = createClient();
@@ -10,7 +11,7 @@ async function AuthHeaderWrapper() {
     data.user?.email as string
   );
 
-  return <AuthHeader user={userData} />;
+  return <AuthHeader user={userData as User} />;
 }
 
 export default AuthHeaderWrapper;
