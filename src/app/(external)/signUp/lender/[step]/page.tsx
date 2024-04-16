@@ -3,6 +3,7 @@ import Step from './step';
 import { getUserSession } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import { getUserDataServer } from '../../server-actions';
+import { User } from '@/types/user/type';
 
 async function page() {
   const userSession = await getUserSession();
@@ -14,7 +15,7 @@ async function page() {
     userSession.email as string
   );
 
-  return <Step user={userData} />;
+  return <Step user={userData as User} />;
 }
 
 export default page;
