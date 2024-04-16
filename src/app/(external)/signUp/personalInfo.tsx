@@ -192,7 +192,7 @@ export default function PersonalInfo({ link }: { link: string }) {
                           <Calendar
                             mode="single"
                             captionLayout="dropdown-buttons"
-                            selected={field.value}
+                            selected={field.value as any}
                             onSelect={(e) => {
                               field.onChange(e);
                               setIsCalendarOpen(false);
