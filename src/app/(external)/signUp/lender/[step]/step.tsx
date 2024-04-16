@@ -8,7 +8,7 @@ import PreferencesInfo from './preferencesInfo';
 import StepsGuide from '../../stepsGuide';
 import ComplianceInfo from './ComplianceInfo';
 import GoalsInfo from './GoalsInfo';
-import { User } from '@/types/user';
+import { User } from '@/types/user/type';
 import { useUserStore } from '@/stores/userStore';
 import Loader from '@/components/ui/loader';
 
