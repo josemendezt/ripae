@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { CardContent, Card } from '@/components/ui/card';
 import Link from 'next/link';
 import { Suspense, useState } from 'react';
-import { signInUpWithEmail } from './client-actions';
+import { signInUpWithEmail } from '../../../apis/user/client';
 import SuccessEmailSent from './SuccessEmailSent';
 import { Loader2 } from 'lucide-react';
 

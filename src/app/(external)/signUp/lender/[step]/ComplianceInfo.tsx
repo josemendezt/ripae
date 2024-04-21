@@ -26,7 +26,7 @@ import { complianceSchema } from '@/types/user/zodSchema';
 import { z } from 'zod';
 import { useUserStore } from '@/stores/userStore';
 import { SignUpFlow, User } from '@/types/user/type';
-import { updateUserData } from '../../client-actions';
+import { updateUserData } from '../../../../../apis/user/client';
 import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -34,10 +34,10 @@ import { cn } from '@/lib/utils';
 export default function GoalsInfo() {
   const router = useRouter();
 
-  const { user } = useUserStore();
+  const { userStore } = useUserStore();
   const [isLoading, setIsloading] = useState(false);
 
-  const userData = user as User;
+  const userData = userStore as User;
 
   const form = useForm<z.infer<typeof complianceSchema>>({
     resolver: zodResolver(complianceSchema),

@@ -1,7 +1,7 @@
-"use client";
-import * as React from "react";
+'use client';
+import * as React from 'react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -9,9 +9,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -20,26 +20,27 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { Note } from "@/types/note";
-import { Trash2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/select';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Note } from '@/types/note';
+import { Trash2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import {
   Dialog,
   DialogHeader,
   DialogTrigger,
   DialogContent,
   DialogTitle,
-} from "@/components/ui";
+} from '@/components/ui';
 
-import ActionButton from "../requests/actionButton";
-import SuccessMsg from "./successMsg";
+import ActionButton from '../requests/actionButton';
+import SuccessMsg from './successMsg';
 
 export default function NoteCreation() {
   const amounts = [
-    250, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000,
+    250, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500,
+    5000,
   ];
 
   const router = useRouter();
@@ -50,8 +51,8 @@ export default function NoteCreation() {
 
   const generateNotes = (number: number) => {
     const objects = [];
-    const interest = "5% - 9%";
-    const period = "45";
+    const interest = '5% - 9%';
+    const period = '45';
     let idCounter = 1;
 
     for (let value = 250; value <= number; value += 250) {
@@ -70,10 +71,10 @@ export default function NoteCreation() {
 
   const getInterest = (period: string) => {
     switch (period) {
-      case "45":
-        return "5% - 9%";
+      case '45':
+        return '5% - 9%';
       default:
-        return "7% - 11%";
+        return '7% - 11%';
     }
   };
 
@@ -83,8 +84,8 @@ export default function NoteCreation() {
       return [
         {
           value: baseTotal,
-          interest: "5% - 9%",
-          period: "45",
+          interest: '5% - 9%',
+          period: '45',
           id: 1,
           isDeleting: false,
         },
@@ -103,13 +104,16 @@ export default function NoteCreation() {
 
     const newValue = baseTotal / newNumberOfNotes;
 
-    newNotes = Array.from({ length: newNumberOfNotes }, (_, index) => ({
-      value: newValue,
-      interest: getInterest("45"),
-      period: "45",
-      id: index + 1,
-      isDeleting: false,
-    }));
+    newNotes = Array.from(
+      { length: newNumberOfNotes },
+      (_, index) => ({
+        value: newValue,
+        interest: getInterest('45'),
+        period: '45',
+        id: index + 1,
+        isDeleting: false,
+      })
+    );
 
     setNotes(newNotes);
   }
@@ -120,8 +124,8 @@ export default function NoteCreation() {
       return [
         {
           value: baseTotal,
-          interest: "10%",
-          period: "1 month",
+          interest: '10%',
+          period: '1 month',
           id: 1,
         },
       ];
@@ -147,8 +151,8 @@ export default function NoteCreation() {
       length: newNumberOfNotes,
     }).map((_, index) => ({
       value: newValuePerNote,
-      interest: getInterest("45"),
-      period: "45",
+      interest: getInterest('45'),
+      period: '45',
       id: index + 1,
       isDeleting: false,
     }));
@@ -164,7 +168,9 @@ export default function NoteCreation() {
     }
 
     const minAmount = Math.min(...amounts);
-    combinations.push(Array(Math.floor(total / minAmount)).fill(minAmount));
+    combinations.push(
+      Array(Math.floor(total / minAmount)).fill(minAmount)
+    );
 
     for (let parts = 2; parts <= 7; parts++) {
       const avgAmount = Math.floor(total / parts);
@@ -193,17 +199,19 @@ export default function NoteCreation() {
 
     const uniqueCombinations = new Set(combinationStrings);
 
-    const uniqueCombinationsArray = Array.from(uniqueCombinations).map(
-      (combStr) => JSON.parse(combStr)
-    );
+    const uniqueCombinationsArray = Array.from(
+      uniqueCombinations
+    ).map((combStr) => JSON.parse(combStr));
 
-    setNoteOptions(uniqueCombinationsArray.sort((a, b) => a.length - b.length));
+    setNoteOptions(
+      uniqueCombinationsArray.sort((a, b) => a.length - b.length)
+    );
   }
 
   const assignNotes = (newNotes: number[]) => {
     const tempNotes = newNotes.map((n, index) => ({
-      interest: "5% - 9%",
-      period: "45",
+      interest: '5% - 9%',
+      period: '45',
       id: index,
       value: n,
     }));
@@ -251,13 +259,16 @@ export default function NoteCreation() {
         <CardHeader>
           <CardTitle>Create Loan Proposal</CardTitle>
           <CardDescription>
-            Fill the following information to create your loan proposal(s)
+            Fill the following information to create your loan
+            proposal(s)
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="invest">How much would you like to lend?</Label>
+              <Label htmlFor="invest">
+                How much would you like to lend?
+              </Label>
               <Input
                 id="invest"
                 type="number"
@@ -271,7 +282,7 @@ export default function NoteCreation() {
                 }}
               />
               <CardDescription
-                className={cn(!is50Multiple() && "text-red-500")}
+                className={cn(!is50Multiple() && 'text-red-500')}
               >
                 You can only use multiples of 50 between 250 and 2000
               </CardDescription>
@@ -296,9 +307,10 @@ export default function NoteCreation() {
             {noteOptions.length > 0 && (
               <>
                 <CardDescription>
-                  We have the following suggestions to divide your funds in
-                  multiple loans, the lowest they are the safest, but the return
-                  will be smaller. Alternatively, you can customize it using the
+                  We have the following suggestions to divide your
+                  funds in multiple loans, the lowest they are the
+                  safest, but the return will be smaller.
+                  Alternatively, you can customize it using the
                   buttons to Add or Delete loans.
                 </CardDescription>
                 <p className=" font-semibold">Loan Options</p>
@@ -306,9 +318,9 @@ export default function NoteCreation() {
                   {noteOptions.map((opt, index) => (
                     <div
                       className={cn(
-                        "border rounded-full px-6 py-2 cursor-pointer transition duration-300 ease-in-out hover:border-primary hover:border-2",
+                        'border rounded-full px-6 py-2 cursor-pointer transition duration-300 ease-in-out hover:border-primary hover:border-2',
                         opt.length === notes.length &&
-                          "bg-primary text-secondary"
+                          'bg-primary text-secondary'
                       )}
                       key={`${opt}-${index}`}
                       onClick={() => {
@@ -349,9 +361,9 @@ export default function NoteCreation() {
                     <Card
                       key={note.id}
                       className={cn(
-                        "bg-secondary " &&
+                        'bg-secondary ' &&
                           note.isDeleting &&
-                          "bg-secondary transition-transform duration-150 ease-in-out scale-0"
+                          'bg-secondary transition-transform duration-150 ease-in-out scale-0'
                       )}
                     >
                       <div className="flex space-between items-center gap-6 h-[98px] px-4">
@@ -365,21 +377,29 @@ export default function NoteCreation() {
                           <Label>Period (Months)</Label>
                           <Select
                             defaultValue={note.period}
-                            onValueChange={(val) => changePeriod(note.id, val)}
+                            onValueChange={(val) =>
+                              changePeriod(note.id, val)
+                            }
                           >
                             <SelectTrigger className="bg-secondary border-primary">
                               <SelectValue placeholder="Select Period" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="45">45 Days</SelectItem>
+                              <SelectItem value="45">
+                                45 Days
+                              </SelectItem>
 
-                              <SelectItem value="90">90 Days</SelectItem>
+                              <SelectItem value="90">
+                                90 Days
+                              </SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
                         <div>
                           <Label>Interest</Label>
-                          <div className="text-2xl">{note.interest}</div>
+                          <div className="text-2xl">
+                            {note.interest}
+                          </div>
                         </div>
                         {/* {notes.length > 1 && (
                           <div

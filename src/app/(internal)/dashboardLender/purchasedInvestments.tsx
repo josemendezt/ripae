@@ -1,3 +1,7 @@
+import { format } from 'date-fns';
+import { useGetLoansByStatus } from '@/apis/fund/client';
+import ErrorToast from '@/components/ui/ToastHandler';
+import Loader from '@/components/ui/loader';
 import {
   Table,
   TableBody,
@@ -5,54 +9,76 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-
-const invoices = [
-  {
-    invesment: "Unexpected Expenses",
-    takenOn: "N/A",
-    amount: "$500",
-    annualRate: "9%",
-    loanTerm: "45 Days",
-    projectedReturn: "45$",
-    status: "Pending",
-  },
-  {
-    invesment: "Home Improvements/Repairs",
-    takenOn: "05/01/2024",
-    amount: "1000",
-    annualRate: "10%",
-    loanTerm: "90 Days",
-    projectedReturn: "100$",
-    status: "In Progress",
-  },
-];
+} from '@/components/ui/table';
+import { useLoanStore } from '@/stores/loanStore';
+import { useUserStore } from '@/stores/userStore';
+import { LoanStatus } from '@/types/loan/type';
 
 export function PurchasedInvesments() {
+  const { userStore } = useUserStore();
+  const { loanStatus } = useLoanStore();
+  const loansByStatus = useGetLoansByStatus(
+    userStore?.id as string,
+    loanStatus as LoanStatus
+  );
+
+  if (loansByStatus.isLoading) return <Loader />;
+
+  if (loansByStatus.error || !loansByStatus.data)
+    return (
+      <ErrorToast
+        msg="There was a problem to get you loans list"
+        toastClick={loansByStatus.refetch}
+      />
+    );
+
   return (
     <>
+      <h2 className="text-xl mb-1 capitalize">
+        {loanStatus} Loans ({loansByStatus.data.length})
+      </h2>
       <Table className="border">
         <TableHeader className="bg-primary border ">
           <TableRow>
             <TableHead className="text-secondary ">Loan</TableHead>
             <TableHead className="text-secondary">Taken On</TableHead>
             <TableHead className="text-secondary">Amount</TableHead>
-            <TableHead className="text-secondary">Monthly Rate</TableHead>
-            <TableHead className="text-secondary">Loan Term</TableHead>
-            <TableHead className="text-secondary">Projected Return</TableHead>
+            <TableHead className="text-secondary">
+              Monthly Rate
+            </TableHead>
+            <TableHead className="text-secondary">
+              Loan Term
+            </TableHead>
+            <TableHead className="text-secondary">
+              Projected Return
+            </TableHead>
             <TableHead className="text-secondary ">Status</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {invoices.map((invoice, index) => (
+          {loansByStatus.data.map((fund, index) => (
             <TableRow key={index}>
-              <TableCell className="font-medium">{invoice.invesment}</TableCell>
-              <TableCell>{invoice.takenOn}</TableCell>
-              <TableCell>{invoice.amount}</TableCell>
-              <TableCell>{invoice.annualRate}</TableCell>
-              <TableCell>{invoice.loanTerm}</TableCell>
-              <TableCell>{invoice.projectedReturn}</TableCell>
-              <TableCell>{invoice.status}</TableCell>
+              <TableCell className="font-medium">
+                {fund.loan?.reason || 'N/A'}
+              </TableCell>
+              <TableCell>
+                {fund.taken_on
+                  ? format(fund.taken_on, 'yyyy-MM-dd')
+                  : 'Not taken yet'}
+              </TableCell>
+              <TableCell>{fund.amount}</TableCell>
+              <TableCell>
+                {fund.loan?.interest_rate
+                  ? `${fund.loan?.interest_rate}%`
+                  : '5% - 11%'}
+              </TableCell>
+              <TableCell>{fund.loan?.term}</TableCell>
+              <TableCell>
+                {fund.loan?.interest_rate
+                  ? (fund.loan?.interest_rate * fund.amount) / 100
+                  : '5% - 11%'}
+              </TableCell>
+              <TableCell>{fund.loan?.status}</TableCell>
             </TableRow>
           ))}
         </TableBody>

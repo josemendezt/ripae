@@ -36,24 +36,24 @@ export enum CanadianProvinces {
 
 export type User = {
   id: string; // uuid
-  created_at?: Date | string;
-  first_name?: string;
+  created_at: Date | string;
+  first_name: string;
   middle_name?: string;
-  last_name?: string;
-  address?: string;
-  dob?: Date;
+  last_name: string;
+  address: string;
+  dob: Date;
   email: string;
-  role?: string;
-  sin?: string;
-  decrypted_sin?: string;
-  job?: string;
-  province?: string;
-  postal_code?: string;
-  city?: string;
-  job_time?: number | string;
-  income?: number | string;
-  expenses?: number | string;
-  payment_frequency?: PaymentFrequency;
-  signup_flow?: SignUpFlow | null;
-  politically_exposed?: boolean | string;
+  role: string;
+  sin: string;
+  decrypted_sin: string;
+  job: string;
+  province: string;
+  postal_code: string;
+  city: string;
+  job_time: number | string;
+  income: number | string;
+  expenses: number | string;
+  payment_frequency: PaymentFrequency;
+  signup_flow: SignUpFlow | null;
+  politically_exposed: boolean | string;
 };

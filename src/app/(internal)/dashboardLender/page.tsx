@@ -1,13 +1,6 @@
-import { getUserSession } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
 import DashboardLender from './dashboarLender';
 
 async function DashboardLenderPage() {
-  const sessionIsValid = await getUserSession();
-  if (!sessionIsValid) {
-    //  redirect('/');
-  }
-
   return <DashboardLender />;
 }
 

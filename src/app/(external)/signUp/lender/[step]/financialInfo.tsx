@@ -37,7 +37,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useUserStore } from '@/stores/userStore';
 import { z } from 'zod';
-import { updateUserData } from '../../client-actions';
+import { updateUserData } from '../../../../../apis/user/client';
 import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -45,9 +45,9 @@ import { cn } from '@/lib/utils';
 export default function FinancialInfo() {
   const router = useRouter();
   const [isLoading, setIsloading] = useState(false);
-  const { user } = useUserStore();
+  const { userStore } = useUserStore();
 
-  const userData = user as User;
+  const userData = userStore as User;
 
   const form = useForm<z.infer<typeof employmentSchema>>({
     resolver: zodResolver(employmentSchema),

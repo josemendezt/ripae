@@ -14,25 +14,18 @@ import { useUserStore } from '@/stores/userStore';
 import { User } from '@/types/user/type';
 
 export default function AuthHeader({ user }: { user: User }) {
-  const options = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  } as any;
-
-  const { setUser, user: userData } = useUserStore();
+  const { setUserStore, userStore } = useUserStore();
   const name = user?.first_name || 'User';
-  const now = new Date().toLocaleString('en-US', options);
   const userProfile = 'lender';
   const [isNotified, setIsNotified] = useState(false);
 
   const getLinkHeader = 'dashboardLender';
 
   useEffect(() => {
-    if (userData?.id !== user.id) {
-      setUser(user);
+    if (userStore?.id !== user.id) {
+      setUserStore(user);
     }
-  }, [setUser, user, userData?.id]);
+  }, [setUserStore, user, userStore?.id]);
 
   return (
     <header className="flex justify-between bg-secondary border w-full h-16 items-center px-4 md:px-6 pb-4">
@@ -46,8 +39,7 @@ export default function AuthHeader({ user }: { user: User }) {
         />
       </Link>
       <div className="flex items-center space-x-3 text-sm mt-4">
-        <span>{now}</span>
-        <Popover>
+        {/* <Popover>
           <PopoverTrigger onClick={() => setIsNotified(true)}>
             <div className="flex">
               <BellIcon className="text-gray-600" />
@@ -78,21 +70,20 @@ export default function AuthHeader({ user }: { user: User }) {
               </p>
             </div>
           </PopoverContent>
+        </Popover> */}
+
+        <Popover>
+          <PopoverTrigger>
+            <div className="flex">
+              <BellIcon className="text-gray-600" />
+            </div>
+          </PopoverTrigger>
+          <PopoverContent>
+            <p className="text-lg text-semibold">Notifications</p>
+            There are no notifications yet.
+          </PopoverContent>
         </Popover>
-        {/* ) 
-        : (
-          <Popover>
-            <PopoverTrigger>
-              <div className="flex">
-                <BellIcon className="text-gray-600" />
-              </div>
-            </PopoverTrigger>
-            <PopoverContent>
-              <p className="text-lg text-semibold">Notifications</p>
-              There are no notifications yet.
-            </PopoverContent>
-          </Popover>
-        )} */}
+
         <LogoutButton name={name} />
       </div>
     </header>

@@ -20,7 +20,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { canadianProvinces } from './utils';
 import { useEffect, useState } from 'react';
-import { updateUserData } from './client-actions';
+import { updateUserData } from '../../../apis/user/client';
 import { SignUpFlow, User } from '@/types/user/type';
 import { CalendarIcon, Loader2 } from 'lucide-react';
 import {
@@ -50,9 +50,9 @@ export default function PersonalInfo({ link }: { link: string }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
-  const { user } = useUserStore();
+  const { userStore } = useUserStore();
 
-  const userData = user as User;
+  const userData = userStore as User;
 
   const form = useForm<z.infer<typeof personalInfoSchema>>({
     resolver: zodResolver(personalInfoSchema),
@@ -234,41 +234,34 @@ export default function PersonalInfo({ link }: { link: string }) {
               />
             </div>
             <div className="space-y-2">
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name="province"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Province</FormLabel>
-                    <FormControl>
-                      <Select {...field}>
-                        <SelectTrigger id="province">
-                          <SelectValue placeholder="Select a province" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            {Object.keys(canadianProvinces).map(
-                              (province) => (
-                                <SelectItem
-                                  key={province}
-                                  value={province}
-                                >
-                                  {
-                                    canadianProvinces[
-                                      province as keyof typeof canadianProvinces
-                                    ]
-                                  }
-                                </SelectItem>
-                              )
-                            )}
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
+                    <FormControl> */}
+              <Select>
+                <SelectTrigger id="province">
+                  <SelectValue placeholder="Select a province" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.keys(canadianProvinces).map((province) => (
+                    <SelectItem key={province} value={province}>
+                      {
+                        canadianProvinces[
+                          province as keyof typeof canadianProvinces
+                        ]
+                      }
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {/* </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              /> */}
             </div>
             <div className="space-y-2">
               <FormField

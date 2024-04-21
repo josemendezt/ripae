@@ -2,7 +2,7 @@ import React from 'react';
 import Step from './step';
 import { getUserSession } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
-import { getUserDataServer } from '../../server-actions';
+import { getUserDataServer } from '@/apis/user/server';
 import { User } from '@/types/user/type';
 
 async function page() {

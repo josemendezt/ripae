@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthHeader from './auth-header';
 import { createClient } from '@/lib/supabase/server';
-import { getUserDataServer } from '../(external)/signUp/server-actions';
+import { getUserDataServer } from '@/apis/user/server';
 import { User } from '@/types/user/type';
 
 async function AuthHeaderWrapper() {

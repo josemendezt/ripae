@@ -15,13 +15,13 @@ import Loader from '@/components/ui/loader';
 function Step({ user }: { user: User }) {
   const params = useParams<{ step: string }>();
 
-  const { user: userStore, setUser } = useUserStore();
+  const { userStore, setUserStore } = useUserStore();
 
   useEffect(() => {
     if (!userStore) {
-      setUser(user);
+      setUserStore(user);
     }
-  }, [setUser, user, userStore]);
+  }, [setUserStore, user, userStore]);
 
   const steps = {
     personalInfo: 'personal',

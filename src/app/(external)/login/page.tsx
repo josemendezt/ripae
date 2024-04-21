@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator';
 //import { ChromeIcon, LinkedinIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
-import { signInUpWithEmail } from '../signUp/client-actions';
+import { signInUpWithEmail } from '../../../apis/user/client';
 import { Loader2 } from 'lucide-react';
 import SuccessEmailSent from '../signUp/SuccessEmailSent';
 

@@ -3,19 +3,19 @@ import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
 type UserState = {
-  user: User | null;
-  setUser: (user: User) => void;
+  userStore: User | null;
+  setUserStore: (user: User) => void;
 };
 
 export const useUserStore = create<UserState>()(
   devtools(
     persist(
       (set) => ({
-        user: null,
-        setUser: (newUser) =>
+        userStore: null,
+        setUserStore: (newUser) =>
           set((state) => ({
             ...state,
-            user: { ...state.user, ...newUser },
+            userStore: { ...state.userStore, ...newUser },
           })),
       }),
       {

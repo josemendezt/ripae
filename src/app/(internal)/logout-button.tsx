@@ -1,14 +1,14 @@
-"use client";
+'use client';
 import {
   Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/components/ui";
-import { UserIcon } from "lucide-react";
-import React from "react";
-import { signOut } from "../(external)/signUp/server-actions";
+} from '@/components/ui';
+import { UserIcon } from 'lucide-react';
+import React from 'react';
+import { signOut } from '../../apis/user/server';
 
 function LogoutButton({ name }: { name: string }) {
   return (
@@ -24,7 +24,11 @@ function LogoutButton({ name }: { name: string }) {
           }}
         >
           <DropdownMenuLabel className="cursor-pointer">
-            <Button className="w-full" variant="outline" type="submit">
+            <Button
+              className="w-full"
+              variant="outline"
+              type="submit"
+            >
               Log Out
             </Button>
           </DropdownMenuLabel>

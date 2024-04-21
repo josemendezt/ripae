@@ -1,6 +1,6 @@
 'use client';
 import { createClient } from '@/lib/supabase/client';
-import { User } from '../../../types/user/type';
+import { User } from '../../types/user/type';
 
 export async function signInUpWithEmail(
   form: FormData,

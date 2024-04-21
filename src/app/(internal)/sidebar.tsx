@@ -2,10 +2,9 @@
 import { Button } from '@/components/ui';
 import { cn } from '@/lib/utils';
 import {
-  ArrowRightLeft,
   BanknoteIcon,
   ClipboardList,
-  GraduationCap,
+  WandSparkles,
   InfoIcon,
   NotebookTabs,
   ViewIcon,
@@ -42,13 +41,6 @@ function SideBar() {
       icon: <NotebookTabs className=" mr-2" />,
     },
     {
-      id: 3,
-      text: 'Requests',
-      link: '/requests',
-      visible: true,
-      icon: <ClipboardList className=" mr-2" />,
-    },
-    {
       id: 4,
       text: 'Personal Information',
       link: '/personal',
@@ -59,22 +51,29 @@ function SideBar() {
       id: 5,
       text: 'Bank Account',
       link: '/bank',
-      visible: true,
+      visible: false,
       icon: <BanknoteIcon className=" mr-2" />,
+    },
+    {
+      id: 7,
+      text: 'Financial Insights',
+      link: '/financial',
+      visible: false,
+      icon: <WandSparkles className=" mr-2" />,
     },
     {
       id: 6,
       text: 'Transactions',
       link: '/Transaction',
-      visible: true,
+      visible: false,
       icon: <WalletIcon className=" mr-2" />,
     },
     {
-      id: 7,
-      text: 'Financial Insights And Literacy Center',
-      link: '/financial',
-      visible: true,
-      icon: <GraduationCap className=" mr-2 w-12 h-12" />,
+      id: 3,
+      text: 'Requests',
+      link: '/requests',
+      visible: false,
+      icon: <ClipboardList className=" mr-2" />,
     },
   ];
 
@@ -82,22 +81,29 @@ function SideBar() {
     <nav className="bg-secondary h-screen p-4 w-[300px]">
       <div className="flex flex-col items-center">
         <div className="w-full">
-          {menu.map(
-            (element) =>
-              element.visible && (
-                <Link
-                  key={element.id}
-                  className={cn(
-                    'flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg',
-                    element.link === pathname &&
-                      'bg-primary text-white hover:bg-primary transition duration-500 ease-in-out'
-                  )}
-                  href={element.link}
-                >
-                  {element.icon}
-                  {element.text}
-                </Link>
-              )
+          {menu.map((element) =>
+            element.visible ? (
+              <Link
+                key={element.id}
+                className={cn(
+                  'flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg',
+                  element.link === pathname &&
+                    'bg-primary text-white hover:bg-primary transition duration-500 ease-in-out'
+                )}
+                href={element.link}
+              >
+                {element.icon}
+                {element.text}
+              </Link>
+            ) : (
+              <div
+                key={element.id}
+                className="opacity-25 flex items-center px-4 py-2 mb-2 text-gray-700 rounded-lg cursor-default"
+              >
+                {element.icon}
+                {element.text}
+              </div>
+            )
           )}
         </div>
       </div>
