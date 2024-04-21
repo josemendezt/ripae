@@ -234,34 +234,46 @@ export default function PersonalInfo({ link }: { link: string }) {
               />
             </div>
             <div className="space-y-2">
-              {/* <FormField
+              <FormField
                 control={form.control}
                 name="province"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Province</FormLabel>
-                    <FormControl> */}
-              <Select>
-                <SelectTrigger id="province">
-                  <SelectValue placeholder="Select a province" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.keys(canadianProvinces).map((province) => (
-                    <SelectItem key={province} value={province}>
-                      {
-                        canadianProvinces[
-                          province as keyof typeof canadianProvinces
-                        ]
-                      }
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {/* </FormControl>
+                    <FormControl>
+                      <Select
+                        {...field}
+                        onValueChange={(value) =>
+                          field.onChange(value)
+                        }
+                      >
+                        <SelectTrigger id="province">
+                          <SelectValue placeholder="Select a province" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {Object.keys(canadianProvinces).map(
+                              (province) => (
+                                <SelectItem
+                                  key={province}
+                                  value={province}
+                                >
+                                  {
+                                    canadianProvinces[
+                                      province as keyof typeof canadianProvinces
+                                    ]
+                                  }
+                                </SelectItem>
+                              )
+                            )}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
-              /> */}
+              />
             </div>
             <div className="space-y-2">
               <FormField
