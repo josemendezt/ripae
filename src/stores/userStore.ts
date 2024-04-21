@@ -1,6 +1,6 @@
 import { User } from '@/types/user/type';
 import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+import { devtools } from 'zustand/middleware';
 
 type UserState = {
   userStore: User | null;
@@ -8,19 +8,12 @@ type UserState = {
 };
 
 export const useUserStore = create<UserState>()(
-  devtools(
-    persist(
-      (set) => ({
-        userStore: null,
-        setUserStore: (newUser) =>
-          set((state) => ({
-            ...state,
-            userStore: { ...state.userStore, ...newUser },
-          })),
-      }),
-      {
-        name: 'user-storage',
-      }
-    )
-  )
+  devtools((set) => ({
+    userStore: null,
+    setUserStore: (newUser) =>
+      set((state) => ({
+        ...state,
+        userStore: { ...state.userStore, ...newUser },
+      })),
+  }))
 );

@@ -157,6 +157,24 @@ export default function PersonalInfo({ link }: { link: string }) {
             <div className="space-y-2">
               <FormField
                 control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number (optional)</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your phone number"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="space-y-2">
+              <FormField
+                control={form.control}
                 name="dob"
                 render={({ field }) => (
                   <FormItem>

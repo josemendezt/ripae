@@ -1,6 +1,6 @@
 import { LoanStatus } from '@/types/loan/type';
 import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+import { devtools } from 'zustand/middleware';
 
 type UserState = {
   loanStatus: LoanStatus | null;
@@ -8,18 +8,11 @@ type UserState = {
 };
 
 export const useLoanStore = create<UserState>()(
-  devtools(
-    persist(
-      (set) => ({
-        loanStatus: LoanStatus.DRAFT,
-        setLoanStatus: (status) =>
-          set((state) => ({
-            loanStatus: status,
-          })),
-      }),
-      {
-        name: 'loan-storage',
-      }
-    )
-  )
+  devtools((set) => ({
+    loanStatus: LoanStatus.DRAFT,
+    setLoanStatus: (status) =>
+      set((state) => ({
+        loanStatus: status,
+      })),
+  }))
 );

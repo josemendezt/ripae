@@ -25,20 +25,19 @@ async function page() {
       redirect('/error');
     }
 
+    if (userData[0].signup_flow === 'lenderDashboard') {
+      redirect('/dashboardLender');
+    }
     if (userData?.length) {
       if (
         userData[0].signup_flow !== 'lenderDashboard' &&
-        userData[0].signup_flow
-       !== 'borrowerDashboard')
+        userData[0].signup_flow !== 'borrowerDashboard'
+      )
         redirect(getSignUpFlow(userData[0].signup_flow));
     }
   }
 
-  return data.user ? (
-    <LayoutInt>
-      <DashboardLender />
-    </LayoutInt>
-  ) : (
+  return (
     <LayoutExt>
       <Login />
     </LayoutExt>

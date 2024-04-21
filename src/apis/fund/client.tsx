@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/client';
 import { handleError } from '@/lib/utils';
 import { FundLoan, FundLoanDashboard } from '@/types/fund/type';
 import { LoanStatus } from '@/types/loan/type';
+import { Note } from '@/types/note';
 
 import { useQuery } from '@tanstack/react-query';
 
@@ -14,7 +15,7 @@ export async function getUserTotalFundLoans(userId: string) {
     }
   );
 
-  if (error || !data?.length)
+  if (error)
     return handleError(
       data,
       error,
@@ -43,14 +44,19 @@ export const getFundsDraft = async (userId: string) => {
     .eq('lender_id', userId)
     .is('loan_id', null);
 
-  if (error || !data?.length) {
-    return null;
+  if (error) {
+    return handleError(
+      data,
+      error,
+      'We could not get your drafts info, please try again'
+    );
   }
 
   const formattedData = data.map((fund) => ({
     ...fund,
     loan: null,
   }));
+
   return formattedData as FundLoan[];
 };
 
@@ -125,3 +131,24 @@ export const useGetLoansByStatus = (
 
   return res;
 };
+
+export async function insertFunds(notes: Note[], userId: string) {
+  const supabase = createClient();
+
+  const newFunds = notes.map((fund) => ({
+    amount: fund.value,
+    lender_id: userId,
+  }));
+
+  const { data, error } = await supabase
+    .from('funds')
+    .insert(newFunds);
+  if (error) {
+    return handleError(
+      data,
+      error,
+      'We could not create your loans, please try again'
+    );
+  }
+  return data;
+}

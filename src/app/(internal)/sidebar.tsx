@@ -78,7 +78,7 @@ function SideBar() {
   ];
 
   return (
-    <nav className="bg-secondary h-screen p-4 w-[300px]">
+    <nav className="bg-secondary h-screen p-4 w-[300px] max-md:w-24 max-md:p-0">
       <div className="flex flex-col items-center">
         <div className="w-full">
           {menu.map((element) =>
@@ -86,19 +86,19 @@ function SideBar() {
               <Link
                 key={element.id}
                 className={cn(
-                  'flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg',
+                  'flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg max-md:flex-col max-md:text-xs text-center',
                   element.link === pathname &&
                     'bg-primary text-white hover:bg-primary transition duration-500 ease-in-out'
                 )}
                 href={element.link}
               >
-                {element.icon}
-                {element.text}
+                <div>{element.icon}</div>
+                <div>{element.text}</div>
               </Link>
             ) : (
               <div
                 key={element.id}
-                className="opacity-25 flex items-center px-4 py-2 mb-2 text-gray-700 rounded-lg cursor-default"
+                className="opacity-25 flex items-center px-4 py-2 mb-2 text-gray-700 rounded-lg cursor-default max-md:flex-col  max-md:text-xs text-center"
               >
                 {element.icon}
                 {element.text}

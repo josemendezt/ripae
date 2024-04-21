@@ -13,6 +13,8 @@ import {
 import { useLoanStore } from '@/stores/loanStore';
 import { useUserStore } from '@/stores/userStore';
 import { LoanStatus } from '@/types/loan/type';
+import { Blocks, Frown } from 'lucide-react';
+import { Card, CardContent, CardDescription } from '@/components/ui';
 
 export function PurchasedInvesments() {
   const { userStore } = useUserStore();
@@ -32,7 +34,7 @@ export function PurchasedInvesments() {
       />
     );
 
-  return (
+  return loansByStatus.data.length > 0 ? (
     <>
       <h2 className="text-xl mb-1 capitalize">
         {loanStatus} Loans ({loansByStatus.data.length})
@@ -84,5 +86,24 @@ export function PurchasedInvesments() {
         </TableBody>
       </Table>
     </>
+  ) : (
+    <Card>
+      <CardContent className="flex flex-col justify-center items-center">
+        <Blocks className="h-80 w-80  text-primary" />
+        <h2 className="text-2xl mb-1 capitalize ">
+          You don't have {loanStatus} Loans yet...
+        </h2>
+        {loanStatus === LoanStatus.DRAFT ? (
+          <CardDescription className="text-md">
+            Press the button that says "create a loan proposal" to
+            start creating drafts
+          </CardDescription>
+        ) : (
+          <CardDescription className="text-md">
+            We will notify you when this options is avaiable
+          </CardDescription>
+        )}
+      </CardContent>
+    </Card>
   );
 }

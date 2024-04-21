@@ -39,6 +39,7 @@ export type User = {
   created_at: Date | string;
   first_name: string;
   middle_name?: string;
+  phone?: string;
   last_name: string;
   address: string;
   dob: Date;

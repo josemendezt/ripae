@@ -46,7 +46,7 @@ export default function InvestmentInfo() {
         return [
           {
             label: 'Total to loan',
-            value: userFunds.total_amount_funds_projected || 5,
+            value: userFunds.total_amount_funds_projected || 0,
           },
           {
             label: 'Projected Return (Range)',
@@ -72,7 +72,7 @@ export default function InvestmentInfo() {
         return [
           {
             label: 'Total loan',
-            value: userFunds.total_amount_paid_loans,
+            value: userFunds.total_amount_paid_loans || 0,
           },
           {
             label: 'Total Return',
@@ -83,11 +83,11 @@ export default function InvestmentInfo() {
           },
           {
             label: 'Earned Interest',
-            value: userFunds.average_interest_paid,
+            value: userFunds.average_interest_paid || 0,
           },
           {
             label: 'Current loans',
-            value: userFunds.total_amount_active_loans,
+            value: userFunds.total_amount_active_loans || 0,
           },
           {
             label: 'Projected Returns',
@@ -114,7 +114,7 @@ export default function InvestmentInfo() {
         {getDashboardData()?.map((data, index) => (
           <div
             key={index}
-            className="w-[32.5%] h-32 bg-secondary  rounded flex flex-col justify-center items-center "
+            className="w-[32.5%] h-32 bg-secondary  rounded flex flex-col justify-center items-center max-md:w-full"
           >
             <div className="text-md">{data.label}</div>
             <div className="text-3xl font-bold">{data.value}</div>
