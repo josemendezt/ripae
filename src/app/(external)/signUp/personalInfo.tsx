@@ -160,7 +160,7 @@ export default function PersonalInfo({ link }: { link: string }) {
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone Number (optional)</FormLabel>
+                    <FormLabel>Phone Number</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Enter your phone number"

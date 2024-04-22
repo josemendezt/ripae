@@ -23,14 +23,15 @@ export default function Login() {
     setIsLoading(true);
 
     const loggedData = await signInUpWithEmail(formData, false);
-
+    console.log('logD', loggedData);
     if (loggedData.error) {
       setError(
         'Something went wrong, please verify this user is registered'
       );
+    } else {
+      setLinkWasSent(true);
     }
 
-    setLinkWasSent(true);
     setIsLoading(false);
   };
 

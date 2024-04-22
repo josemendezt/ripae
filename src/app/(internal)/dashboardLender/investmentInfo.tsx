@@ -83,7 +83,7 @@ export default function InvestmentInfo() {
           },
           {
             label: 'Earned Interest',
-            value: userFunds.average_interest_paid || 0,
+            value: userFunds.average_interest_paid?.toFixed(2) || 0,
           },
           {
             label: 'Current loans',
@@ -98,11 +98,11 @@ export default function InvestmentInfo() {
           },
           {
             label: 'Blended Rate',
-            value: `${
+            value: `${Number(
               (userFunds.average_interest_paid +
                 userFunds.average_interest_active) /
-              2
-            }%`,
+                2
+            ).toFixed(2)}%`,
           },
         ];
     }

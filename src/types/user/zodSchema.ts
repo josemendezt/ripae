@@ -45,7 +45,9 @@ export const personalInfoSchema = z.object({
     message: 'Please type your first name',
   }),
   middle_name: z.string().optional(),
-  phone: z.string().optional(),
+  phone: z.string().min(6, {
+    message: 'Please type a valid phone number',
+  }),
   last_name: z.string().min(1, {
     message: 'Please type your last name',
   }),

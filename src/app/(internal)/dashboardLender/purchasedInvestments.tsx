@@ -19,6 +19,8 @@ import { Card, CardContent, CardDescription } from '@/components/ui';
 export function PurchasedInvesments() {
   const { userStore } = useUserStore();
   const { loanStatus } = useLoanStore();
+  const minInterest = 0.05;
+  const maxInterest = 0.11;
   const loansByStatus = useGetLoansByStatus(
     userStore?.id as string,
     loanStatus as LoanStatus
@@ -74,13 +76,19 @@ export function PurchasedInvesments() {
                   ? `${fund.loan?.interest_rate}%`
                   : '5% - 11%'}
               </TableCell>
-              <TableCell>{fund.loan?.term}</TableCell>
+              <TableCell>
+                {fund.loan?.term || '45 - 90 Days'}
+              </TableCell>
               <TableCell>
                 {fund.loan?.interest_rate
                   ? (fund.loan?.interest_rate * fund.amount) / 100
-                  : '5% - 11%'}
+                  : `${fund.amount * minInterest} - ${
+                      fund.amount * maxInterest
+                    }`}
               </TableCell>
-              <TableCell>{fund.loan?.status}</TableCell>
+              <TableCell className="capitalize">
+                {fund.loan?.status || loanStatus}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
