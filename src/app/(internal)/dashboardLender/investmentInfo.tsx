@@ -6,13 +6,7 @@ import { useLoanStore } from '@/stores/loanStore';
 import { useUserStore } from '@/stores/userStore';
 import { FundLoanDashboard } from '@/types/fund/type';
 import { LoanStatus } from '@/types/loan/type';
-import { ToastAction } from '@radix-ui/react-toast';
 import { Suspense } from 'react';
-
-type LoanInfo = {
-  label: string;
-  value: number;
-}[];
 
 export default function InvestmentInfo() {
   const { userStore } = useUserStore();
