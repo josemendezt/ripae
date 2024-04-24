@@ -158,7 +158,7 @@ export default function NoteCreation() {
                     }}
                   >
                     <SelectTrigger id="divisor">
-                      <SelectValue placeholder="Divide funds by..." />
+                      <SelectValue placeholder="Split funds by..." />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="250">
@@ -182,9 +182,12 @@ export default function NoteCreation() {
                 </>
               )}
             </div>
-            <div className="flex gap-8 mt-0">
-              <Button onClick={addNotes}>Add Loan +</Button>
-            </div>
+            {selectedAmount > 0 && (
+              <div className="flex gap-8 mt-0">
+                <Button onClick={addNotes}>Add Loan +</Button>
+              </div>
+            )}
+
             {notes.length > 0 && (
               <div className="flex flex-col  space-y-1.5">
                 <div className="flex flex-wrap gap-4  space-around items-center">

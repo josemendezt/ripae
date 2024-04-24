@@ -31,6 +31,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  useToast,
 } from '@/components/ui';
 import { employmentSchema } from '@/types/user/zodSchema';
 import { useForm } from 'react-hook-form';
@@ -42,10 +43,17 @@ import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export default function FinancialInfo() {
+export default function FinancialInfo({
+  link,
+  editMode,
+}: {
+  link?: string;
+  editMode?: boolean;
+}) {
   const router = useRouter();
-  const [isLoading, setIsloading] = useState(false);
-  const { userStore } = useUserStore();
+  const [isLoading, setIsLoading] = useState(false);
+  const { userStore, setUserStore } = useUserStore();
+  const { toast } = useToast();
 
   const userData = userStore as User;
 
@@ -71,27 +79,48 @@ export default function FinancialInfo() {
   const handleSubmit = async (
     values: z.infer<typeof employmentSchema>
   ) => {
-    setIsloading(true);
+    setIsLoading(true);
     const updatedData = {
       ...values,
-      signup_flow: 'lenderCompliance' as SignUpFlow,
-    } as User;
+    } as Partial<User>;
+
+    if (!editMode) {
+      updatedData.signup_flow = 'lenderCompliance' as SignUpFlow;
+    }
+
     await updateUserData(updatedData, userData.email);
-    router.push('/signUp/lender/compliance');
+
+    setUserStore({
+      ...userData,
+      ...updatedData,
+    });
+
+    if (link) router.push(link);
+
+    if (editMode) {
+      toast({
+        description: 'Your personal info was updated successfully!',
+        className: 'bg-green-300 text-primary font-semibold',
+        duration: 2000,
+      });
+    }
+
+    setIsLoading(false);
   };
 
   return (
     <Card
       className={cn(
-        'w-full max-w-2xl',
-        isLoading && 'pointer-events-none'
+        'w-full',
+        isLoading && 'pointer-events-none',
+        !editMode && 'max-w-2xl'
       )}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <CardHeader>
             <CardTitle>
-              Step 2: Employment and financial Information
+              Employment and financial Information
             </CardTitle>
             <CardDescription>
               Please fill in the fields below with your financial and
@@ -174,12 +203,10 @@ export default function FinancialInfo() {
                 name="expenses"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      Monthly Obligations (Amount)
-                    </FormLabel>
+                    <FormLabel>Monthly Expenses (Amount)</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter the amount for your monthly obligations such as rent, debts, etc."
+                        placeholder="Enter the amount for your monthly expenses such as rent, debts, etc."
                         type="number"
                         {...field}
                       />
@@ -215,11 +242,12 @@ export default function FinancialInfo() {
                   <FormItem>
                     <FormLabel>
                       How much time do you have in your current job?
-                      (In months)
+                      (Number of Months)
                     </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Enter your time in your current"
+                        type="number"
                         {...field}
                       />
                     </FormControl>
@@ -230,27 +258,42 @@ export default function FinancialInfo() {
             </div>
           </CardContent>
           <CardFooter className="mt-16">
-            <Button
-              variant="outline"
-              className="w-32"
-              onClick={(e) => {
-                e.preventDefault();
-                router.replace('/signUp/lender/personal');
-              }}
-              disabled={isLoading}
-            >
-              Back
-            </Button>
-            <Button
-              disabled={isLoading}
-              className="ml-auto w-32"
-              type="submit"
-            >
-              Next{' '}
-              {isLoading && (
-                <Loader2 className="animate-spin  ml-2" />
-              )}
-            </Button>
+            {editMode ? (
+              <Button
+                disabled={isLoading}
+                className="ml-auto w-full"
+                type="submit"
+              >
+                Save
+                {isLoading && (
+                  <Loader2 className="animate-spin  ml-2" />
+                )}
+              </Button>
+            ) : (
+              <>
+                <Button
+                  variant="outline"
+                  className="w-32"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.replace('/signUp/lender/personal');
+                  }}
+                  disabled={isLoading}
+                >
+                  Back
+                </Button>
+                <Button
+                  disabled={isLoading}
+                  className="ml-auto w-32"
+                  type="submit"
+                >
+                  Next{' '}
+                  {isLoading && (
+                    <Loader2 className="animate-spin  ml-2" />
+                  )}
+                </Button>
+              </>
+            )}
           </CardFooter>
         </form>
       </Form>

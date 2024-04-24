@@ -35,11 +35,11 @@ function Step({ user }: { user: User }) {
       case steps.personalInfo:
         return <PersonalInfo link="/signUp/lender/employment" />;
       case steps.financialInfo:
-        return <FinancialInfo />;
+        return <FinancialInfo link="/signUp/lender/compliance" />;
       //   case steps.preferencesInfo:
       //     return <PreferencesInfo />;
       default:
-        return <ComplianceInfo />;
+        return <ComplianceInfo link="/dashboardLender" />;
     }
   };
 

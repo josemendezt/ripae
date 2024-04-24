@@ -1,3 +1,4 @@
+'use client'
 import {
   CardTitle,
   CardDescription,
@@ -42,15 +43,23 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  useToast,
 } from '@/components/ui';
 import { cn } from '@/lib/utils';
 
-export default function PersonalInfo({ link }: { link: string }) {
+export default function PersonalInfo({
+  link,
+  editMode,
+}: {
+  link?: string;
+  editMode?: boolean;
+}) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const { toast } = useToast();
 
-  const { userStore } = useUserStore();
+  const { userStore, setUserStore } = useUserStore();
 
   const userData = userStore as User;
 
@@ -60,6 +69,7 @@ export default function PersonalInfo({ link }: { link: string }) {
       first_name: userData.first_name || '',
       middle_name: userData.middle_name || '',
       last_name: userData.last_name || '',
+      phone: userData.phone || '',
       address: userData.address || '',
       dob: userData.dob || undefined,
       province: userData.province || '',
@@ -73,26 +83,45 @@ export default function PersonalInfo({ link }: { link: string }) {
     values: z.infer<typeof personalInfoSchema>
   ) => {
     setIsLoading(true);
+
     const updatedData = {
       ...values,
       dob: values.dob,
-      signup_flow: 'lenderFinancial' as SignUpFlow,
-    } as User;
+    } as Partial<User>;
+
+    if (!editMode) {
+      updatedData.signup_flow = 'lenderFinancial' as SignUpFlow;
+    }
+
     await updateUserData(updatedData, userData.email);
-    router.push(link);
+    setUserStore({
+      ...userData,
+      ...updatedData,
+    });
+    if (link) router.push(link);
+
+    if (editMode) {
+      toast({
+        description: 'Your personal info was updated successfully!',
+        className: 'bg-green-300 text-primary font-semibold',
+        duration: 2000,
+      });
+    }
+    setIsLoading(false);
   };
 
   return (
     <Card
       className={cn(
-        'w-full max-w-2xl',
-        isLoading && 'pointer-events-none'
+        'w-full',
+        isLoading && 'pointer-events-none',
+        !editMode && 'max-w-2xl'
       )}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(submitPersonalInfo)}>
           <CardHeader>
-            <CardTitle>Step 1: Personal Information</CardTitle>
+            <CardTitle>Personal Information</CardTitle>
             <CardDescription>
               Please fill in the fields below with your information.
             </CardDescription>
@@ -356,7 +385,7 @@ export default function PersonalInfo({ link }: { link: string }) {
               disabled={isLoading}
               className="mx-auto w-full"
             >
-              Next{' '}
+              {link ? 'Next ' : 'Save '}
               {isLoading && (
                 <Loader2 className="animate-spin  ml-2" />
               )}

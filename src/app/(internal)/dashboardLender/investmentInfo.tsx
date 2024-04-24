@@ -108,7 +108,7 @@ export default function InvestmentInfo() {
         {getDashboardData()?.map((data, index) => (
           <div
             key={index}
-            className="w-[32.5%] h-32 bg-secondary  rounded flex flex-col justify-center items-center max-md:w-full"
+            className="w-[31%] h-32 bg-secondary  rounded flex flex-col justify-center items-center max-md:w-full"
           >
             <div className="text-md">{data.label}</div>
             <div className="text-3xl font-bold">{data.value}</div>

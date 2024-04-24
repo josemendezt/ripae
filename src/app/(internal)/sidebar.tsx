@@ -43,7 +43,7 @@ function SideBar() {
     {
       id: 4,
       text: 'Personal Information',
-      link: '/personal',
+      link: '/personalInfo?tab=personal',
       visible: true,
       icon: <InfoIcon className=" mr-2" />,
     },

@@ -18,6 +18,7 @@ import {
   FormLabel,
   FormControl,
   FormMessage,
+  useToast,
 } from '@/components/ui/';
 
 import { useForm } from 'react-hook-form';
@@ -31,11 +32,17 @@ import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export default function GoalsInfo() {
+export default function GoalsInfo({
+  link,
+  editMode,
+}: {
+  link?: string;
+  editMode: boolean;
+}) {
   const router = useRouter();
-
-  const { userStore } = useUserStore();
-  const [isLoading, setIsloading] = useState(false);
+  const { toast } = useToast();
+  const { userStore, setUserStore } = useUserStore();
+  const [isLoading, setIsLoading] = useState(false);
 
   const userData = userStore as User;
 
@@ -49,27 +56,46 @@ export default function GoalsInfo() {
   const handleSubmit = async (
     values: z.infer<typeof complianceSchema>
   ) => {
-    setIsloading(true);
+    setIsLoading(true);
+
     const updatedData = {
+      ...values,
       politically_exposed: values.politically_exposed === 'true',
-      signup_flow: 'lenderDashboard' as SignUpFlow,
-    } as User;
+    } as Partial<User>;
+
+    if (!editMode) {
+      updatedData.signup_flow = 'lenderDashboard' as SignUpFlow;
+    }
 
     await updateUserData(updatedData, userData.email);
-    router.push('/dashboardLender');
+    setUserStore({
+      ...userData,
+      ...updatedData,
+    });
+    if (link) router.push(link);
+
+    if (editMode) {
+      toast({
+        description: 'Your personal info was updated successfully!',
+        className: 'bg-green-300 text-primary font-semibold',
+        duration: 2000,
+      });
+      setIsLoading(false);
+    }
   };
 
   return (
     <Card
       className={cn(
-        'w-full max-w-2xl',
-        isLoading && 'pointer-events-none'
+        'w-full',
+        isLoading && 'pointer-events-none',
+        !editMode && 'max-w-2xl'
       )}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <CardHeader>
-            <CardTitle>Step 5: Compliance and Regulations</CardTitle>
+            <CardTitle>Compliance and Regulations</CardTitle>
             <CardDescription>
               Please fill in the fields below with your compliance and
               regulations details.
@@ -109,27 +135,42 @@ export default function GoalsInfo() {
             </div>
           </CardContent>
           <CardFooter className="mt-32">
-            <Button
-              variant="outline"
-              className="w-32"
-              disabled={isLoading}
-              onClick={(e) => {
-                e.preventDefault();
-                router.replace('/signUp/lender/employment');
-              }}
-            >
-              Back
-            </Button>
-            <Button
-              className="ml-auto w-32"
-              type="submit"
-              disabled={isLoading}
-            >
-              Next{' '}
-              {isLoading && (
-                <Loader2 className="animate-spin  ml-2" />
-              )}
-            </Button>
+            {editMode ? (
+              <Button
+                className="ml-auto w-full"
+                type="submit"
+                disabled={isLoading}
+              >
+                Save
+                {isLoading && (
+                  <Loader2 className="animate-spin  ml-2" />
+                )}
+              </Button>
+            ) : (
+              <>
+                <Button
+                  variant="outline"
+                  className="w-32"
+                  disabled={isLoading}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    router.replace('/signUp/lender/employment');
+                  }}
+                >
+                  Back
+                </Button>
+                <Button
+                  className="ml-auto w-32"
+                  type="submit"
+                  disabled={isLoading}
+                >
+                  Save
+                  {isLoading && (
+                    <Loader2 className="animate-spin  ml-2" />
+                  )}
+                </Button>
+              </>
+            )}
           </CardFooter>
         </form>
       </Form>
