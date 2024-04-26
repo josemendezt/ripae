@@ -42,10 +42,6 @@ revoke truncate on table "public"."funds" from "service_role";
 
 revoke update on table "public"."funds" from "service_role";
 
-alter table "public"."funds" drop constraint "public_funds_investor_id_fkey";
-
-alter table "public"."funds" drop constraint "public_funds_loan_id_fkey";
-
 drop function if exists "public"."calculate_funds_loans"(user_id uuid);
 
 drop function if exists "public"."sum_funds_amount"(user_id uuid);
@@ -94,10 +90,6 @@ alter table "public"."lender" validate constraint "public_funds_loan_id_fkey";
 alter table "public"."lender" add constraint "public_lender_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE not valid;
 
 alter table "public"."lender" validate constraint "public_lender_user_id_fkey";
-
-alter table "public"."loans" add constraint "public_loans_borrower_id_fkey" FOREIGN KEY (borrower_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE not valid;
-
-alter table "public"."loans" validate constraint "public_loans_borrower_id_fkey";
 
 grant delete on table "public"."lender" to "anon";
 
