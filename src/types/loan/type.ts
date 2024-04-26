@@ -6,7 +6,7 @@ export enum LoanStatus {
   ACTIVE = 'active',
   DELAYED = 'delayed',
   PAID = 'paid',
-  DEFAULT = 'default',
+  WRITE_OFF = 'write_off',
 }
 
 export type Loan = {

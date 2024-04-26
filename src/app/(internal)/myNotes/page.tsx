@@ -1,38 +1,33 @@
-"use client";
-import React, { useState } from "react";
-import { PurchasedInvesments } from "../dashboardLender/purchasedInvestments";
-import { Button } from "@/components/ui";
-import { NotebookPen } from "lucide-react";
-import Link from "next/link";
-import PendingNotes from "./pendingNotes";
+'use client';
+import React, { useState } from 'react';
+import { PurchasedInvesments } from '../dashboardLender/purchasedInvestments';
+import { Button, Input } from '@/components/ui';
+import { NotebookPen } from 'lucide-react';
+import Link from 'next/link';
+import { useDebounce } from '@/lib/utils';
 
 function MyNotes() {
-  const [noteStatus, setNoteStatus] = useState("pending");
-
-  const changeNoteStatus = (val: string) => {
-    setNoteStatus(val);
-  };
+  const [search, setSearch] = useState('');
+  const debouncedSearchTerm = useDebounce(search, 250);
 
   return (
     <div className="flex justify-center w-full">
       <div className="w-11/12 mt-8">
-        <h1 className="text-3xl font-semibold mb-4">
-          My Loans
+        <div className="flex justify-between">
+          <h1 className="text-3xl font-semibold mb-4">My Loans</h1>
           <Link href="/noteCreation">
-            <Button className="ml-4 p-4 text-secondary text-lg  w-60 h-12">
+            <Button className="p-4 text-secondary text-lg  w-60 h-12">
               <NotebookPen className="text-secondary mr-2" />
               Create a loan proposal
             </Button>
           </Link>
-        </h1>
-        {(noteStatus === "pending" || noteStatus === "approved") && (
-          <PendingNotes
-            noteStatus={noteStatus}
-            changeNoteStatus={changeNoteStatus}
-          />
-        )}
-
-        <PurchasedInvesments />
+        </div>
+        <Input
+          className="mt-8 my-4"
+          placeholder="Search by amount, interest rate, projected return or status"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <PurchasedInvesments filter={debouncedSearchTerm} />
       </div>
     </div>
   );

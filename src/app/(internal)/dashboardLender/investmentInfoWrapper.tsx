@@ -21,7 +21,7 @@ const InvestmentInfoWrapper = () => {
 
   return (
     <section className="w-[95%] ">
-      <h2 className="text-xl mb-1">Loan Status</h2>
+      {/* <h2 className="text-xl mb-1">Loan Status</h2>
       <div className="flex gap-4 ">
         <div
           className={cn(
@@ -43,7 +43,7 @@ const InvestmentInfoWrapper = () => {
         >
           {LoanStatus.ACTIVE}
         </div>
-      </div>
+      </div> */}
       <InvestmentInfo />
       <div className=" mt-4">
         <PurchasedInvesments />

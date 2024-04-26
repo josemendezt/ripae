@@ -47,7 +47,7 @@ const LoanCard = React.memo(({ note }: { note: Note }) => {
           <div className="flex justify-between">
             <div>
               <Label className="font-semibold">Period</Label>
-              <div className="text-lg">45 - 90 Days</div>
+              <div className="text-lg">90 Days</div>
             </div>
             <div>
               <Label className="font-semibold">Interest</Label>

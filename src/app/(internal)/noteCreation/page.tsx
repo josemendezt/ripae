@@ -153,6 +153,7 @@ export default function NoteCreation() {
                 <>
                   <Label htmlFor="divisor">Split your funds</Label>
                   <Select
+                    value={divideBy.toString()}
                     onValueChange={(val) => {
                       setDivideBy(Number(val));
                     }}

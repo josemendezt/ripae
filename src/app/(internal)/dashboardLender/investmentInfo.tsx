@@ -1,10 +1,10 @@
-import { useGetUserTotalFundLoans } from '@/apis/fund/client';
+import { useGetUserTotalFundLoans } from '@/apis/lender/client';
 import { useToast } from '@/components/ui';
 import ErrorToast from '@/components/ui/ToastHandler';
 import Loader from '@/components/ui/loader';
 import { useLoanStore } from '@/stores/loanStore';
 import { useUserStore } from '@/stores/userStore';
-import { FundLoanDashboard } from '@/types/fund/type';
+import { FundLoanDashboard } from '@/types/lender/type';
 import { LoanStatus } from '@/types/loan/type';
 import { Suspense } from 'react';
 
@@ -57,7 +57,7 @@ export default function InvestmentInfo() {
         ];
       // Set other status properly later
       case LoanStatus.ACTIVE:
-      // case LoanStatus.DEFAULT:
+      // case LoanStatus.WRITE_OFF:
       // case LoanStatus.DELAYED:
       // case LoanStatus.ARCHIVED:
 

@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/client';
 import { handleError } from '@/lib/utils';
-import { FundLoan, FundLoanDashboard } from '@/types/fund/type';
+import { FundLoan, FundLoanDashboard } from '@/types/lender/type';
 import { LoanStatus } from '@/types/loan/type';
 import { Note } from '@/types/note';
 
@@ -8,12 +8,10 @@ import { useQuery } from '@tanstack/react-query';
 
 export async function getUserTotalFundLoans(userId: string) {
   const supabase = createClient();
-  const { data, error } = await supabase.rpc(
-    'calculate_funds_loans',
-    {
-      user_id: userId,
-    }
-  );
+  const { data, error } = await supabase
+    .from('lender')
+    .select('id, user_id, amount')
+    .eq('user_id', userId);
 
   if (error)
     return handleError(

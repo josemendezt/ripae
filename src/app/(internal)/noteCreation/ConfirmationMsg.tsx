@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from '@/components/ui';
 import React, { useState } from 'react';
-import { insertFunds } from '@/apis/fund/client';
+import { insertFunds } from '@/apis/lender/client';
 import { useNoteStore } from '@/stores/noteStore';
 import { useUserStore } from '@/stores/userStore';
 
