@@ -307,9 +307,6 @@ ALTER TABLE ONLY "public"."funds"
 ALTER TABLE ONLY "public"."funds"
     ADD CONSTRAINT "public_funds_loan_id_fkey" FOREIGN KEY ("loan_id") REFERENCES "public"."loans"("id") ON UPDATE CASCADE ON DELETE CASCADE;
 
-ALTER TABLE ONLY "public"."loans"
-    ADD CONSTRAINT "public_loans_borrower_id_fkey" FOREIGN KEY ("borrower_id") REFERENCES "public"."funds"("id") ON UPDATE CASCADE ON DELETE CASCADE;
-
 CREATE POLICY "Enable ALL access for authenticated users (Review later)" ON "public"."funds" TO "authenticated" USING (true);
 
 CREATE POLICY "Enable ALL access for authenticated users (review later)" ON "public"."loans" TO "authenticated" USING (true);
