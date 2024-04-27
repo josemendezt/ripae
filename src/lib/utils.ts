@@ -36,7 +36,7 @@ export const getStatutsColor = (status?: LoanStatus) => {
   }
 };
 
-export function useDebounce(value: string, delay: number) {
+export function useDebounce(value: any, delay: number) {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {

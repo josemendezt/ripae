@@ -10,8 +10,8 @@ type UserState = {
 export const useUserStore = create<UserState>()(
   devtools((set) => ({
     userStore: null,
-    setUserStore: (newUser) =>
-      set((state) => ({
+    setUserStore: (newUser: User) =>
+      set((state: UserState) => ({
         ...state,
         userStore: { ...state.userStore, ...newUser },
       })),

@@ -12,43 +12,52 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { cn } from '@/lib/utils';
-import {
-  Dialog,
-  DialogHeader,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-} from '@/components/ui';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { cn, useDebounce } from '@/lib/utils';
 
-import ActionButton from '../requests/actionButton';
-import ConfirmationMsg from './ConfirmationMsg';
-import LoanCard from './loanCard';
-import { useNoteStore } from '@/stores/noteStore';
+import LoanChart from './LoanChart';
+import { Loader2 } from 'lucide-react';
+import { insertFunds } from '@/apis/lender/client';
+import { useUserStore } from '@/stores/userStore';
+import { useToast } from '@/components/ui';
 
 export default function NoteCreation() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const funds = searchParams.get('funds') as string;
+  const [selectedAmount, setSelectedAmount] = useState<
+    number | undefined
+  >(funds ? Number(funds) : undefined);
+  const debouncedAmount = useDebounce(selectedAmount, 250);
+  const [maxLoan, setMaxLoan] = useState<number>(250);
+  const [isLoading, setIsLoading] = useState(false);
+  const { userStore } = useUserStore();
+  const { toast } = useToast();
 
-  const [selectedAmount, setSelectedAmount] = useState<number>(0);
-  const [divideBy, setDivideBy] = useState<number>(0);
-  const { notes, addNote, setNotes } = useNoteStore();
+  const min = 5;
+  const max = 8.75;
 
-  function addNotes() {
-    addNote({
-      id: notes.length + 1,
-      value: divideBy || 250,
-      isDeleting: false,
-    });
-  }
+  const InsertData = async () => {
+    if (userStore) {
+      setIsLoading(true);
+      const data = await insertFunds(
+        selectedAmount,
+        maxLoan,
+        userStore.id
+      );
+
+      if (data) {
+        toast({
+          description: 'Your funds data was updated successfuly!',
+          className: 'bg-green-300 text-primary font-semibold',
+          duration: 2000,
+        });
+        router.push('/dashboardLender');
+      }
+      setIsLoading(false);
+    }
+  };
 
   const is50Multiple = () => {
     //not value selected yet
@@ -61,69 +70,34 @@ export default function NoteCreation() {
     return true;
   };
 
+  const getSuggestedAmount = () => {
+    let max: number = 0;
+    if (selectedAmount < 500) {
+      max = selectedAmount;
+    } else if (selectedAmount < 1000) {
+      max = 250;
+    } else if (selectedAmount < 2000) {
+      max = 500;
+    } else if (selectedAmount < 4000) {
+      max = 1000;
+    } else {
+      max = 2000;
+    }
+
+    return max;
+  };
+
   useEffect(() => {
-    setNotes([]);
-    function divideAmount() {
-      if (selectedAmount && divideBy) {
-        const fullParts = Math.floor(selectedAmount / divideBy);
-
-        const remainder = selectedAmount % divideBy;
-
-        const result = Array.from({ length: fullParts }, (_, i) => ({
-          id: i + 1,
-          value: divideBy,
-          isDeleting: false,
-        }));
-
-        if (remainder !== 0 && remainder >= 250) {
-          result.push({
-            id: fullParts + 1,
-            value: remainder,
-            isDeleting: false,
-          });
-        }
-
-        setNotes(result);
-      }
-    }
-    divideAmount();
-  }, [selectedAmount, divideBy]);
-
-  const totalNotes = notes.reduce(
-    (sum, current) => sum + current.value,
-    0
-  );
-
-  const notesHasInvalidAmount = () => {
-    for (const obj of notes) {
-      if (
-        obj.value < 250 ||
-        obj.value > 2000 ||
-        obj.value % 50 !== 0
-      ) {
-        return true;
-      }
-    }
-    return false;
-  };
-
-  const getAmountColor = () => {
-    if (selectedAmount > totalNotes) {
-      return 'text-yellow-400';
-    } else if (totalNotes > selectedAmount) {
-      return 'text-orange-600';
-    }
-    return 'text-primary';
-  };
+    setMaxLoan(getSuggestedAmount());
+  }, [selectedAmount]);
 
   return (
     <div className="h-full w-[75%] mx-auto ">
-      <Card className="  m-8">
+      <Card className="m-8">
         <CardHeader>
-          <CardTitle>Create Loan Proposals</CardTitle>
+          <CardTitle>Set your funds to loan</CardTitle>
           <CardDescription>
-            Fill the following information to create your loan
-            proposal(s)
+            Fill the following information to set your funds to loan
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -137,93 +111,106 @@ export default function NoteCreation() {
                 type="number"
                 min={250}
                 step={50}
+                defaultValue={selectedAmount}
                 onChange={(e) => {
                   const val = e.target.value;
                   setSelectedAmount(Number(val));
-                  setDivideBy(0);
                 }}
               />
-              <CardDescription
-                className={cn(!is50Multiple() && 'text-red-500')}
-              >
-                You can only use multiples of 50 and the minimum
-                amount is 250
-              </CardDescription>
-              {selectedAmount >= 500 && (
-                <>
-                  <Label htmlFor="divisor">Split your funds</Label>
-                  <Select
-                    value={divideBy.toString()}
-                    onValueChange={(val) => {
-                      setDivideBy(Number(val));
-                    }}
-                  >
-                    <SelectTrigger id="divisor">
-                      <SelectValue placeholder="Split funds by..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="250">
-                        Divide by 250
-                      </SelectItem>
-                      <SelectItem value="500">
-                        Divide by 500
-                      </SelectItem>
-                      <SelectItem value="1000">
-                        Divide by 1000
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <CardDescription>
-                    We encourage you to split your funds to have more
-                    available micro loans, help more people and reduce
-                    the risk. If the number is not fully divisible we
-                    will adjust it, after that, you can modify the
-                    microloans.
-                  </CardDescription>
-                </>
+
+              {!is50Multiple() && (
+                <CardDescription className="text-red-500">
+                  You can only use multiples of 50 and the minimum
+                  amount is 250
+                </CardDescription>
               )}
             </div>
-            {selectedAmount > 0 && (
-              <div className="flex gap-8 mt-0">
-                <Button onClick={addNotes}>Add Loan +</Button>
-              </div>
-            )}
-
-            {notes.length > 0 && (
-              <div className="flex flex-col  space-y-1.5">
-                <div className="flex flex-wrap gap-4  space-around items-center">
-                  {notes?.map((note) => (
-                    <LoanCard note={note} key={note.id} />
-                  ))}
+            {is50Multiple() && (debouncedAmount as number) > 499 && (
+              <div>
+                <hr />
+                <LoanChart
+                  amount={selectedAmount}
+                  maxLoan={maxLoan}
+                />
+                <div className="text-gray-600">
+                  Note: while more interest means more earnings, that
+                  also means more risk.
+                </div>
+                <hr />
+                <div className="mt-4">
+                  <h3 className="text-xl font-semibold mb-1">
+                    Summary
+                  </h3>
+                  <div>
+                    We will split your funds in multiples loans to
+                    mitigate the risk and assist more borrowers. We
+                    set a max of <strong>{maxLoan}</strong> per loan.
+                  </div>
+                  <div className="py-4 text-primary">
+                    <div className="flex justify-around gap-12  border-t p-3">
+                      <div>Total to loan</div>
+                      <div className="text-lg font-bold">
+                        {selectedAmount}
+                      </div>
+                    </div>
+                    <div className="flex justify-around  border-t p-3">
+                      <div>Max amount per loan</div>
+                      <div className="text-lg font-bold">
+                        {maxLoan}
+                      </div>
+                    </div>
+                    <div className="flex justify-around p-3 border-t">
+                      <div>Term per loan</div>
+                      <strong className="text-lg">90 Days</strong>
+                    </div>
+                    <div className="flex justify-around p-3 border-b border-t">
+                      <div>Min expected return </div>
+                      <strong className="text-lg">
+                        {(selectedAmount * (min / 100)).toFixed(2)}
+                      </strong>
+                    </div>
+                    <div className="flex justify-around p-4 border-b">
+                      <div>Max expected return </div>
+                      <strong className="text-lg">
+                        {(selectedAmount * (max / 100)).toFixed(2)}
+                      </strong>
+                    </div>
+                    <div className="flex justify-around p-4 border-b">
+                      <div>Interest range</div>
+                      <div className="text-lg font-bold">{`${min}% - ${max}%`}</div>
+                    </div>
+                  </div>
+                  <div className="font-semibold">
+                    We won't take your funds until we match you with
+                    potential borrowers and you accept their loan
+                    request.
+                  </div>
                 </div>
               </div>
             )}
-            {notesHasInvalidAmount() && (
-              <div className="text-red-500">
-                Amounts in the loans must be multiples of 50 and must
-                be between 250 and 2000
-              </div>
-            )}
           </div>
-          {totalNotes > 0 && selectedAmount > 0 && (
-            <div className={`flex gap-4 mt-4 ${getAmountColor()}`}>
-              <div>Desired amount to loan: {selectedAmount}</div>
-              <div>Real amount to loan: {totalNotes}</div>
-            </div>
-          )}
         </CardContent>
-        <CardFooter className="flex justify-between">
+        <CardFooter className="flex justify-between ">
           <Button
             className="w-40"
             onClick={() => router.back()}
+            disabled={isLoading}
             variant="outline"
           >
             Cancel
           </Button>
-          <ConfirmationMsg
-            totalNotes={totalNotes}
-            notesHasInvalidAmount={notesHasInvalidAmount()}
-          />
+          {selectedAmount > 0 && (
+            <Button
+              onClick={InsertData}
+              className="w-40"
+              disabled={isLoading}
+            >
+              Submit{' '}
+              {isLoading && (
+                <Loader2 className="animate-spin  ml-2" />
+              )}
+            </Button>
+          )}
         </CardFooter>
       </Card>
     </div>

@@ -35,7 +35,7 @@ function SideBar() {
     },
     {
       id: 2,
-      text: 'My loan proposals',
+      text: 'My loans',
       link: '/myNotes',
       visible: true,
       icon: <NotebookTabs className=" mr-2" />,
@@ -78,7 +78,7 @@ function SideBar() {
   ];
 
   return (
-    <nav className="bg-secondary h-screen p-4 w-[300px] max-md:w-20 max-md:p-0">
+    <nav className="bg-secondary min-h-screen h-auto p-4 w-[300px] max-md:w-20 max-md:p-0">
       <div className="flex flex-col items-center">
         <div className="w-full">
           {menu.map((element) =>

@@ -11,16 +11,16 @@ function MyNotes() {
   const debouncedSearchTerm = useDebounce(search, 250);
 
   return (
-    <div className="flex justify-center w-full">
-      <div className="w-11/12 mt-8">
+    <div className="flex justify-center w-[90%]">
+      <div className="w-11/12  mt-8">
         <div className="flex justify-between">
           <h1 className="text-3xl font-semibold mb-4">My Loans</h1>
-          <Link href="/noteCreation">
+          {/* <Link href="/noteCreation">
             <Button className="p-4 text-secondary text-lg  w-60 h-12">
               <NotebookPen className="text-secondary mr-2" />
-              Create a loan proposal
+              Set your funds to loan
             </Button>
-          </Link>
+          </Link> */}
         </div>
         <Input
           className="mt-8 my-4"

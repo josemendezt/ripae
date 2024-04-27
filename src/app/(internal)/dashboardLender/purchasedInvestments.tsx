@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { useGetLoansByStatus } from '@/apis/lender/client';
+// import { useGetLoansByStatus } from '@/apis/lender/client';
 import ErrorToast from '@/components/ui/ToastHandler';
 import Loader from '@/components/ui/loader';
 import {
@@ -22,42 +22,43 @@ import {
 } from '@/components/ui';
 import Link from 'next/link';
 import { getStatutsColor } from '@/lib/utils';
+import EmptyPlaceholder from '@/components/ui/EmptyPlaceholder';
 
 export function PurchasedInvesments({ filter }: { filter?: string }) {
   const { userStore } = useUserStore();
   const { loanStatus } = useLoanStore();
   const minInterest = 0.05;
   const maxInterest = 0.11;
-  const loansByStatus = useGetLoansByStatus(
-    userStore?.id as string,
-    loanStatus as LoanStatus
-  );
+  // const loansByStatus = useGetLoansByStatus(
+  //   userStore?.id as string,
+  //   loanStatus as LoanStatus
+  // );
 
-  if (loansByStatus.isLoading) return <Loader />;
+  // if (loansByStatus.isLoading) return <Loader />;
 
-  if (loansByStatus.error || !loansByStatus.data)
-    return (
-      <ErrorToast
-        msg="There was a problem to get you loans list"
-        toastClick={loansByStatus.refetch}
-      />
-    );
+  // if (loansByStatus.error || !loansByStatus.data)
+  //   return (
+  //     <ErrorToast
+  //       msg="There was a problem to get you loans list"
+  //       toastClick={loansByStatus.refetch}
+  //     />
+  //   );
 
   // This filter needs to be adjusted later
-  const loanList = filter
-    ? loansByStatus.data.filter(
-        (data) =>
-          data.amount.toString() === filter ||
-          (data.amount * minInterest).toString() === filter ||
-          (data.amount * maxInterest).toString() === filter ||
-          filter === (minInterest * 100).toString() ||
-          filter === (maxInterest * 100).toString()
-      )
-    : loansByStatus.data;
+  // const loanList = filter
+  //   ? loansByStatus.data.filter(
+  //       (data) =>
+  //         data.amount.toString() === filter ||
+  //         (data.amount * minInterest).toString() === filter ||
+  //         (data.amount * maxInterest).toString() === filter ||
+  //         filter === (minInterest * 100).toString() ||
+  //         filter === (maxInterest * 100).toString()
+  //     )
+  //   : loansByStatus.data;
 
-  return loanList.length > 0 ? (
+  return (
     <>
-      <h2 className="text-xl mb-1 capitalize">
+      {/* <h2 className="text-xl mb-1 capitalize">
         {loanStatus} Loans ({loanList.length})
       </h2>
       <Table className="border">
@@ -123,27 +124,10 @@ export function PurchasedInvesments({ filter }: { filter?: string }) {
         </TableBody>
       </Table>
     </>
-  ) : (
-    <Card>
-      <CardContent className="flex flex-col justify-center items-center">
-        <Blocks className="h-80 w-80  text-primary" />
-        <h2 className="text-2xl mb-1 capitalize ">
-          You don't have {loanStatus} Loans yet...
-        </h2>
-        {loanStatus === LoanStatus.DRAFT ? (
-          <CardDescription className="text-md">
-            <Link href="/noteCreation">
-              <Button className="text-lg font-medium" variant="link">
-                Click here to create a loan proposal
-              </Button>
-            </Link>
-          </CardDescription>
-        ) : (
-          <CardDescription className="text-md">
-            We will notify you when this options is avaiable
-          </CardDescription>
-        )}
-      </CardContent>
-    </Card>
+  ) : ( */}
+      <EmptyPlaceholder
+        message={`You don't have loans yet. We will start adding borrowers in the platform soon and you will be notified when one of them is requesting you a loan`}
+      />
+    </>
   );
 }

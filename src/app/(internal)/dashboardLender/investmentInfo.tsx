@@ -1,17 +1,15 @@
 import { useGetUserTotalFundLoans } from '@/apis/lender/client';
-import { useToast } from '@/components/ui';
 import ErrorToast from '@/components/ui/ToastHandler';
 import Loader from '@/components/ui/loader';
 import { useLoanStore } from '@/stores/loanStore';
 import { useUserStore } from '@/stores/userStore';
-import { FundLoanDashboard } from '@/types/lender/type';
+import { Lender } from '@/types/lender/type';
 import { LoanStatus } from '@/types/loan/type';
 import { Suspense } from 'react';
 
 export default function InvestmentInfo() {
   const { userStore } = useUserStore();
   const { loanStatus } = useLoanStore();
-  const { toast } = useToast();
   const getUserFunds = useGetUserTotalFundLoans(
     userStore?.id as string
   );
@@ -26,9 +24,9 @@ export default function InvestmentInfo() {
       />
     );
 
-  const userFunds = getUserFunds.data as FundLoanDashboard;
+  const userFunds = getUserFunds.data as Lender;
   const minInterest = 0.05;
-  const maxInterest = 0.11;
+  const maxInterest = 0.0875;
 
   const getDashboardData = () => {
     // rember to review the in_review status, that is not in your sql function
@@ -40,19 +38,17 @@ export default function InvestmentInfo() {
         return [
           {
             label: 'Total to loan',
-            value: userFunds.total_amount_funds_projected || 0,
+            value: userFunds.amount,
           },
           {
             label: 'Projected Return (Range)',
-            value: `${
-              userFunds.total_amount_funds_projected * minInterest
-            } - ${
-              userFunds.total_amount_funds_projected * maxInterest
+            value: `${userFunds.amount * minInterest} - ${
+              userFunds.amount * maxInterest
             }`,
           },
           {
             label: 'Interest Range',
-            value: '5% - 11%',
+            value: '5% - 8.75%',
           },
         ];
       // Set other status properly later
@@ -62,43 +58,7 @@ export default function InvestmentInfo() {
       // case LoanStatus.ARCHIVED:
 
       case LoanStatus.PAID:
-      default:
-        return [
-          {
-            label: 'Total loan',
-            value: userFunds.total_amount_paid_loans || 0,
-          },
-          {
-            label: 'Total Return',
-            value:
-              (userFunds.total_amount_paid_loans *
-                userFunds.average_interest_paid) /
-              100,
-          },
-          {
-            label: 'Earned Interest',
-            value: userFunds.average_interest_paid?.toFixed(2) || 0,
-          },
-          {
-            label: 'Current loans',
-            value: userFunds.total_amount_active_loans || 0,
-          },
-          {
-            label: 'Projected Returns',
-            value:
-              (userFunds.total_amount_active_loans *
-                userFunds.average_interest_active) /
-              100,
-          },
-          {
-            label: 'Blended Rate',
-            value: `${Number(
-              (userFunds.average_interest_paid +
-                userFunds.average_interest_active) /
-                2
-            ).toFixed(2)}%`,
-          },
-        ];
+        break;
     }
   };
 
