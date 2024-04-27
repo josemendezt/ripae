@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from '@/components/ui';
 import React, { useState } from 'react';
-import { insertFunds } from '@/apis/lender/client';
+//import { insertFunds } from '@/apis/lender/client';
 import { useNoteStore } from '@/stores/noteStore';
 import { useUserStore } from '@/stores/userStore';
 
@@ -28,7 +28,7 @@ function ConfirmationMsg({
 
   const createLoans = async () => {
     setIsLoading(true);
-    await insertFunds(notes, userStore?.id as string);
+    //await insertFunds(notes, userStore?.id as string);
     setDataInserted(true);
     setIsLoading(false);
   };

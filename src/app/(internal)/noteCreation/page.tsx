@@ -39,7 +39,7 @@ export default function NoteCreation() {
   const max = 8.75;
 
   const InsertData = async () => {
-    if (userStore) {
+    if (userStore && selectedAmount) {
       setIsLoading(true);
       const data = await insertFunds(
         selectedAmount,
