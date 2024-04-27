@@ -42,9 +42,9 @@ export default function InvestmentInfo() {
           },
           {
             label: 'Projected Return (Range)',
-            value: `${userFunds.amount * minInterest} - ${
-              userFunds.amount * maxInterest
-            }`,
+            value: `${(userFunds.amount * minInterest).toFixed(
+              2
+            )} - ${(userFunds.amount * maxInterest).toFixed(2)}`,
           },
           {
             label: 'Interest Range',

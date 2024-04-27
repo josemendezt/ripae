@@ -14,7 +14,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { cn, useDebounce } from '@/lib/utils';
 
 import LoanChart from './LoanChart';
 import { Loader2 } from 'lucide-react';
@@ -26,10 +25,10 @@ export default function NoteCreation() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const funds = searchParams.get('funds') as string;
-  const [selectedAmount, setSelectedAmount] = useState<
-    number | undefined
-  >(funds ? Number(funds) : undefined);
-  const debouncedAmount = useDebounce(selectedAmount, 250);
+  const [selectedAmount, setSelectedAmount] = useState<number>(
+    funds ? Number(funds) : 0
+  );
+
   const [maxLoan, setMaxLoan] = useState<number>(250);
   const [isLoading, setIsLoading] = useState(false);
   const { userStore } = useUserStore();
@@ -111,7 +110,7 @@ export default function NoteCreation() {
                 type="number"
                 min={250}
                 step={50}
-                defaultValue={selectedAmount}
+                defaultValue={selectedAmount || undefined}
                 onChange={(e) => {
                   const val = e.target.value;
                   setSelectedAmount(Number(val));
@@ -125,7 +124,7 @@ export default function NoteCreation() {
                 </CardDescription>
               )}
             </div>
-            {is50Multiple() && (debouncedAmount as number) > 499 && (
+            {is50Multiple() && (selectedAmount as number) > 499 && (
               <div>
                 <hr />
                 <LoanChart
@@ -199,7 +198,7 @@ export default function NoteCreation() {
           >
             Cancel
           </Button>
-          {selectedAmount > 0 && (
+          {selectedAmount > 0 && is50Multiple() && (
             <Button
               onClick={InsertData}
               className="w-40"
