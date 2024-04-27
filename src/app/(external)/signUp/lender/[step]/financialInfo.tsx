@@ -27,6 +27,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -193,6 +194,10 @@ export default function FinancialInfo({
                       />
                     </FormControl>
                     <FormMessage />
+                    <FormDescription>
+                      If you are self-employed or a business owner
+                      please make an estimation
+                    </FormDescription>
                   </FormItem>
                 )}
               />
