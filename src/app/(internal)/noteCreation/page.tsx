@@ -110,6 +110,7 @@ export default function NoteCreation() {
                 type="number"
                 min={250}
                 step={50}
+                onWheel={(event) => event.currentTarget.blur()}
                 defaultValue={selectedAmount || undefined}
                 onChange={(e) => {
                   const val = e.target.value;
@@ -124,7 +125,7 @@ export default function NoteCreation() {
                 </CardDescription>
               )}
             </div>
-            {is50Multiple() && (selectedAmount as number) > 499 && (
+            {is50Multiple() && (selectedAmount as number) > 249 && (
               <div>
                 <hr />
                 <LoanChart
@@ -140,11 +141,15 @@ export default function NoteCreation() {
                   <h3 className="text-xl font-semibold mb-1">
                     Summary
                   </h3>
-                  <div>
-                    We will split your funds in multiples loans to
-                    mitigate the risk and assist more borrowers. We
-                    set a max of <strong>{maxLoan}</strong> per loan.
-                  </div>
+                  {selectedAmount > 499 && (
+                    <div className="text-lg">
+                      We will split your funds in multiples loans to
+                      mitigate the risk and assist more borrowers. We
+                      set a max of <strong>{maxLoan}</strong> per
+                      loan.
+                    </div>
+                  )}
+
                   <div className="py-4 text-primary">
                     <div className="flex justify-around gap-12  border-t p-3">
                       <div>Total to loan</div>
@@ -152,12 +157,15 @@ export default function NoteCreation() {
                         {selectedAmount}
                       </div>
                     </div>
-                    <div className="flex justify-around  border-t p-3">
-                      <div>Max amount per loan</div>
-                      <div className="text-lg font-bold">
-                        {maxLoan}
+                    {selectedAmount > 499 && (
+                      <div className="flex justify-around  border-t p-3">
+                        <div>Max amount per loan</div>
+                        <div className="text-lg font-bold">
+                          {maxLoan}
+                        </div>
                       </div>
-                    </div>
+                    )}
+
                     <div className="flex justify-around p-3 border-t">
                       <div>Term per loan</div>
                       <strong className="text-lg">90 Days</strong>
@@ -179,7 +187,7 @@ export default function NoteCreation() {
                       <div className="text-lg font-bold">{`${min}% - ${max}%`}</div>
                     </div>
                   </div>
-                  <div className="font-semibold">
+                  <div className="font-semibold text-lg">
                     We won't take your funds until we match you with
                     potential borrowers and you accept their loan
                     request.
