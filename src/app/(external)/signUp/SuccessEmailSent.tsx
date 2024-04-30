@@ -10,8 +10,9 @@ function SuccessEmailSent() {
           Your auth link was sent!
         </h1>
         <p className="w-full text-gray-500 text-center mx-auto">
-          Please check your email you should receive an email from us
-          shortly. If you have any issue, please contact us at
+          Please check your email, as you should receive a message
+          from us shortly. If you do not see it, please check your
+          spam folder. If you have any issue, please contact us at
           info@ripae.ca
         </p>
       </div>
