@@ -41,9 +41,9 @@ function DashboardLender() {
               : '/noteCreation'
           }
         >
-          <Button className="ml-4 p-4 text-secondary text-lg  w-60 h-12">
+          <Button className="ml-4 p-4 text-secondary text-lg  w-68 h-12">
             <NotebookPen className="text-secondary mr-2" />
-            Set your funds to loan
+            Allocate the funds to loan
           </Button>
         </Link>
       </div>
@@ -88,7 +88,7 @@ function DashboardLender() {
             until a borrower applies for a loan and you accept an
             agreement with them.`}
               link="/noteCreation"
-              linkMsg="Click here to set your funds"
+              linkMsg="Click here to allocate the funds you want to loan"
             />
           )}
 

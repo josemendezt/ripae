@@ -11,6 +11,7 @@ import GoalsInfo from './GoalsInfo';
 import { User } from '@/types/user/type';
 import { useUserStore } from '@/stores/userStore';
 import Loader from '@/components/ui/loader';
+import KYC from './kyc';
 
 function Step({ user }: { user: User }) {
   const params = useParams<{ step: string }>();
@@ -29,6 +30,7 @@ function Step({ user }: { user: User }) {
     // preferencesInfo: "preferences",
     // goalsInfo: "goals",
     complianceInfo: 'compliance',
+    kyc: 'kyc',
   };
   const getStep = (step: string) => {
     switch (step) {
@@ -38,8 +40,10 @@ function Step({ user }: { user: User }) {
         return <FinancialInfo link="/signUp/lender/compliance" />;
       //   case steps.preferencesInfo:
       //     return <PreferencesInfo />;
-      default:
+      case steps.complianceInfo:
         return <ComplianceInfo link="/dashboardLender" />;
+      default:
+        return <KYC />;
     }
   };
 

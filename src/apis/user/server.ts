@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 
 import { createClient } from '@/lib/supabase/server';
 import { User } from '../../types/user/type';
+import { headers } from 'next/headers';
 
 // export async function signup(formData: FormData) {
 //   const supabase = createClient();
@@ -64,4 +65,34 @@ export async function getUserDataServer(email: string) {
     return null;
   }
   return userData[0] as User;
+}
+
+export async function getInveriteAccountInfo() {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_INVERITE_API}/list`,
+      {
+        method: 'POST',
+        headers: {
+          // Authorization: process.env.INVERITE_MERCHANT_KEY,
+          Auth: `${process.env.INVERITE_MERCHANT_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'sites',
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log('logR2', data);
+  } catch (error) {
+    console.error(
+      'There was a problem with your fetch operation:',
+      error
+    );
+  }
 }
