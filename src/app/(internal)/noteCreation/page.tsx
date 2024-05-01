@@ -94,9 +94,10 @@ export default function NoteCreation() {
     <div className="h-full w-[75%] mx-auto ">
       <Card className="m-8">
         <CardHeader>
-          <CardTitle>Set your funds to loan</CardTitle>
+          <CardTitle>Allocate your funds to loan</CardTitle>
           <CardDescription>
-            Fill the following information to set your funds to loan
+            Fill the following information to allocate your funds to
+            loan
           </CardDescription>
         </CardHeader>
         <CardContent>

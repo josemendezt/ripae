@@ -246,12 +246,12 @@ export default function FinancialInfo({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      How much time do you have in your current job?
-                      (Number of Months)
+                      How many months have you been working at your
+                      current job?
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter your time in your current"
+                        placeholder="Enter the number of months"
                         type="number"
                         {...field}
                       />
