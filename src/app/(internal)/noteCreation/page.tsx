@@ -94,10 +94,12 @@ export default function NoteCreation() {
     <div className="h-full w-[75%] mx-auto ">
       <Card className="m-8">
         <CardHeader>
-          <CardTitle>Allocate your funds to loan</CardTitle>
+          <CardTitle>
+            Allocate how many funds you want to loan
+          </CardTitle>
           <CardDescription>
-            Fill the following information to allocate your funds to
-            loan
+            Fill the following information to allocate the funds you
+            want to loan
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -111,7 +113,11 @@ export default function NoteCreation() {
                 type="number"
                 min={250}
                 step={50}
-                onWheel={(event) => event.currentTarget.blur()}
+                onWheel={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  event.currentTarget.blur();
+                }}
                 defaultValue={selectedAmount || undefined}
                 onChange={(e) => {
                   const val = e.target.value;
