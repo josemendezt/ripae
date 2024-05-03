@@ -12,17 +12,30 @@ import { User } from '@/types/user/type';
 import { useUserStore } from '@/stores/userStore';
 import Loader from '@/components/ui/loader';
 import KYC from './kyc';
+import { InvSiteList } from '@/types/inverite/Type';
+import { useInveriteStore } from '@/stores/inveriteStore';
+import BankConnection from './bankConnection';
 
-function Step({ user }: { user: User }) {
+function Step({
+  user,
+  inveriteList,
+}: {
+  user: User;
+  inveriteList?: InvSiteList;
+}) {
   const params = useParams<{ step: string }>();
 
   const { userStore, setUserStore } = useUserStore();
+  const { siteList, setSiteList } = useInveriteStore();
 
   useEffect(() => {
     if (!userStore) {
       setUserStore(user);
     }
-  }, [setUserStore, user, userStore]);
+    if (!siteList && inveriteList) {
+      setSiteList(inveriteList);
+    }
+  }, [setUserStore, user, userStore, siteList]);
 
   const steps = {
     personalInfo: 'personal',
@@ -31,7 +44,9 @@ function Step({ user }: { user: User }) {
     // goalsInfo: "goals",
     complianceInfo: 'compliance',
     kyc: 'kyc',
+    bank: 'bank',
   };
+
   const getStep = (step: string) => {
     switch (step) {
       case steps.personalInfo:
@@ -41,9 +56,11 @@ function Step({ user }: { user: User }) {
       //   case steps.preferencesInfo:
       //     return <PreferencesInfo />;
       case steps.complianceInfo:
-        return <ComplianceInfo link="/dashboardLender" />;
+        return <ComplianceInfo link="/signUp/lender/kyc" />;
+      case steps.kyc:
+        return <KYC link="/signUp/lender/bank" />;
       default:
-        return <KYC />;
+        return <BankConnection />;
     }
   };
 

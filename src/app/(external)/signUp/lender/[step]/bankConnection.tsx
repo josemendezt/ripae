@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 import KycSubmitBtn from './kycSubmitBtn';
 import { useRouter } from 'next/navigation';
 
-function KYC({ link }: { link: string }) {
+function BankConnection() {
   const { userStore } = useUserStore();
   const { siteList } = useInveriteStore();
   const [iframeData, setIframeData] = useState<InvKYCResponse>();
@@ -47,11 +47,11 @@ function KYC({ link }: { link: string }) {
     const payload = {
       username:
         siteList?.sites?.length &&
-        siteList.sites[1].displayname &&
+        siteList.sites[0].displayname &&
         userStore?.id
-          ? `${siteList.sites[1].displayname}_${userStore?.id}`
+          ? `${siteList.sites[0].displayname}_${userStore?.id}`
           : '',
-      siteID: siteList?.sites?.length ? siteList.sites[1].siteID : 0,
+      siteID: siteList?.sites?.length ? siteList.sites[0].siteID : 0,
       requestedfields: ['picture', 'id_front', 'id_back'],
       referenceid: userStore?.id as string,
       firstName: userStore?.first_name,
@@ -59,7 +59,7 @@ function KYC({ link }: { link: string }) {
       // email: userStore?.email,
     };
     const data = await createKYC(payload);
-
+    console.log('logD2', data);
     setIframeData(data);
 
     // const windowFeatures =
@@ -69,17 +69,15 @@ function KYC({ link }: { link: string }) {
 
   return (
     <div className="mx-auto max-w-2xl w-full space-y-6 py-12">
-      <Card>
-        <CardHeader>
-          <CardTitle>Verify your ID</CardTitle>
-          <CardDescription>
-            To complete the KYC (Know Your Customer) process, you'll
-            need to verify your identity by uploading a valid
-            government-issued ID.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form action={handleSubmit}>
+      <form action={handleSubmit}>
+        <Card>
+          <CardHeader>
+            <CardTitle>Connect Your Bank Account</CardTitle>
+            <CardDescription>
+              Please connect your bank account.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
             {iframeData?.iframeurl ? (
               <iframe
                 src={iframeData?.iframeurl}
@@ -90,33 +88,33 @@ function KYC({ link }: { link: string }) {
             ) : (
               <KycSubmitBtn />
             )}
-          </form>
-        </CardContent>
-        <CardFooter className="mt-16">
-          <Button
-            variant="outline"
-            className="w-32"
-            onClick={(e) => {
-              e.preventDefault();
-              router.replace('/signUp/lender/compliance');
-            }}
-          >
-            Back
-          </Button>
-          <Button
-            className="ml-auto w-32"
-            onClick={() => router.push(link)}
-          >
-            Next
-          </Button>
-        </CardFooter>
-        <CardDescription className="m-4">
-          You can skip this step for now, but you will need to do it
-          before accept your first loan agreement
-        </CardDescription>
-      </Card>
+          </CardContent>
+          <CardFooter className="mt-16">
+            <Button
+              variant="outline"
+              className="w-32"
+              onClick={(e) => {
+                e.preventDefault();
+                router.replace('/signUp/lender/compliance');
+              }}
+            >
+              Back
+            </Button>
+            <Button
+              className="ml-auto w-32"
+              onClick={() => router.replace('/signUp/lender/kyc')}
+            >
+              Next
+            </Button>
+          </CardFooter>
+          <CardDescription className="m-4">
+            You can skip this step for now, but you will need to do it
+            before accept your first loan agreement
+          </CardDescription>
+        </Card>
+      </form>
     </div>
   );
 }
 
-export default KYC;
+export default BankConnection;
