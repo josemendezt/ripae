@@ -65,3 +65,18 @@ export async function getUserDataServer(email: string) {
   }
   return userData[0] as User;
 }
+
+export async function updateUserData(
+  userData: Partial<User>,
+  email: string
+) {
+  const supabase = createClient();
+
+  const { error } = await supabase
+    .from('users')
+    .update(userData)
+    .eq('email', email);
+
+  // validate there is no error
+  return error === null;
+}

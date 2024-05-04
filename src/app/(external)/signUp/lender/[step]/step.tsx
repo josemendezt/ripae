@@ -4,38 +4,24 @@ import React, { useEffect } from 'react';
 // PersonalInfo is the same for both components
 import PersonalInfo from '../../personalInfo';
 import FinancialInfo from './financialInfo';
-import PreferencesInfo from './preferencesInfo';
 import StepsGuide from '../../stepsGuide';
 import ComplianceInfo from './ComplianceInfo';
-import GoalsInfo from './GoalsInfo';
 import { User } from '@/types/user/type';
 import { useUserStore } from '@/stores/userStore';
 import Loader from '@/components/ui/loader';
 import KYC from './kyc';
-import { InvSiteList } from '@/types/inverite/Type';
-import { useInveriteStore } from '@/stores/inveriteStore';
 import BankConnection from './bankConnection';
 
-function Step({
-  user,
-  inveriteList,
-}: {
-  user: User;
-  inveriteList?: InvSiteList;
-}) {
+function Step({ user }: { user: User }) {
   const params = useParams<{ step: string }>();
 
   const { userStore, setUserStore } = useUserStore();
-  const { siteList, setSiteList } = useInveriteStore();
 
   useEffect(() => {
     if (!userStore) {
       setUserStore(user);
     }
-    if (!siteList && inveriteList) {
-      setSiteList(inveriteList);
-    }
-  }, [setUserStore, user, userStore, siteList]);
+  }, [setUserStore, user, userStore]);
 
   const steps = {
     personalInfo: 'personal',

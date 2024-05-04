@@ -57,4 +57,6 @@ export type User = {
   payment_frequency: PaymentFrequency;
   signup_flow: SignUpFlow | null;
   politically_exposed: boolean | string;
+  inverite_guid_kyc?: string;
+  inverite_guid_bank?: string;
 };

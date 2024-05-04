@@ -6,7 +6,7 @@ import {
   InvSiteList,
 } from '@/types/inverite/Type';
 
-export async function getInveriteAccountInfo(): Promise<
+export async function getInveriteSiteKeys(): Promise<
   InvSiteList | undefined
 > {
   try {
@@ -39,7 +39,7 @@ export async function getInveriteAccountInfo(): Promise<
 }
 
 export async function createKYC(
-  payload: InvKYCPayload
+  payload: Partial<InvKYCPayload>
 ): Promise<InvKYCResponse | undefined> {
   try {
     const response = await fetch(

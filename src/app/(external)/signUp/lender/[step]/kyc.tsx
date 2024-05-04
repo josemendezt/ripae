@@ -8,64 +8,66 @@ import {
   CardFooter,
   Button,
 } from '@/components/ui';
-import { useInveriteStore } from '@/stores/inveriteStore';
 import { useUserStore } from '@/stores/userStore';
 import { InvKYCResponse } from '@/types/inverite/Type';
-import React, { useState } from 'react';
-import KycSubmitBtn from './kycSubmitBtn';
+import React, { useEffect, useState } from 'react';
+import InveriteSubmitBtn from './InveriteSubmitBtn';
 import { useRouter } from 'next/navigation';
+import { updateUserData } from '@/apis/user/server';
+import { CircleUserRound, Phone } from 'lucide-react';
 
 function KYC({ link }: { link: string }) {
   const { userStore } = useUserStore();
-  const { siteList } = useInveriteStore();
   const [iframeData, setIframeData] = useState<InvKYCResponse>();
   const router = useRouter();
-  //   const [state, submitAction, isPending] = useActionState(
-  //     async () => {
-  //       const data = await createKYC({
-  //         username:
-  //           siteList?.length && siteList[1].displayname && userStore?.id
-  //             ? `${siteList[1].displayname}_${userStore?.id}`
-  //             : '',
-  //         siteID: siteList?.length ? siteList[1].siteId : 0,
-  //         requestedfields: {
-  //           picture: true,
-  //           id_front: true,
-  //           id_back: true,
-  //         },
-  //         referenceid: userStore?.id as string,
-  //       });
-  //       return data;
-  //     },
-  //     {
-  //       request_guid: '',
-  //       iframeurl: '',
-  //     } as InvKYCResponse
-  //   );
 
   const handleSubmit = async () => {
     const payload = {
-      username:
-        siteList?.sites?.length &&
-        siteList.sites[1].displayname &&
-        userStore?.id
-          ? `${siteList.sites[1].displayname}_${userStore?.id}`
-          : '',
-      siteID: siteList?.sites?.length ? siteList.sites[1].siteID : 0,
-      requestedfields: ['picture', 'id_front', 'id_back'],
+      username: `ripae_${userStore?.id}_${userStore?.email}`,
+      siteID: Number(process.env.NEXT_PUBLIC_INVERITE_KYC_SITE),
       referenceid: userStore?.id as string,
       firstName: userStore?.first_name,
       lastName: userStore?.last_name,
-      // email: userStore?.email,
     };
     const data = await createKYC(payload);
 
-    setIframeData(data);
+    await updateUserData(
+      {
+        inverite_guid_kyc: data?.request_guid,
+      },
+      userStore?.email as string
+    );
 
-    // const windowFeatures =
-    //   'menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,width=800,height=600';
-    // window.open(data?.iframeurl, 'newWindow', windowFeatures);
+    setIframeData(data);
   };
+
+  useEffect(() => {
+    function iframeMessageHandler(event: MessageEvent): void {
+      if (
+        event.origin === 'https://sandbox.inverite.com' ||
+        event.origin === 'https://live.inverite.com' ||
+        event.origin === 'https://www.inverite.com'
+      ) {
+        const data = event.data;
+        console.log('logDh', data);
+        if (data.verified === 1) {
+          // Realizar eventos de éxito aquí
+        } else {
+          // Realizar eventos de fallo aquí
+        }
+      }
+    }
+
+    const listener = (event: MessageEvent) => {
+      iframeMessageHandler(event);
+    };
+
+    window.addEventListener('message', listener, false);
+
+    return () => {
+      window.removeEventListener('message', listener);
+    };
+  }, []);
 
   return (
     <div className="mx-auto max-w-2xl w-full space-y-6 py-12">
@@ -84,15 +86,22 @@ function KYC({ link }: { link: string }) {
               <iframe
                 src={iframeData?.iframeurl}
                 width="100%"
-                height="820px"
+                height="900px"
                 allow="camera"
               />
             ) : (
-              <KycSubmitBtn />
+              <InveriteSubmitBtn
+                icon={<CircleUserRound size="200" />}
+                text="Validate your ID"
+              />
             )}
           </form>
+          <CardDescription className="m-4">
+            You can skip this step for now, but you will need to do it
+            before accept your first loan agreement
+          </CardDescription>
         </CardContent>
-        <CardFooter className="mt-16">
+        <CardFooter>
           <Button
             variant="outline"
             className="w-32"
@@ -110,10 +119,6 @@ function KYC({ link }: { link: string }) {
             Next
           </Button>
         </CardFooter>
-        <CardDescription className="m-4">
-          You can skip this step for now, but you will need to do it
-          before accept your first loan agreement
-        </CardDescription>
       </Card>
     </div>
   );
