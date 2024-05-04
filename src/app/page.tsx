@@ -12,7 +12,7 @@ async function page() {
   const { data, error } = await supabase.auth.getUser();
 
   if (error && error.code && error.code !== 'bad_jwt') {
-    redirect('/error');
+    await supabase.auth.signOut();
   }
 
   if (data.user) {
