@@ -1,6 +1,8 @@
 'use server';
 
 import {
+  BankGuidData,
+  IDGuidData,
   InvKYCPayload,
   InvKYCResponse,
   InvSiteList,
@@ -52,6 +54,64 @@ export async function createKYC(
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(
+      'There was a problem with your fetch operation:',
+      error
+    );
+  }
+}
+
+export async function getInveriteIdInfo(
+  guid: string
+): Promise<IDGuidData | undefined> {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_INVERITE_API}/fetch/${guid}`,
+      {
+        method: 'GET',
+        headers: {
+          // Authorization: process.env.INVERITE_MERCHANT_KEY,
+          Auth: `${process.env.INVERITE_MERCHANT_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(
+      'There was a problem with your fetch operation:',
+      error
+    );
+  }
+}
+
+export async function getInveriteBankInfo(
+  guid: string
+): Promise<BankGuidData | undefined> {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_INVERITE_API}/fetch/${guid}`,
+      {
+        method: 'GET',
+        headers: {
+          // Authorization: process.env.INVERITE_MERCHANT_KEY,
+          Auth: `${process.env.INVERITE_MERCHANT_KEY}`,
+          'Content-Type': 'application/json',
+        },
       }
     );
 

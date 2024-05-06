@@ -8,6 +8,10 @@ export const getSignUpFlow = (flow: SignUpFlow) => {
       return '/signUp/lender/employment';
     case 'lenderCompliance':
       return '/signUp/lender/compliance';
+    case 'lenderKYC':
+      return '/signUp/lender/kyc';
+    case 'lenderBank':
+      return '/signUp/lender/bank';
     default:
       return '/signUp/lender/personal';
     //return '/signUp/accountSetUp';

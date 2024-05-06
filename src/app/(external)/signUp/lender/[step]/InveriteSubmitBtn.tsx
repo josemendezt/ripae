@@ -7,7 +7,7 @@ type Props = { icon: React.ReactNode; text: string };
 export default function InveriteSubmitBtn({ icon, text }: Props) {
   const { pending } = useFormStatus();
   return (
-    <div className="text-center mx-auto bg-secondary w-full h-80">
+    <div className="text-center mx-auto bg-secondary w-full h-80 ">
       <Button
         type="submit"
         variant="secondary"

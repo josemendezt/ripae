@@ -1,16 +1,5 @@
 'use client';
 import {
-  CardTitle,
-  CardHeader,
-  CardContent,
-  CardFooter,
-  Card,
-} from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import Sidebar from '../sidebar';
-import {
-  Button,
   Tabs,
   TabsContent,
   TabsList,
@@ -51,12 +40,6 @@ export default function PersonalEditInfo() {
           >
             Compliance
           </TabsTrigger>
-          {/* <TabsTrigger
-            className="w-60 max-md:w-36  max-md:text-xs"
-            value="verification"
-          >
-            ID and Bank Verification
-          </TabsTrigger> */}
         </TabsList>
         {userStore ? (
           <>
@@ -73,9 +56,6 @@ export default function PersonalEditInfo() {
         ) : (
           <Loader />
         )}
-        {/* <TabsContent value="verification">
-          You will be able to se
-        </TabsContent> */}
       </Tabs>
     </div>
   );

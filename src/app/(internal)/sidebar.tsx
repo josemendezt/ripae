@@ -1,8 +1,9 @@
 'use client';
 import { Button } from '@/components/ui';
 import { cn } from '@/lib/utils';
+import { useUserStore } from '@/stores/userStore';
 import {
-  BanknoteIcon,
+  Landmark,
   ClipboardList,
   WandSparkles,
   InfoIcon,
@@ -16,11 +17,12 @@ import React, { useState } from 'react';
 
 function SideBar() {
   const router = useRouter();
-  // const { getUserProfile, setUserProfile } = useUserStore();
+  const { userStore } = useUserStore();
 
   //const profile = getUserProfile();
 
   const pathname = usePathname();
+  console.log('logPP', pathname);
 
   const menu = [
     {
@@ -49,10 +51,10 @@ function SideBar() {
     },
     {
       id: 5,
-      text: 'Bank Account',
-      link: '/bank',
-      visible: false,
-      icon: <BanknoteIcon className=" mr-2" />,
+      text: 'ID and Bank',
+      link: `/idBankVerification/${userStore?.inverite_guid_kyc}/${userStore?.inverite_guid_bank}`,
+      visible: true,
+      icon: <Landmark className=" mr-2" />,
     },
     {
       id: 7,
@@ -87,7 +89,8 @@ function SideBar() {
                 key={element.id}
                 className={cn(
                   'flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg max-md:flex-col max-md:text-xs text-center',
-                  element.link === pathname &&
+                  (element.link === pathname ||
+                    element.link.includes(pathname)) &&
                     'bg-primary text-white hover:bg-primary transition duration-500 ease-in-out'
                 )}
                 href={element.link}

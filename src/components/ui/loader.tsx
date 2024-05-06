@@ -1,5 +1,4 @@
 import { Skeleton } from '@/components/ui/skeleton';
-import { Card } from '.';
 
 export default function Loader({
   widthClass,

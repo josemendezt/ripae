@@ -17,7 +17,6 @@ function DashboardLender() {
     userStore?.id as string
   );
 
-  console.log('logDD', getUserFunds.data);
   if (getUserFunds.isLoading) return <Loader />;
 
   if (getUserFunds.error || !getUserFunds.data)

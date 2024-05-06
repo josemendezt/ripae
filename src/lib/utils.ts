@@ -1,3 +1,4 @@
+import { InveriteStatus } from '@/types/inverite/Type';
 import { LoanStatus } from '@/types/loan/type';
 import { PostgrestError } from '@supabase/supabase-js';
 import { type ClassValue, clsx } from 'clsx';
@@ -51,3 +52,17 @@ export function useDebounce(value: any, delay: number) {
 
   return debouncedValue;
 }
+
+export const getInveriteStatusColor = (status?: InveriteStatus) => {
+  switch (status) {
+    case 'Approved':
+    case 'Verified':
+      return 'bg-green-500';
+    case 'Denied':
+    case 'Attempted but failed':
+    case 'Authentication Failed':
+      return 'bg-red-500';
+    default:
+      return 'bg-yellow-400';
+  }
+};

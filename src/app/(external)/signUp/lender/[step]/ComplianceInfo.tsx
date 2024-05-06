@@ -64,7 +64,7 @@ export default function ComplianceInfo({
     } as Partial<User>;
 
     if (!editMode) {
-      updatedData.signup_flow = 'lenderDashboard' as SignUpFlow;
+      updatedData.signup_flow = 'lenderKYC' as SignUpFlow;
     }
 
     await updateUserData(updatedData, userData.email);

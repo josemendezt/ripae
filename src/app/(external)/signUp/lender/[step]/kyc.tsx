@@ -7,6 +7,7 @@ import {
   CardContent,
   CardFooter,
   Button,
+  useToast,
 } from '@/components/ui';
 import { useUserStore } from '@/stores/userStore';
 import { InvKYCResponse } from '@/types/inverite/Type';
@@ -14,12 +15,23 @@ import React, { useEffect, useState } from 'react';
 import InveriteSubmitBtn from './InveriteSubmitBtn';
 import { useRouter } from 'next/navigation';
 import { updateUserData } from '@/apis/user/server';
-import { CircleUserRound, Phone } from 'lucide-react';
+import { updateUserData as updateUserDataClient } from '@/apis/user/client';
+import { CircleUserRound, Loader2, Phone } from 'lucide-react';
+import { SignUpFlow, User } from '@/types/user/type';
+import { cn } from '@/lib/utils';
 
-function KYC({ link }: { link: string }) {
+function KYC({
+  link,
+  editMode,
+}: {
+  link?: string;
+  editMode?: boolean;
+}) {
   const { userStore } = useUserStore();
   const [iframeData, setIframeData] = useState<InvKYCResponse>();
+  const [loading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { toast } = useToast();
 
   const handleSubmit = async () => {
     const payload = {
@@ -29,6 +41,7 @@ function KYC({ link }: { link: string }) {
       firstName: userStore?.first_name,
       lastName: userStore?.last_name,
     };
+
     const data = await createKYC(payload);
 
     await updateUserData(
@@ -41,66 +54,63 @@ function KYC({ link }: { link: string }) {
     setIframeData(data);
   };
 
-  useEffect(() => {
-    function iframeMessageHandler(event: MessageEvent): void {
-      if (
-        event.origin === 'https://sandbox.inverite.com' ||
-        event.origin === 'https://live.inverite.com' ||
-        event.origin === 'https://www.inverite.com'
-      ) {
-        const data = event.data;
-        console.log('logDh', data);
-        if (data.verified === 1) {
-          // Realizar eventos de éxito aquí
-        } else {
-          // Realizar eventos de fallo aquí
-        }
-      }
+  const goToNextPage = async () => {
+    setIsLoading(true);
+
+    if (!editMode) {
+      await updateUserDataClient(
+        {
+          signup_flow: 'lenderBank',
+        },
+        userStore?.email as string
+      );
     }
 
-    const listener = (event: MessageEvent) => {
-      iframeMessageHandler(event);
-    };
-
-    window.addEventListener('message', listener, false);
-
-    return () => {
-      window.removeEventListener('message', listener);
-    };
-  }, []);
+    if (link) {
+      router.push(link);
+    }
+  };
 
   return (
-    <div className="mx-auto max-w-2xl w-full space-y-6 py-12">
-      <Card>
-        <CardHeader>
-          <CardTitle>Verify your ID</CardTitle>
-          <CardDescription>
-            To complete the KYC (Know Your Customer) process, you'll
-            need to verify your identity by uploading a valid
-            government-issued ID.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form action={handleSubmit}>
-            {iframeData?.iframeurl ? (
-              <iframe
-                src={iframeData?.iframeurl}
-                width="100%"
-                height="900px"
-                allow="camera"
-              />
-            ) : (
-              <InveriteSubmitBtn
-                icon={<CircleUserRound size="200" />}
-                text="Validate your ID"
-              />
-            )}
-          </form>
+    <Card
+      className={cn(
+        'w-full',
+        loading && 'pointer-events-none',
+        !editMode && 'max-w-2xl'
+      )}
+    >
+      <CardHeader>
+        <CardTitle>Verify your ID</CardTitle>
+        <CardDescription>
+          To complete the KYC (Know Your Customer) process, you'll
+          need to verify your identity by uploading a valid
+          government-issued ID.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form action={handleSubmit}>
+          {iframeData?.iframeurl ? (
+            <iframe
+              src={iframeData?.iframeurl}
+              width="100%"
+              height="900px"
+              allow="camera"
+            />
+          ) : (
+            <InveriteSubmitBtn
+              icon={<CircleUserRound size="200" />}
+              text="Validate your ID"
+            />
+          )}
+        </form>
+        {!editMode && (
           <CardDescription className="m-4">
             You can skip this step for now, but you will need to do it
             before accept your first loan agreement
           </CardDescription>
-        </CardContent>
+        )}
+      </CardContent>
+      {!editMode && (
         <CardFooter>
           <Button
             variant="outline"
@@ -114,13 +124,15 @@ function KYC({ link }: { link: string }) {
           </Button>
           <Button
             className="ml-auto w-32"
-            onClick={() => router.push(link)}
+            disabled={loading}
+            onClick={goToNextPage}
           >
-            Next
+            Next{' '}
+            {loading && <Loader2 className="animate-spin  ml-2" />}
           </Button>
         </CardFooter>
-      </Card>
-    </div>
+      )}
+    </Card>
   );
 }
 

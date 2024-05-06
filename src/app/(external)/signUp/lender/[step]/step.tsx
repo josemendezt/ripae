@@ -39,14 +39,12 @@ function Step({ user }: { user: User }) {
         return <PersonalInfo link="/signUp/lender/employment" />;
       case steps.financialInfo:
         return <FinancialInfo link="/signUp/lender/compliance" />;
-      //   case steps.preferencesInfo:
-      //     return <PreferencesInfo />;
       case steps.complianceInfo:
         return <ComplianceInfo link="/signUp/lender/kyc" />;
       case steps.kyc:
         return <KYC link="/signUp/lender/bank" />;
       default:
-        return <BankConnection />;
+        return <BankConnection link="/dashboardLender" />;
     }
   };
 
