@@ -39,7 +39,7 @@ function Step({ user }: { user: User }) {
       //   case steps.preferencesInfo:
       //     return <PreferencesInfo />;
       default:
-        return <ComplianceInfo link="/dashboardLender" />;
+        return <ComplianceInfo link="/noteCreation" />;
     }
   };
 

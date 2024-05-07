@@ -16,20 +16,29 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
 import LoanChart from './LoanChart';
-import { Loader2 } from 'lucide-react';
+import { Check, Loader2, Pencil } from 'lucide-react';
 import { insertFunds } from '@/apis/lender/client';
 import { useUserStore } from '@/stores/userStore';
-import { useToast } from '@/components/ui';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  useToast,
+} from '@/components/ui';
+import { cn } from '@/lib/utils';
 
 export default function NoteCreation() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const funds = searchParams.get('funds') as string;
+  const [editMax, setEditMax] = useState<
+    'default' | 'editing' | 'edited'
+  >('default');
   const [selectedAmount, setSelectedAmount] = useState<number>(
     funds ? Number(funds) : 0
   );
 
-  const [maxLoan, setMaxLoan] = useState<number>(250);
+  const [maxLoan, setMaxLoan] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(false);
   const { userStore } = useUserStore();
   const { toast } = useToast();
@@ -58,11 +67,11 @@ export default function NoteCreation() {
     }
   };
 
-  const is50Multiple = () => {
+  const is50Multiple = (amount: number) => {
     //not value selected yet
-    if (!selectedAmount) return true;
+    if (!amount) return true;
 
-    if (selectedAmount < 250 || selectedAmount % 50 !== 0) {
+    if (amount < 250 || amount % 50 !== 0) {
       return false;
     }
 
@@ -86,9 +95,14 @@ export default function NoteCreation() {
     return max;
   };
 
+  const invalidMaxloan =
+    maxLoan > selectedAmount ||
+    maxLoan === 0 ||
+    !is50Multiple(maxLoan);
+
   useEffect(() => {
-    setMaxLoan(getSuggestedAmount());
-  }, [selectedAmount]);
+    if (editMax === 'default') setMaxLoan(getSuggestedAmount());
+  }, [selectedAmount, editMax]);
 
   return (
     <div className="h-full w-[75%] mx-auto ">
@@ -125,83 +139,145 @@ export default function NoteCreation() {
                 }}
               />
 
-              {!is50Multiple() && (
+              {!is50Multiple(selectedAmount) && (
                 <CardDescription className="text-red-500">
                   You can only use multiples of 50 and the minimum
                   amount is 250
                 </CardDescription>
               )}
             </div>
-            {is50Multiple() && (selectedAmount as number) > 249 && (
-              <div>
-                <hr />
-                <LoanChart
-                  amount={selectedAmount}
-                  maxLoan={maxLoan}
-                />
-                <div className="text-gray-600">
-                  Note: while more interest means more earnings, that
-                  also means more risk.
-                </div>
-                <hr />
-                <div className="mt-4">
-                  <h3 className="text-xl font-semibold mb-1">
-                    Summary
-                  </h3>
-                  {selectedAmount > 499 && (
-                    <div className="text-lg">
-                      We will split your funds in multiples loans to
-                      mitigate the risk and assist more borrowers. We
-                      set a max of <strong>{maxLoan}</strong> per
-                      loan.
-                    </div>
-                  )}
-
-                  <div className="py-4 text-primary">
-                    <div className="flex justify-around gap-12  border-t p-3">
-                      <div>Total to loan</div>
-                      <div className="text-lg font-bold">
-                        {selectedAmount}
-                      </div>
-                    </div>
+            {is50Multiple(selectedAmount) &&
+              (selectedAmount as number) > 249 && (
+                <div>
+                  <hr />
+                  <LoanChart
+                    amount={selectedAmount}
+                    maxLoan={maxLoan}
+                  />
+                  <div className="text-gray-600">
+                    Note: while more interest means more earnings,
+                    that also means more risk.
+                  </div>
+                  <hr />
+                  <div className="mt-4">
+                    <h3 className="text-xl font-semibold mb-1">
+                      Summary
+                    </h3>
                     {selectedAmount > 499 && (
-                      <div className="flex justify-around  border-t p-3">
-                        <div>Max amount per loan</div>
-                        <div className="text-lg font-bold">
-                          {maxLoan}
-                        </div>
+                      <div className="text-lg">
+                        We will split your funds in multiples loans to
+                        mitigate the risk and assist more borrowers.
+                        We suggest a max of{' '}
+                        <strong>{getSuggestedAmount()}</strong> per
+                        loan.
                       </div>
                     )}
 
-                    <div className="flex justify-around p-3 border-t">
-                      <div>Term per loan</div>
-                      <strong className="text-lg">90 Days</strong>
+                    <div className="py-4 text-primary">
+                      <div className="flex justify-around gap-12  border-t p-4">
+                        <div>Total to loan</div>
+                        <div className="text-lg font-bold">
+                          {selectedAmount}
+                        </div>
+                      </div>
+                      {selectedAmount > 499 && (
+                        <div className="flex justify-around items-center border-t p-3">
+                          <div>Max amount per loan</div>
+                          <div className="flex gap-2 items-center">
+                            <Input
+                              className="text-lg font-bold w-24 text-right"
+                              disabled={editMax !== 'editing'}
+                              value={maxLoan}
+                              min={250}
+                              step={50}
+                              type="number"
+                              onChange={(e) => {
+                                setMaxLoan(Number(e.target.value));
+                              }}
+                              onWheel={(event) => {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                event.currentTarget.blur();
+                              }}
+                            />
+                            {invalidMaxloan && (
+                              <CardDescription className="text-red-500">
+                                You can only use multiples of 50, the
+                                minimum amount is 250 and the maximum
+                                is {selectedAmount}
+                              </CardDescription>
+                            )}
+                            {editMax === 'editing' ? (
+                              <Tooltip delayDuration={250}>
+                                <TooltipTrigger
+                                  className={cn(
+                                    (maxLoan > selectedAmount ||
+                                      maxLoan === 0 ||
+                                      !is50Multiple(maxLoan)) &&
+                                      'opacity-40 cursor-not-allowed pointer-events-none'
+                                  )}
+                                >
+                                  <Check
+                                    onClick={() => {
+                                      setEditMax('edited');
+                                    }}
+                                  />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p className="font-semibold">
+                                    Confirm max loan
+                                  </p>
+                                </TooltipContent>
+                              </Tooltip>
+                            ) : (
+                              <Tooltip delayDuration={250}>
+                                <TooltipTrigger>
+                                  <Pencil
+                                    onClick={() => {
+                                      setEditMax('editing');
+                                    }}
+                                  />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p className="font-semibold">
+                                    Edit max loan amount
+                                  </p>
+                                </TooltipContent>
+                              </Tooltip>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="flex justify-around p-4 border-t">
+                        <div>Term per loan</div>
+                        <strong className="text-lg">90 Days</strong>
+                      </div>
+                      <div className="flex justify-around p-4 border-b border-t">
+                        <div>Min expected return </div>
+                        <strong className="text-lg">
+                          {(selectedAmount * (min / 100)).toFixed(2)}
+                        </strong>
+                      </div>
+                      <div className="flex justify-around p-4 border-b">
+                        <div>Max expected return </div>
+                        <strong className="text-lg">
+                          {(selectedAmount * (max / 100)).toFixed(2)}
+                        </strong>
+                      </div>
+                      <div className="flex justify-around p-4 border-b">
+                        <div>Interest range</div>
+                        <div className="text-lg font-bold">{`${min}% - ${max}%`}</div>
+                      </div>
                     </div>
-                    <div className="flex justify-around p-3 border-b border-t">
-                      <div>Min expected return </div>
-                      <strong className="text-lg">
-                        {(selectedAmount * (min / 100)).toFixed(2)}
-                      </strong>
+                    <div className="font-semibold text-lg">
+                      We won't take your funds until we match you with
+                      potential borrowers and you accept their loan
+                      request.
                     </div>
-                    <div className="flex justify-around p-4 border-b">
-                      <div>Max expected return </div>
-                      <strong className="text-lg">
-                        {(selectedAmount * (max / 100)).toFixed(2)}
-                      </strong>
-                    </div>
-                    <div className="flex justify-around p-4 border-b">
-                      <div>Interest range</div>
-                      <div className="text-lg font-bold">{`${min}% - ${max}%`}</div>
-                    </div>
-                  </div>
-                  <div className="font-semibold text-lg">
-                    We won't take your funds until we match you with
-                    potential borrowers and you accept their loan
-                    request.
                   </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
         </CardContent>
         <CardFooter className="flex justify-between ">
@@ -213,18 +289,20 @@ export default function NoteCreation() {
           >
             Cancel
           </Button>
-          {selectedAmount > 0 && is50Multiple() && (
-            <Button
-              onClick={InsertData}
-              className="w-40"
-              disabled={isLoading}
-            >
-              Submit{' '}
-              {isLoading && (
-                <Loader2 className="animate-spin  ml-2" />
-              )}
-            </Button>
-          )}
+          {selectedAmount > 0 &&
+            is50Multiple(selectedAmount) &&
+            !invalidMaxloan && (
+              <Button
+                onClick={InsertData}
+                className="w-40"
+                disabled={isLoading}
+              >
+                Submit{' '}
+                {isLoading && (
+                  <Loader2 className="animate-spin  ml-2" />
+                )}
+              </Button>
+            )}
         </CardFooter>
       </Card>
     </div>
