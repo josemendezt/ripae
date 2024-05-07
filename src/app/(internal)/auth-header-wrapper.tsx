@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import AuthHeader from './auth-header';
 import { createClient } from '@/lib/supabase/server';
 import { getUserDataServer } from '@/apis/user/server';
@@ -11,7 +11,11 @@ async function AuthHeaderWrapper() {
     data.user?.email as string
   );
 
-  return <AuthHeader user={userData as User} />;
+  return (
+    <Suspense fallback={<h2>Loading...</h2>}>
+      <AuthHeader user={userData as User} />
+    </Suspense>
+  );
 }
 
 export default AuthHeaderWrapper;

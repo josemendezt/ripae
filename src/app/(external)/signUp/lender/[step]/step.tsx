@@ -44,7 +44,7 @@ function Step({ user }: { user: User }) {
       case steps.kyc:
         return <KYC link="/signUp/lender/bank" />;
       default:
-        return <BankConnection link="/dashboardLender" />;
+        return <BankConnection link="/noteCreation" />;
     }
   };
 

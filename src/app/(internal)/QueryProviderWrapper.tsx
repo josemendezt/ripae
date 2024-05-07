@@ -1,4 +1,5 @@
-'use client'
+'use client';
+import { TooltipProvider } from '@/components/ui';
 import {
   QueryClient,
   QueryClientProvider,
@@ -15,7 +16,7 @@ function QueryProviderWrapper({
 }: QueryProviderWrapperProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      <TooltipProvider>{children}</TooltipProvider>
     </QueryClientProvider>
   );
 }
