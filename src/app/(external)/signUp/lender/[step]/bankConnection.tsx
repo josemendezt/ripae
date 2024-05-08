@@ -64,7 +64,8 @@ function BankConnection({
     }
 
     if (link) {
-      router.push(link);
+      //Need server side reload here
+      window.location.href = link;
     }
   };
 

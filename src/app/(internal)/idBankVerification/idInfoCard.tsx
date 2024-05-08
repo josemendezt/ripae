@@ -20,7 +20,7 @@ function IdInfoCard() {
   const [iframeData, setIframeData] = useState<InvKYCResponse>();
   const { idGuidData } = useInveriteStore();
   const { userStore } = useUserStore();
-
+  console.log('logM', idGuidData);
   const handleSubmit = async () => {
     const payload = {
       username: `ripae_${userStore?.id}_${userStore?.email}`,
@@ -75,12 +75,15 @@ function IdInfoCard() {
         >
           {idGuidData?.status || 'Not Started'}
         </Badge>
-        <div className="text-gray-500 dark:text-gray-400 mb-4 ">
-          Your will need to validate your identity before you can have
-          a loan agreement. To complete the KYC (Know Your Customer)
-          process, you'll need to verify your identity by uploading a
-          valid government-issued ID.
-        </div>
+        {idGuidData?.status !== 'Approved' && (
+          <div className="text-gray-500 dark:text-gray-400 mb-4 ">
+            Your will need to validate your identity before you can
+            have a loan agreement. To complete the KYC (Know Your
+            Customer) process, you'll need to verify your identity by
+            uploading a valid government-issued ID.
+          </div>
+        )}
+
         {idGuidData?.status === 'Approved' && (
           <div className="text-gray-500 dark:text-gray-400">
             Your ID has been successfully validated.
