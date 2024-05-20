@@ -8,13 +8,7 @@ import React, { useEffect } from 'react';
 import IdInfoCard from './idInfoCard';
 import BankInfoCard from './bankInfoCard';
 
-function IdBankVerificationWrapper({
-  idData,
-  bankData,
-}: {
-  idData: IDGuidData;
-  bankData: BankGuidData;
-}) {
+function IdBankVerificationWrapper() {
   // const { idGuidData, setIdGuidData, bankGuidData, setBankGuidData } =
   //   useInveriteStore();
 
