@@ -21,5 +21,8 @@ export const config = {
     '/noteCreation/:path*',
     '/personalInfo/:path*',
     '/requests/:path*',
+    '/home/:path*',
+    '/chats/:path*',
+    '/myLoans/:path*',
   ],
 };

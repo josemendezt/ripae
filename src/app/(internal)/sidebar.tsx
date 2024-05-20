@@ -1,50 +1,41 @@
 'use client';
-import { Button } from '@/components/ui';
 import { cn } from '@/lib/utils';
-import { useUserStore } from '@/stores/userStore';
-import {
-  Landmark,
-  ClipboardList,
-  WandSparkles,
-  InfoIcon,
-  NotebookTabs,
-  ViewIcon,
-  WalletIcon,
-} from 'lucide-react';
+import { Landmark, InfoIcon, Home, Handshake } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import React from 'react';
 
 function SideBar() {
-  const router = useRouter();
-  const { userStore } = useUserStore();
-
-  //const profile = getUserProfile();
-
   const pathname = usePathname();
-  console.log('logPP', pathname);
 
   const menu = [
     {
       id: 1,
-      text: 'Overview',
-      link: '/dashboardLender',
+      text: 'Home',
+      link: '/home',
       // profile === 'investor'
       //   ? '/dashboardLender'
       //   : '/dashboardBorrower',
       visible: true,
-      icon: <ViewIcon className="mr-2" />,
+      icon: <Home className="mr-2" />,
     },
     {
       id: 2,
-      text: 'My loans',
-      link: '/myNotes',
+      text: 'Loans',
+      link: '/myLoans',
       visible: true,
-      icon: <NotebookTabs className=" mr-2" />,
+      icon: <Handshake className=" mr-2" />,
     },
+    // {
+    //   id: 3,
+    //   text: 'Chats',
+    //   link: '/chats',
+    //   visible: true,
+    //   icon: <MessagesSquare className=" mr-2" />,
+    // },
     {
       id: 4,
-      text: 'Personal Information',
+      text: 'Personal Info',
       link: '/personalInfo?tab=personal',
       visible: true,
       icon: <InfoIcon className=" mr-2" />,
@@ -52,43 +43,43 @@ function SideBar() {
     {
       id: 5,
       text: 'ID and Bank',
-      link: `/idBankVerification/${userStore?.inverite_guid_kyc}/${userStore?.inverite_guid_bank}`,
+      link: `/idBankVerification`,
       visible: true,
       icon: <Landmark className=" mr-2" />,
     },
-    {
-      id: 7,
-      text: 'Financial Insights',
-      link: '/financial',
-      visible: false,
-      icon: <WandSparkles className=" mr-2" />,
-    },
-    {
-      id: 6,
-      text: 'Transactions',
-      link: '/Transaction',
-      visible: false,
-      icon: <WalletIcon className=" mr-2" />,
-    },
-    {
-      id: 3,
-      text: 'Requests',
-      link: '/requests',
-      visible: false,
-      icon: <ClipboardList className=" mr-2" />,
-    },
+    // {
+    //   id: 7,
+    //   text: 'Financial Insights',
+    //   link: '/financial',
+    //   visible: false,
+    //   icon: <WandSparkles className=" mr-2" />,
+    // },
+    // {
+    //   id: 6,
+    //   text: 'Transactions',
+    //   link: '/Transaction',
+    //   visible: false,
+    //   icon: <WalletIcon className=" mr-2" />,
+    // },
+    // {
+    //   id: 3,
+    //   text: 'Requests',
+    //   link: '/requests',
+    //   visible: false,
+    //   icon: <ClipboardList className=" mr-2" />,
+    // },
   ];
 
   return (
-    <nav className="bg-secondary min-h-screen h-auto p-4 w-[300px] max-md:w-20 max-md:p-0">
-      <div className="flex flex-col items-center">
-        <div className="w-full">
+    <nav className="bg-secondary min-h-screen h-auto p-0 w-[80px] max-md:w-full max-md:min-h-0 max-md:h-auto max-md:fixed max-md:bottom-0 max-md:left-0 max-md:flex max-md:flex-row max-md:justify-around max-md:items-center">
+      <div className="flex flex-col items-center max-md:flex-row max-md:w-full max-md:justify-around ">
+        <div className="w-full max-md:flex max-md:flex-row max-md:justify-around ">
           {menu.map((element) =>
             element.visible ? (
               <Link
                 key={element.id}
                 className={cn(
-                  'flex items-center px-4 py-2 mb-2 text-gray-700 hover:bg-gray-200 rounded-lg max-md:flex-col max-md:text-xs text-center',
+                  'flex items-center px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-lg flex-col max-md:w-[33%] text-xs text-center mb-0',
                   (element.link === pathname ||
                     element.link.includes(pathname)) &&
                     'bg-primary text-white hover:bg-primary transition duration-500 ease-in-out'
@@ -101,7 +92,7 @@ function SideBar() {
             ) : (
               <div
                 key={element.id}
-                className="opacity-25 flex items-center px-4 py-2 mb-2 text-gray-700 rounded-lg cursor-default max-md:flex-col  max-md:text-xs text-center"
+                className="opacity-25 flex items-center px-4 py-2 text-gray-700 rounded-lg cursor-default max-md:flex-col text-xs text-center mb-0"
               >
                 {element.icon}
                 {element.text}
@@ -110,29 +101,6 @@ function SideBar() {
           )}
         </div>
       </div>
-
-      {/* <div className="mt-[100%] border-t-2">
-        <div className="font-semibold text-lg">
-          {profile === 'investor'
-            ? 'Lender Profile'
-            : 'Borrower Profile'}
-        </div>
-        <Button
-          onClick={() => {
-            if (profile === 'investor') {
-              setUserProfile('borrower');
-              router.push('/dashboardBorrower');
-            } else {
-              setUserProfile('investor');
-              router.push('/dashboardLender');
-            }
-          }}
-          className="w-full"
-          variant="outline"
-        >
-          <ArrowRightLeft className="mr-2 h-4 w-4" /> Switch Profile
-        </Button>
-      </div> */}
     </nav>
   );
 }

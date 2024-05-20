@@ -40,8 +40,9 @@ function BankConnection({
       lastName: userStore?.last_name,
       risk_score: true,
     };
-    const data = await createKYC(payload);
 
+    const data = await createKYC(payload);
+    console.log('logN', data);
     await updateUserData(
       {
         inverite_guid_bank: data?.request_guid,

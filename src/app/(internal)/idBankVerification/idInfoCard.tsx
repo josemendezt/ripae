@@ -15,12 +15,13 @@ import { useUserStore } from '@/stores/userStore';
 import { InvKYCResponse } from '@/types/inverite/Type';
 import { CircleUserRound } from 'lucide-react';
 import React, { useState } from 'react';
+import GetDataSubmitButton from './getDataButton';
 
 function IdInfoCard() {
   const [iframeData, setIframeData] = useState<InvKYCResponse>();
   const { idGuidData } = useInveriteStore();
   const { userStore } = useUserStore();
-  console.log('logM', idGuidData);
+
   const handleSubmit = async () => {
     const payload = {
       username: `ripae_${userStore?.id}_${userStore?.email}`,
@@ -42,6 +43,8 @@ function IdInfoCard() {
     setIframeData(data);
   };
 
+  const getKycData = async () => {};
+
   return (
     <Card className="w-full max-w-[1500px]">
       <CardHeader>
@@ -49,19 +52,33 @@ function IdInfoCard() {
       </CardHeader>
       <CardContent className="space-y-4">
         {idGuidData?.status !== 'Approved' && (
-          <form action={handleSubmit}>
-            <div className="flex items-center w-full mb-4">
+          <form method="post" action={handleSubmit}>
+            <div className="w-full mb-4">
               {iframeData?.iframeurl ? (
-                <iframe
-                  src={iframeData?.iframeurl}
-                  width="100%"
-                  height="900px"
-                  allow="camera"
-                />
+                <>
+                  <iframe
+                    src={iframeData?.iframeurl}
+                    width="100%"
+                    height="970px"
+                    allow="camera"
+                  />
+                  <div className="flex items-center gap-4 mt-4">
+                    <p className="font-semibold">
+                      Please Complete then process and then press the
+                      button to update yor info status
+                    </p>
+                    <GetDataSubmitButton
+                      icon={<CircleUserRound className="mr-2" />}
+                      text="Get Status Info"
+                      value="kyc_getData"
+                    />
+                  </div>
+                </>
               ) : (
                 <InveriteSubmitBtn
                   icon={<CircleUserRound size="200" />}
                   text="Validate your ID"
+                  value="kyc_upsertData"
                 />
               )}
             </div>

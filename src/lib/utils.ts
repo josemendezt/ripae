@@ -24,10 +24,10 @@ export function handleError(
 
 export const getStatutsColor = (status?: LoanStatus) => {
   switch (status) {
-    case LoanStatus.ACTIVE:
-      return 'bg-green-500';
-    case LoanStatus.IN_REVIEW:
-      return 'bg-yellow-500';
+    // case LoanStatus.ACTIVE:
+    //   return 'bg-green-500';
+    // case LoanStatus.IN_REVIEW:
+    //   return 'bg-yellow-500';
     case LoanStatus.PAID:
       return 'bg-primary';
     case LoanStatus.WRITE_OFF:

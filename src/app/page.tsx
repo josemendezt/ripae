@@ -1,10 +1,8 @@
 import React from 'react';
 import { createClient } from '@/lib/supabase/server';
-import DashboardLender from './(internal)/dashboardLender/page';
 import Login from './(external)/login/page';
 import { redirect } from 'next/navigation';
 import LayoutExt from './(external)/layout';
-import LayoutInt from './(internal)/layout';
 import { getSignUpFlow } from './(external)/signUp/utils';
 
 async function page() {
@@ -26,7 +24,7 @@ async function page() {
     }
 
     if (userData[0].signup_flow === 'lenderDashboard') {
-      redirect('/dashboardLender');
+      redirect('/home');
     }
     if (userData?.length) {
       if (

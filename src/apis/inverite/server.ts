@@ -1,5 +1,6 @@
 'use server';
 
+import { createClient } from '@/lib/supabase/server';
 import {
   BankGuidData,
   IDGuidData,
@@ -125,5 +126,34 @@ export async function getInveriteBankInfo(
       'There was a problem with your fetch operation:',
       error
     );
+  }
+}
+
+export async function inserBankData(
+  bankData: any,
+  userId: string,
+  type: string,
+  guid: string
+) {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('inverite_data')
+    .upsert(
+      {
+        api_data: bankData,
+        user_id: userId,
+        type,
+        guid,
+      },
+      {
+        onConflict: 'guid',
+      }
+    )
+    .select();
+
+  if (error) {
+    console.error('Error inserting data:', error);
+  } else {
+    return data;
   }
 }

@@ -1,23 +1,20 @@
 export enum LoanStatus {
   ARCHIVED = 'archived',
-  DRAFT = 'draft',
+  TAKEN = 'taken',
   PENDING = 'pending',
-  IN_REVIEW = 'in_review',
-  ACTIVE = 'active',
-  DELAYED = 'delayed',
   PAID = 'paid',
   WRITE_OFF = 'write_off',
 }
 
 export type Loan = {
-  id: string;
-  created_at?: Date | string;
-  loan_id?: string;
-  amount: string;
-  term: number | string;
-  borrower_id: string;
-  interest_rate: number;
-  status: LoanStatus;
-  pending_amount: number;
-  payment_period: string; // check this later
+  id: string; // UUID
+  created_at: string | Date; // Timestamp with time zone
+  amount: number; // Numeric
+  borrower_id: string; // UUID
+  gratitude: number; // Numeric
+  status: string; // Text
+  reason: string; // Text
+  lender_id: string; // UUID
+  payment_date: string | Date; // Timestamp with time zone
+  expiration_date: string | Date; // Timestamp with time zone
 };

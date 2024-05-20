@@ -4,27 +4,24 @@ import { useFormStatus } from 'react-dom';
 
 type Props = { icon: React.ReactNode; text: string; value?: string };
 
-export default function InveriteSubmitBtn({
+export default function GetDataSubmitButton({
   icon,
   text,
   value,
 }: Props) {
   const { pending } = useFormStatus();
   return (
-    <div className="text-center mx-auto bg-secondary w-full h-80 ">
+    <div>
       <Button
+        className=" h-10 text-lg mt-4"
         type="submit"
-        variant="secondary"
-        name="action"
         value={value}
+        name="action"
         disabled={pending}
-        className="w-full h-80 flex flex-col text-xl font-semibold underline"
       >
         {icon}
         {text}
-        {pending && (
-          <Loader2 className="animate-spin  ml-2 mt-4" size="36" />
-        )}
+        {pending && <Loader2 className="animate-spin  ml-2 mt-4" />}
       </Button>
     </div>
   );

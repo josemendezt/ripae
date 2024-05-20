@@ -14,6 +14,7 @@ export type InvKYCPayload = {
   firstName?: string;
   lastName?: string;
   email?: string;
+  phone?: string;
 };
 
 export type InvKYCResponse = {

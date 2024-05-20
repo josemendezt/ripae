@@ -61,7 +61,7 @@ export default function NoteCreation() {
           className: 'bg-green-300 text-primary font-semibold',
           duration: 2000,
         });
-        router.push('/dashboardLender');
+        router.push('/home');
       }
       setIsLoading(false);
     }

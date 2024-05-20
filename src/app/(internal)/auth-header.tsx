@@ -1,5 +1,5 @@
 'use client';
-import { BellIcon, NotebookText } from 'lucide-react';
+import { BellIcon } from 'lucide-react';
 import Image from 'next/image';
 import {
   Popover,
@@ -12,32 +12,59 @@ import { useEffect, useState } from 'react';
 import LogoutButton from './logout-button';
 import { useUserStore } from '@/stores/userStore';
 import { User } from '@/types/user/type';
+import { BankGuidData, IDGuidData } from '@/types/inverite/Type';
+import { useInveriteStore } from '@/stores/inveriteStore';
 
-export default function AuthHeader({ user }: { user: User }) {
+export default function AuthHeader({
+  user,
+  idData,
+  bankData,
+}: {
+  user: User;
+  idData?: IDGuidData;
+  bankData?: BankGuidData;
+}) {
   const { setUserStore, userStore } = useUserStore();
   const name = user?.first_name || 'User';
-  const userProfile = 'lender';
-  const [isNotified, setIsNotified] = useState(false);
 
-  const getLinkHeader = 'dashboardLender';
+  const getLinkHeader = 'home';
+
+  const { idGuidData, setIdGuidData, bankGuidData, setBankGuidData } =
+    useInveriteStore();
 
   useEffect(() => {
     if (userStore?.id !== user.id) {
       setUserStore(user);
     }
-  }, [setUserStore, user, userStore?.id]);
+    if (!idGuidData && idData) {
+      setIdGuidData(idData);
+    }
+    if (!bankGuidData && bankData) {
+      setBankGuidData(bankData);
+    }
+  }, [
+    idData,
+    bankData,
+    idGuidData,
+    bankGuidData,
+    setUserStore,
+    user,
+    userStore?.id,
+  ]);
 
   return (
     <header className="flex justify-between bg-secondary border w-full h-16 items-center px-4 md:px-6 pb-4">
-      <Link href={getLinkHeader}>
-        <Image
-          alt="Ripae Logo"
-          height="80"
-          src="/logo.png"
-          width="120"
-          className="ml-16 mt-2"
-        />
-      </Link>
+      <div className="text-center w-full">
+        <Link href={getLinkHeader}>
+          <Image
+            alt="Ripae Logo"
+            height="50"
+            src="/RIVENFI_blue.svg"
+            width="100"
+            className="ml-16 mt-2"
+          />
+        </Link>
+      </div>
       <div className="flex items-center space-x-3 text-sm mt-4">
         {/* <Popover>
           <PopoverTrigger onClick={() => setIsNotified(true)}>

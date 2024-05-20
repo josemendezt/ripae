@@ -148,7 +148,6 @@ export async function insertFunds(
     .single();
 
   if (data) {
-    console.log('logH2', data);
     const { data: updateData, error } = await supabase
       .from('lenders')
       .update({ amount, max_loan_amount: maxLoan })
