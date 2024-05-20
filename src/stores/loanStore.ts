@@ -9,7 +9,7 @@ type UserState = {
 
 export const useLoanStore = create<UserState>()(
   devtools((set) => ({
-    loanStatus: LoanStatus.DRAFT,
+    loanStatus: LoanStatus.PENDING,
     setLoanStatus: (status) =>
       set((state) => ({
         loanStatus: status,
