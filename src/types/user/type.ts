@@ -1,19 +1,9 @@
 export type SignUpFlow =
-  | 'lenderPersonal'
-  | 'lenderFinancial'
-  | 'lenderPreferences'
-  | 'lenderCompliance'
-  | 'lenderVerification'
-  | 'lenderKYC'
-  | 'lenderBank'
-  | 'lenderDashboard'
-  | 'borrowerPersonal'
-  | 'borrowerFinancial'
-  | 'borrowerEmployment'
-  | 'borrowerLoan'
-  | 'borrowerDashboard'
-  | 'borrowerKYC'
-  | 'borrowerBank';
+  | 'personal'
+  | 'financial'
+  | 'kyc'
+  | 'bank'
+  | 'home';
 
 export enum PaymentFrequency {
   MONTHLY = 'Monthly',

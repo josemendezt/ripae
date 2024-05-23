@@ -11,7 +11,7 @@ import {
 } from '@/components/ui';
 import { useUserStore } from '@/stores/userStore';
 import { InvKYCResponse } from '@/types/inverite/Type';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import InveriteSubmitBtn from './InveriteSubmitBtn';
 import { useRouter } from 'next/navigation';
 import { Landmark, Loader2 } from 'lucide-react';
@@ -58,7 +58,7 @@ function BankConnection({
     if (!editMode) {
       await updateUserDataClient(
         {
-          signup_flow: 'lenderDashboard',
+          signup_flow: 'home',
         },
         userStore?.email as string
       );
@@ -103,7 +103,7 @@ function BankConnection({
               className="w-32"
               onClick={(e) => {
                 e.preventDefault();
-                router.replace('/signUp/lender/kyc');
+                router.replace('/signUp/kyc');
               }}
             >
               Back

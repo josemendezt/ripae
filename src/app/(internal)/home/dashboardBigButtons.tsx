@@ -8,28 +8,28 @@ import React from 'react';
 
 function DashboardBigButtons() {
   return (
-    <section className="flex flex-col items-center pt-12 pb-0 mb-0 h-[400px] space-y-8 w-[40%]">
-      <Button
+    <section className="flex flex-col items-center pt-12 pb-0 mb-0 h-[400px] space-y-8 w-[30%]">
+      {/* <Button
         variant="secondary"
         className="w-full h-24 flex items-center gap-2 text-xl "
       >
         <DollarSignIcon className="h-6 w-6" />
         Make a Loan Payment
-      </Button>
+      </Button> */}
       <Button
         variant="secondary"
-        className="w-full h-24  flex items-center gap-4 text-xl"
+        className="w-full h-[350px]  flex flex-col items-center gap-4 text-xl font-semibold max-md:text-sm"
       >
-        <ClipboardIcon className="h-6 w-6" />
-        Loan Application
+        <ClipboardIcon size={200} />
+        Read Loan Agreement
       </Button>
-      <Button
+      {/* <Button
         variant="secondary"
         className="w-full h-24  flex items-center gap-4 text-xl "
       >
         <CreditCardIcon className="h-6 w-6" />
         Payment Methods
-      </Button>
+      </Button> */}
     </section>
   );
 }

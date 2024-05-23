@@ -23,14 +23,11 @@ async function page() {
       redirect('/error');
     }
 
-    if (userData[0].signup_flow === 'lenderDashboard') {
+    if (userData[0].signup_flow === 'home') {
       redirect('/home');
     }
     if (userData?.length) {
-      if (
-        userData[0].signup_flow !== 'lenderDashboard' &&
-        userData[0].signup_flow !== 'borrowerDashboard'
-      )
+      if (userData[0].signup_flow !== 'home')
         redirect(getSignUpFlow(userData[0].signup_flow));
     }
   }

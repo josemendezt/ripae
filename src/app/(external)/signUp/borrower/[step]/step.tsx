@@ -1,20 +1,20 @@
-"use client";
-import { useParams } from "next/navigation";
-import React from "react";
-import PersonalInfo from "../../personalInfo";
-import FinancialInfo from "./financialInfo";
-import EmploymentInfo from "./employmentInfo";
-import LoanInfo from "./loanInfo";
-import StepsGuide from "../../stepsGuide";
+'use client';
+import { useParams } from 'next/navigation';
+import React from 'react';
+import PersonalInfo from '../../personalInfo';
+import FinancialInfo from './financialInfo';
+import EmploymentInfo from './employmentInfo';
+import LoanInfo from '../../[step]/loan';
+import StepsGuide from '../../stepsGuide';
 
 function Step() {
   const params = useParams<{ step: string }>();
 
   const steps = {
-    personalInfo: "personal",
-    employmentInfo: "employment",
-    financialInfo: "financial",
-    loanInfo: "loan",
+    personalInfo: 'personal',
+    employmentInfo: 'employment',
+    financialInfo: 'financial',
+    loanInfo: 'loan',
   };
   const getStep = (step: string) => {
     switch (step) {

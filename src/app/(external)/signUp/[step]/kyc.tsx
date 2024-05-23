@@ -60,7 +60,7 @@ function KYC({
     if (!editMode) {
       await updateUserDataClient(
         {
-          signup_flow: 'lenderBank',
+          signup_flow: 'bank',
         },
         userStore?.email as string
       );
@@ -117,7 +117,7 @@ function KYC({
             className="w-32"
             onClick={(e) => {
               e.preventDefault();
-              router.replace('/signUp/lender/compliance');
+              router.replace('/signUp/employment');
             }}
           >
             Back

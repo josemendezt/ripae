@@ -2,18 +2,16 @@ import { SignUpFlow } from '../../../types/user/type';
 
 export const getSignUpFlow = (flow: SignUpFlow) => {
   switch (flow) {
-    case 'lenderPersonal':
-      return '/signUp/lender/personal';
-    case 'lenderFinancial':
-      return '/signUp/lender/employment';
-    case 'lenderCompliance':
-      return '/signUp/lender/compliance';
-    case 'lenderKYC':
-      return '/signUp/lender/kyc';
-    case 'lenderBank':
-      return '/signUp/lender/bank';
+    case 'personal':
+      return '/signUp/personal';
+    case 'financial':
+      return '/signUp/employment';
+    case 'kyc':
+      return '/signUp/kyc';
+    case 'bank':
+      return '/signUp/bank';
     default:
-      return '/signUp/lender/personal';
+      return '/signUp/dashboard';
     //return '/signUp/accountSetUp';
   }
 };

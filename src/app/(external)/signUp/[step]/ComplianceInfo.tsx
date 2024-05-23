@@ -27,7 +27,7 @@ import { complianceSchema } from '@/types/user/zodSchema';
 import { z } from 'zod';
 import { useUserStore } from '@/stores/userStore';
 import { SignUpFlow, User } from '@/types/user/type';
-import { updateUserData } from '../../../../../apis/user/client';
+import { updateUserData } from '../../../../apis/user/client';
 import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -64,7 +64,7 @@ export default function ComplianceInfo({
     } as Partial<User>;
 
     if (!editMode) {
-      updatedData.signup_flow = 'lenderKYC' as SignUpFlow;
+      updatedData.signup_flow = 'kyc' as SignUpFlow;
     }
 
     await updateUserData(updatedData, userData.email);
@@ -154,7 +154,7 @@ export default function ComplianceInfo({
                   disabled={isLoading}
                   onClick={(e) => {
                     e.preventDefault();
-                    router.replace('/signUp/lender/employment');
+                    router.replace('/signUp/employment');
                   }}
                 >
                   Back

@@ -39,7 +39,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useUserStore } from '@/stores/userStore';
 import { z } from 'zod';
-import { updateUserData } from '../../../../../apis/user/client';
+import { updateUserData } from '../../../../apis/user/client';
 import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -57,7 +57,7 @@ export default function FinancialInfo({
   const { toast } = useToast();
 
   const userData = userStore as User;
-
+  console.log('logU', userData);
   const form = useForm<z.infer<typeof employmentSchema>>({
     resolver: zodResolver(employmentSchema),
     defaultValues: {
@@ -86,7 +86,7 @@ export default function FinancialInfo({
     } as Partial<User>;
 
     if (!editMode) {
-      updatedData.signup_flow = 'lenderCompliance' as SignUpFlow;
+      updatedData.signup_flow = 'kyc' as SignUpFlow;
     }
 
     await updateUserData(updatedData, userData.email);
@@ -281,7 +281,7 @@ export default function FinancialInfo({
                   className="w-32"
                   onClick={(e) => {
                     e.preventDefault();
-                    router.replace('/signUp/lender/personal');
+                    router.replace('/signUp/personal');
                   }}
                   disabled={isLoading}
                 >

@@ -15,8 +15,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * Feel free to modify this pattern to include more paths.
      */
-    '/dashboardBorrower/:path*',
-    '/dashboardLender/:path*',
     '/myNotes/:path*',
     '/noteCreation/:path*',
     '/personalInfo/:path*',

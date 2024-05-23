@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import {
   CardTitle,
   CardDescription,
@@ -43,6 +43,9 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  RadioGroup,
+  RadioGroupItem,
+  Label,
   useToast,
 } from '@/components/ui';
 import { cn } from '@/lib/utils';
@@ -76,6 +79,8 @@ export default function PersonalInfo({
       sin: userData.decrypted_sin || '',
       postal_code: userData.postal_code || '',
       city: userData.city || '',
+      politically_exposed:
+        userData.politically_exposed?.toString() || '',
     },
   });
 
@@ -87,10 +92,11 @@ export default function PersonalInfo({
     const updatedData = {
       ...values,
       dob: values.dob,
+      politically_exposed: values.politically_exposed === 'true',
     } as Partial<User>;
 
     if (!editMode) {
-      updatedData.signup_flow = 'lenderFinancial' as SignUpFlow;
+      updatedData.signup_flow = 'financial' as SignUpFlow;
     }
 
     await updateUserData(updatedData, userData.email);
@@ -377,6 +383,37 @@ export default function PersonalInfo({
                   )}
                 />
               </div>
+            </div>
+            <div className="space-y-2">
+              <FormField
+                control={form.control}
+                name="politically_exposed"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Are you a politically exposed person or subject
+                      to additional financial regulations?
+                    </FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        className="flex"
+                        {...field}
+                        onValueChange={field.onChange}
+                      >
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="true" id="r1" />
+                          <Label htmlFor="r1">Yes</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="false" id="r2" />
+                          <Label htmlFor="r2">No</Label>
+                        </div>
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
           </CardContent>
           <CardFooter>

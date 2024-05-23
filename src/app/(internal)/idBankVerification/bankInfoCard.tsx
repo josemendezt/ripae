@@ -4,7 +4,7 @@ import {
   inserBankData,
 } from '@/apis/inverite/server';
 import { updateUserData } from '@/apis/user/server';
-import InveriteSubmitBtn from '@/app/(external)/signUp/lender/[step]/InveriteSubmitBtn';
+import InveriteSubmitBtn from '@/app/(external)/signUp/[step]/InveriteSubmitBtn';
 import {
   Badge,
   Button,

@@ -40,13 +40,13 @@ function SideBar() {
       visible: true,
       icon: <InfoIcon className=" mr-2" />,
     },
-    {
-      id: 5,
-      text: 'ID and Bank',
-      link: `/idBankVerification`,
-      visible: true,
-      icon: <Landmark className=" mr-2" />,
-    },
+    // {
+    //   id: 5,
+    //   text: 'ID and Bank',
+    //   link: `/idBankVerification`,
+    //   visible: true,
+    //   icon: <Landmark className=" mr-2" />,
+    // },
     // {
     //   id: 7,
     //   text: 'Financial Insights',

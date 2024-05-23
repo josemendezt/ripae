@@ -5,6 +5,7 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
+  Button,
 } from '../../components/ui';
 
 import Link from 'next/link';
@@ -99,7 +100,7 @@ export default function AuthHeader({
           </PopoverContent>
         </Popover> */}
 
-        <Popover>
+        {/* <Popover>
           <PopoverTrigger>
             <div className="flex">
               <BellIcon className="text-gray-600" />
@@ -109,7 +110,13 @@ export default function AuthHeader({
             <p className="text-lg text-semibold">Notifications</p>
             There are no notifications yet.
           </PopoverContent>
-        </Popover>
+        </Popover> */}
+        <Button
+          variant="outline"
+          className="text-primary hover:text-white hover:bg-primary"
+        >
+          Request New Loan
+        </Button>
 
         <LogoutButton name={name} />
       </div>

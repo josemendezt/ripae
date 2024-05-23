@@ -2,15 +2,16 @@
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 // PersonalInfo is the same for both components
-import PersonalInfo from '../../personalInfo';
+import PersonalInfo from '../personalInfo';
 import FinancialInfo from './financialInfo';
-import StepsGuide from '../../stepsGuide';
+import StepsGuide from '../stepsGuide';
 import ComplianceInfo from './ComplianceInfo';
 import { User } from '@/types/user/type';
 import { useUserStore } from '@/stores/userStore';
 import Loader from '@/components/ui/loader';
 import KYC from './kyc';
 import BankConnection from './bankConnection';
+import LoanInfo from './loan';
 
 function Step({ user }: { user: User }) {
   const params = useParams<{ step: string }>();
@@ -28,23 +29,24 @@ function Step({ user }: { user: User }) {
     financialInfo: 'employment',
     // preferencesInfo: "preferences",
     // goalsInfo: "goals",
-    complianceInfo: 'compliance',
+    //complianceInfo: 'compliance',
     kyc: 'kyc',
     bank: 'bank',
+    loanInfo: 'loan',
   };
-
+  //<LoanInfo />
   const getStep = (step: string) => {
     switch (step) {
       case steps.personalInfo:
-        return <PersonalInfo link="/signUp/lender/employment" />;
+        return <PersonalInfo link="/signUp/employment" />;
       case steps.financialInfo:
-        return <FinancialInfo link="/signUp/lender/compliance" />;
-      case steps.complianceInfo:
-        return <ComplianceInfo link="/signUp/lender/kyc" />;
+        return <FinancialInfo link="/signUp/kyc" />;
       case steps.kyc:
-        return <KYC link="/signUp/lender/bank" />;
+        return <KYC link="/signUp/bank" />;
+      case steps.bank:
+        return <BankConnection link="/signUp/loan" />;
       default:
-        return <BankConnection link="/noteCreation" />;
+        return <LoanInfo link="/home" />;
     }
   };
 

@@ -74,6 +74,9 @@ export const personalInfoSchema = z.object({
   city: z.string().min(1, {
     message: 'Please type your city',
   }),
+  politically_exposed: z.string({
+    required_error: 'Please select yes or no',
+  }),
 });
 
 export const employmentSchema = z.object({
