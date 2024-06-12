@@ -46,13 +46,16 @@ function Step({ user }: { user: User }) {
       case steps.bank:
         return <BankConnection link="/signUp/loan" />;
       default:
-        return <LoanInfo link="/home" />;
+        return <LoanInfo link="/riskAI" />;
     }
   };
 
   return (
     <section className="flex items-start justify-center h-[80vh]">
       <div className="w-full  max-w-2xl ">
+        <h1 className="text-2xl mt-4 font-semibold">
+          Phase 1: Application for the Loan
+        </h1>
         <StepsGuide steps={Object.values(steps)} />
         <div className="flex items-center justify-center">
           {userStore ? (

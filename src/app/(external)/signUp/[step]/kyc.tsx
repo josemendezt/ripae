@@ -36,7 +36,7 @@ function KYC({
   const handleSubmit = async () => {
     const payload = {
       username: `ripae_${userStore?.id}_${userStore?.email}`,
-      siteID: Number(process.env.NEXT_PUBLIC_INVERITE_KYC_SITE),
+      siteID: Number(process.env.NEXT_PUBLIC_SANDBOX_KYC_SITE),
       referenceid: userStore?.id as string,
       firstName: userStore?.first_name,
       lastName: userStore?.last_name,
@@ -103,12 +103,12 @@ function KYC({
             />
           )}
         </form>
-        {!editMode && (
+        {/* {!editMode && (
           <CardDescription className="m-4">
             You can skip this step for now, but you will need to do it
             before accept your first loan agreement
           </CardDescription>
-        )}
+        )} */}
       </CardContent>
       {!editMode && (
         <CardFooter>

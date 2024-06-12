@@ -66,6 +66,21 @@
   }
 }
 
+.custom-list {
+  list-style-type: none;
+}
+
+.custom-list li::before {
+  content: '';
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.5rem;
+  border: 2px solid black;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
 @layer base {
   * {
     @apply border-border;

@@ -111,12 +111,12 @@ export default function AuthHeader({
             There are no notifications yet.
           </PopoverContent>
         </Popover> */}
-        <Button
+        {/* <Button
           variant="outline"
           className="text-primary hover:text-white hover:bg-primary"
         >
           Request New Loan
-        </Button>
+        </Button> */}
 
         <LogoutButton name={name} />
       </div>

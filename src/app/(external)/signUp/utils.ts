@@ -11,7 +11,7 @@ export const getSignUpFlow = (flow: SignUpFlow) => {
     case 'bank':
       return '/signUp/bank';
     default:
-      return '/signUp/dashboard';
+      return '/home';
     //return '/signUp/accountSetUp';
   }
 };

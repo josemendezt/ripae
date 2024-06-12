@@ -5,9 +5,9 @@ export default function ExtHeader() {
     <header className="flex justify-center bg-primary w-full h-20 items-center px-4 md:px-6 pb-4">
       <Image
         alt="Ripae Logo"
-        height="60"
-        src="/logo.webp"
-        width="150"
+        height="50"
+        src="/RIVENFI_white.svg"
+        width="100"
       />
     </header>
   );

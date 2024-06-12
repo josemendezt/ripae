@@ -30,7 +30,7 @@ export default function LoanInfo({ link }: { link: string }) {
     //not value selected yet
     if (!amount) return true;
 
-    if (amount < 250 || amount > 2000 || amount % 50 !== 0) {
+    if (amount % 50 !== 0) {
       return false;
     }
 
@@ -81,6 +81,22 @@ export default function LoanInfo({ link }: { link: string }) {
             </SelectContent>
           </Select>
         </div>
+        <div className="space-y-2">
+          <Label htmlFor="term">Term of at least</Label>
+          <Select>
+            <SelectTrigger id="term">
+              <SelectValue placeholder="Select" />
+            </SelectTrigger>
+            <SelectContent position="popper">
+              <SelectItem value="6 Months">6 Months</SelectItem>
+              <SelectItem value="1 Year">1 Year</SelectItem>
+              <SelectItem value="2 Years">2 Years</SelectItem>
+              <SelectItem value="3 Years">3 Years</SelectItem>
+              <SelectItem value="4 Years">4 Years</SelectItem>
+              <SelectItem value="5 Years">5 Years</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         <div className="flex flex-col space-y-1.5">
           <Label htmlFor="invest">
             How much would you like to borrow?
@@ -97,7 +113,7 @@ export default function LoanInfo({ link }: { link: string }) {
           <CardDescription
             className={cn(!is50Multiple() && 'text-red-500')}
           >
-            You can only use multiples of 50 between 250 and 2000.
+            You can only use multiples of 50.
           </CardDescription>
         </div>
       </CardContent>
@@ -112,13 +128,13 @@ export default function LoanInfo({ link }: { link: string }) {
           Back
         </Button>
         <Button
-          className="ml-auto w-32"
+          className="ml-auto "
           disabled={!amount || !is50Multiple()}
           onClick={() => {
             router.push(link);
           }}
         >
-          Next
+          Go to Phase 2: AI Interview
         </Button>
       </CardFooter>
     </Card>

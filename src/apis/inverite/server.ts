@@ -46,6 +46,37 @@ export async function createKYC(
 ): Promise<InvKYCResponse | undefined> {
   try {
     const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SANDBOX_API}/create`,
+      {
+        method: 'POST',
+        headers: {
+          // Authorization: process.env.INVERITE_MERCHANT_KEY,
+          Auth: `${process.env.SANDBOX_MERCHANT_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.error(
+      'There was a problem with your fetch operation:',
+      error
+    );
+  }
+}
+
+export async function createBankConnection(
+  payload: Partial<InvKYCPayload>
+): Promise<InvKYCResponse | undefined> {
+  try {
+    const response = await fetch(
       `${process.env.NEXT_PUBLIC_INVERITE_API}/create`,
       {
         method: 'POST',
@@ -62,6 +93,7 @@ export async function createKYC(
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
+
     return data;
   } catch (error) {
     console.error(

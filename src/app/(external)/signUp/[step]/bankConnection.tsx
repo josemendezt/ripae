@@ -1,5 +1,5 @@
 'use client';
-import { createKYC } from '@/apis/inverite/server';
+import { createBankConnection } from '@/apis/inverite/server';
 import {
   Card,
   CardHeader,
@@ -41,7 +41,7 @@ function BankConnection({
       risk_score: true,
     };
 
-    const data = await createKYC(payload);
+    const data = await createBankConnection(payload);
 
     await updateUserData(
       {
@@ -117,10 +117,10 @@ function BankConnection({
               {loading && <Loader2 className="animate-spin  ml-2" />}
             </Button>
           </CardFooter>
-          <CardDescription className="m-4">
+          {/* <CardDescription className="m-4">
             You can skip this step for now, but you will need to do it
             before accept your first loan agreement
-          </CardDescription>
+          </CardDescription> */}
         </>
       )}
     </Card>
