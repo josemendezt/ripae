@@ -43,7 +43,7 @@ function KYC({
     };
 
     const data = await createKYC(payload);
-    console.log('logD', data);
+
     await updateUserData(
       {
         inverite_guid_kyc: data?.request_guid,
