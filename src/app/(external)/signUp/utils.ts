@@ -10,8 +10,10 @@ export const getSignUpFlow = (flow: SignUpFlow) => {
       return '/signUp/kyc';
     case 'bank':
       return '/signUp/bank';
-    default:
+    case 'home':
       return '/home';
+    default:
+      return '/signUp/personal';
     //return '/signUp/accountSetUp';
   }
 };
