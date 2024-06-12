@@ -139,7 +139,7 @@ function page() {
             <Card>
               <CardHeader>
                 <CardDescription>Debt Overview</CardDescription>
-                <CardTitle>$12,345</CardTitle>
+                <CardTitle>$13,700</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-2">
