@@ -44,7 +44,7 @@ const TypingTextWithVoice = ({
             You are about to start an interview with our AI Risk
             analyst, please follow the instructions, the more details
             you give us the better we can help you, press the button
-            when you are ready
+            when you are ready.
           </p>
           <Button
             onClick={toggleInterview}
