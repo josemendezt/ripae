@@ -40,7 +40,7 @@ export default function LoanInfo({ link }: { link: string }) {
   return (
     <Card className="w-full max-w-2xl">
       <CardHeader>
-        <CardTitle>Step 4: Loan Details</CardTitle>
+        <CardTitle>Step 5: Loan Details</CardTitle>
         <CardDescription>
           Please fill in the fields below with your loan details. The
           loan term is for 90 days.

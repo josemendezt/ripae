@@ -105,7 +105,7 @@ export default function RiskAI() {
   useEffect(() => {
     if (hasStarted && riskStep !== 'last') {
       // Detect when the riskstep has changed to speak again
-      handleSpeak();
+      //  handleSpeak();
     }
     if (riskStep === 'last') {
       setLoader(true);
@@ -137,7 +137,7 @@ export default function RiskAI() {
             <div className="bg-secondary rounded-lg h-full p-12">
               <TypingTextWithVoice
                 text={getText()}
-                speed={50}
+                speed={10}
                 hasStarted={hasStarted}
                 toggleInterview={toggleInterview}
               />
