@@ -27,7 +27,7 @@ function page() {
             </h2>
             <div className="flex gap-2">
               <p className="md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Loan Purpose: <strong>Car Repairing</strong>
+                Loan Purpose: <strong>Car Repairs</strong>
               </p>
               <div className="flex items-center justify-between">
                 <Button variant="outline">Cancel Application</Button>

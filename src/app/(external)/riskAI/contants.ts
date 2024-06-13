@@ -11,7 +11,7 @@ I've observed regular, significant payments towards credit cards and other liabi
 are these regular payments part of a structured repayment plan or just minimum payments? Detailed information about outstanding debts and repayment strategies is crucial for understanding debt management and financial stability.`;
 
 export const expensesQuestion = `Thank you for providing that information. It is important to understand the strategy behind managing debt repayments. Let's move to another important area.
-There are regular expenses noted in categories such as food and dining, as well as entertainment. Could you provide insight into how you manage your discretionary spending, especially during the transition period between jobs? Are there any measures you have taken or plan to take to reduce non-essential spending? Insights into how you manage discretionary spending during financial transitions help evaluate financial discipline and planning.`;
+There are regular expenses noted in categories such as food and dining, as well as entertainment. Could you provide insight into how you manage your discretionary spending? Are there any measures you have taken or plan to take to reduce non-essential spending? Insights into how you manage discretionary spending during financial transitions help evaluate financial discipline and planning.`;
 
 export const unexpectedQuestion = `Thank you for sharing your approach. This will greatly assist in developing a detailed and accurate financial assessment. How do you manage unexpected expenses? Do you have any savings or a financial plan for such emergencies?`;
 
