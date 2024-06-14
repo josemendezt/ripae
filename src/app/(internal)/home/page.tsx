@@ -105,7 +105,7 @@ function page() {
       <div className="w-full h-full mt-4">
         <div className="grid gap-2">
           <h2 className="text-3xl font-bold tracking-tighter ml-4">
-            Financia Insights
+            Financial Insights
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card>
