@@ -155,7 +155,7 @@ function page() {
                     <span>
                       Debt to Income Ratio ( Rent Included )
                     </span>
-                    <span>40%</span>
+                    <span>35.03%</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>NSF Fees</span>
